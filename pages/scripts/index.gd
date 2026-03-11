@@ -12,6 +12,6 @@ func _ready() -> void:
 			print("window size adjusted")
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func _on_new_game_pressed() -> void: #on new game button pressed
+	print("creating new random life...")
+	get_tree().change_scene_to_file("res://pages/new_random_game.tscn")

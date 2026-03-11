@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://y7n60rw1xrms"]
+[gd_scene load_steps=8 format=3 uid="uid://y7n60rw1xrms"]
 
 [ext_resource type="Script" uid="uid://d2op8ltqca71i" path="res://pages/scripts/index.gd" id="1_uqewy"]
-[ext_resource type="Texture2D" uid="uid://28rem4r11x70" path="res://assets/white.png" id="2_0s8st"]
-[ext_resource type="LabelSettings" uid="uid://c3r4rskc4jrad" path="res://pages/styles/heading.tres" id="3_a44uj"]
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="2_itaww"]
+[ext_resource type="LabelSettings" uid="uid://c3r4rskc4jrad" path="res://styles/text/heading.tres" id="3_a44uj"]
 [ext_resource type="FontFile" uid="uid://bf7pfy6renkw4" path="res://assets/fonts/poppins/Poppins-Regular.ttf" id="4_d8woc"]
+[ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/buttonDefault.tscn" id="5_itaww"]
+[ext_resource type="Script" uid="uid://h1nbknyh2lko" path="res://pages/scripts/global.gd" id="6_ijqpa"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_itaww"]
 font = ExtResource("4_d8woc")
@@ -13,12 +15,7 @@ font_color = Color(0, 0, 0, 1)
 [node name="index" type="Node2D"]
 script = ExtResource("1_uqewy")
 
-[node name="background" type="TextureRect" parent="."]
-offset_right = 1080.0
-offset_bottom = 1920.0
-texture = ExtResource("2_0s8st")
-metadata/_edit_use_anchors_ = true
-metadata/_edit_lock_ = true
+[node name="background" parent="." instance=ExtResource("2_itaww")]
 
 [node name="title" type="Label" parent="."]
 offset_top = 150.0
@@ -38,3 +35,15 @@ text = "v1.0.0 Vanilla"
 label_settings = SubResource("LabelSettings_itaww")
 vertical_alignment = 2
 autowrap_mode = 2
+
+[node name="newGame" parent="." instance=ExtResource("5_itaww")]
+offset_left = 301.0
+offset_top = 500.0
+offset_right = 780.0
+offset_bottom = 584.0
+text = "Start new game"
+
+[node name="global" type="Node" parent="."]
+script = ExtResource("6_ijqpa")
+
+[connection signal="pressed" from="newGame" to="." method="_on_new_game_pressed"]
