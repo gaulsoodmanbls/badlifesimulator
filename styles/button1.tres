@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://bstk834mafqp"]
+[gd_resource type="Theme" format=3 uid="uid://bstk834mafqp"]
 
 [ext_resource type="FontFile" uid="uid://bf7pfy6renkw4" path="res://assets/fonts/poppins/Poppins-Regular.ttf" id="1_5y3ty"]
 [ext_resource type="StyleBox" uid="uid://b2onuwwy2xaed" path="res://styles/button1StyleBoxFlat.tres" id="2_54xx6"]

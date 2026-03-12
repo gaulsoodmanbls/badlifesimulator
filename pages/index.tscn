@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://y7n60rw1xrms"]
+[gd_scene format=3 uid="uid://y7n60rw1xrms"]
 
 [ext_resource type="Script" uid="uid://d2op8ltqca71i" path="res://pages/scripts/index.gd" id="1_uqewy"]
 [ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="2_itaww"]
@@ -12,12 +12,12 @@ font = ExtResource("4_d8woc")
 font_size = 28
 font_color = Color(0, 0, 0, 1)
 
-[node name="index" type="Node2D"]
+[node name="index" type="Node2D" unique_id=791832117]
 script = ExtResource("1_uqewy")
 
-[node name="background" parent="." instance=ExtResource("2_itaww")]
+[node name="background" parent="." unique_id=1747168065 instance=ExtResource("2_itaww")]
 
-[node name="title" type="Label" parent="."]
+[node name="title" type="Label" parent="." unique_id=1828840752]
 offset_top = 150.0
 offset_right = 1080.0
 offset_bottom = 173.0
@@ -26,24 +26,24 @@ label_settings = ExtResource("3_a44uj")
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="versionNumber" type="Label" parent="."]
+[node name="versionNumber" type="Label" parent="." unique_id=671678497]
 offset_left = 28.0
 offset_top = 1850.0
 offset_right = 1108.0
 offset_bottom = 1901.0
-text = "v1.0.0 Vanilla"
+text = "vX.y.z"
 label_settings = SubResource("LabelSettings_itaww")
 vertical_alignment = 2
 autowrap_mode = 2
 
-[node name="newGame" parent="." instance=ExtResource("5_itaww")]
+[node name="newGame" parent="." unique_id=1258056692 instance=ExtResource("5_itaww")]
 offset_left = 301.0
 offset_top = 500.0
 offset_right = 780.0
 offset_bottom = 584.0
 text = "Start new game"
 
-[node name="global" type="Node" parent="."]
+[node name="global" type="Node" parent="." unique_id=833973900]
 script = ExtResource("6_ijqpa")
 
 [connection signal="pressed" from="newGame" to="." method="_on_new_game_pressed"]
