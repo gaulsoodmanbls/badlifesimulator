@@ -6,13 +6,13 @@ var tips = ["Stuck? Try not being stuck.", "Working minimum wage is not an effec
 
 
 #name variables
-const mFirstNames = ["Large", "John", "Jack", "Jason", "Smith", "Scott", "Jackson", "Fred", "Drew", "Austin", "Bruce", "Peter", "Liam", "Noah", "Oliver", "Kurtis", "Daniel", "George", "Nathan", "Ethan", "Matthew", "Racist", "Donald", "Stephen", "Robert", "Aardvaark", "Kevin", "Barbonious", "Michael", "Seth", "Zeke", "Ted", "Dominic", "David", "Jeffery", "Hunter", "Owen", "Jim", "Lorenzo", "Joseph", "Mr.", "Howard", "Josh", "Marshall", "LeBron", "James", "Fischer", "Tim", "Lucas", "Billy", "Lachlan", "Gary", "Norman", "Barrack", "Eddie", "Eco", "Tsar", "Ranjit", "Lincoln", "William", "Frank", "Jerome", "Neil", "Patrick", "Logan", "Albert", "Ernest", "Benjamin", "Adam", "Barney", "Felix", "Ralph", "Jaquavius", "Throquemorton", "Emmett", "Junior", "Nicholas", "Julian", "Aaron", "Skeeth", "Brian", "Denson", "Kelvin", "Gorge", "Pinkle", "Posture", "Lawrence", "Stanley", "Gregory", "Heath", "Ryan", "Ross", "Jake", "Raymond", "Glenn", "Terry", "Andre", "Joe", "Dirk", "Norme", "Oscar", "Fredandrewjamin", "Chidi", "Jianyu", "Manny", "Luke", "Bambadjan", "Trevor", "Tejas", "Taste", "Lithuania", "Nerd", "Mark", "The", "Lupus", "Harry", "Flint", "Bartholomew", "Brown", "Squnch", "Elliot", "Chase", "Daryl", "Alan", "Sandy", "Garrison", "Carter", "Gru", "Chandler", "Cheese", "Vince", "Miles", "Martin", "Carl", "Manase", "Henry", "Leo", "Arthur", "Hudson", "Chunce", "Brunch", "Lionel", "Chris", "Aden", "Dean"] #masculine first names
+const mFirstNames = ["Large", "John", "Jack", "Jason", "Smith", "Scott", "Jackson", "Fred", "Drew", "Austin", "Bruce", "Peter", "Liam", "Noah", "Oliver", "Kurtis", "Daniel", "George", "Nathan", "Ethan", "Matthew", "Racist", "Donald", "Stephen", "Robert", "Aardvaark", "Kevin", "Barbonious", "Michael", "Seth", "Zeke", "Ted", "Dominic", "Domestic", "David", "Jeffery", "Hunter", "Owen", "Jim", "Lorenzo", "Joseph", "Mr.", "Howard", "Josh", "Marshall", "LeBron", "James", "Fischer", "Tim", "Lucas", "Billy", "Lachlan", "Gary", "Norman", "Barrack", "Eddie", "Eco", "Tsar", "Ranjit", "Lincoln", "William", "Frank", "Jerome", "Neil", "Patrick", "Logan", "Albert", "Ernest", "Benjamin", "Adam", "Barney", "Felix", "Ralph", "Jaquavius", "Throquemorton", "Emmett", "Junior", "Nicholas", "Julian", "Aaron", "Skeeth", "Brian", "Denson", "Kelvin", "Gorge", "Pinkle", "Posture", "Lawrence", "Stanley", "Gregory", "Heath", "Ryan", "Ross", "Jake", "Raymond", "Glenn", "Terry", "Andre", "Joe", "Dirk", "Norme", "Oscar", "Fredandrewjamin", "Chidi", "Jianyu", "Manny", "Luke", "Bambadjan", "Trevor", "Tejas", "Taste", "Lithuania", "Nerd", "Mark", "The", "Lupus", "Harry", "Flint", "Bartholomew", "Brown", "Squnch", "Elliot", "Chase", "Daryl", "Alan", "Sandy", "Garrison", "Carter", "Gru", "Chandler", "Cheese", "Vince", "Miles", "Martin", "Carl", "Manase", "Henry", "Leo", "Arthur", "Hudson", "Chunce", "Brunch", "Lionel", "Chris", "Aden", "Dean", "Cameron", "Ferris", "Xander", "Zachary"] #masculine first names
 
-const fFirstNames = ["Minh", "Arwyn", "Lily", "Violet", "Fresh", "Plunk", "Hannah", "Elena", "Sienna", "Alice", "Jaqueline", "Debbie", "Cheyanne", "Mrs.", "Lungs", "Ella", "Les", "Amber", "Skylar", "Tracy", "Beatrice", "Hayley", "Denise", "Alexa", "Athena", "Christina", "Holly", "Jessica", "Cook", "Amy", "Jeanette", "Eloise", "Amethyst", "Pheromone", "Cecilia", "Hazel", "Judy", "Gertrude", "Rose", "Lauren", "Ester", "Taylor", "Annabelle", "Jillian", "Jennifer", "Victoria", "Ava", "Hayley", "Mia", "Aria", "Linda", "Julia", "Heather", "Selena", "Dakota", "Stacy", "Stella", "Pearl", "Lea", "Eula", "AuthO", "Valarie", "Mary", "Dorothy", "Sharon", "Dianne", "Dina", "Janet", "Layla", "Charlette", "Mia", "Lori", "Eleanor", "Stephanie", "Tifanny", "Chelsea", "Trish", "Tahani", "Tiya", "Mindy", "Rebecca", "April", "June", "Maya", "Jaundice", "Melinda", "Lick", "Amanda", "Persephone", "Eve", "P.", "Strawberry", "Nicole", "Alanis", "Nora", "Cristin", "Stormy", "Lucy", "Amelia", "Toothbrush", "Evelyn", "Ariana", "Grace", "Harper", "Madison", "Scarlet", "Hadley", "Eva", "Atlas", "Olivia", "Hiro", "Lexie", "Patricia", "Sarah"] #feminine first names
+const fFirstNames = ["Minh", "Arwyn", "Lily", "Violet", "Fresh", "Plunk", "Hannah", "Elena", "Sienna", "Alice", "Jacqueline", "Debbie", "Cheyanne", "Mrs.", "Lungs", "Ella", "Les", "Amber", "Skylar", "Tracy", "Beatrice", "Hayley", "Denise", "Alexa", "Athena", "Christina", "Holly", "Jessica", "Cook", "Amy", "Jeanette", "Eloise", "Amethyst", "Pheromone", "Cecilia", "Hazel", "Judy", "Gertrude", "Rose", "Lauren", "Ester", "Taylor", "Annabelle", "Jillian", "Jennifer", "Victoria", "Ava", "Hayley", "Mia", "Aria", "Linda", "Julia", "Heather", "Selena", "Dakota", "Stacy", "Stella", "Pearl", "Lea", "Eula", "AuthO", "Valarie", "Mary", "Dorothy", "Sharon", "Dianne", "Dina", "Janet", "Layla", "Charlette", "Mia", "Lori", "Eleanor", "Stephanie", "Tifanny", "Chelsea", "Trish", "Tahani", "Tiya", "Mindy", "Rebecca", "April", "June", "Maya", "Jaundice", "Melinda", "Lick", "Amanda", "Persephone", "Eve", "P.", "Strawberry", "Nicole", "Alanis", "Nora", "Cristin", "Stormy", "Lucy", "Amelia", "Toothbrush", "Evelyn", "Ariana", "Grace", "Harper", "Madison", "Scarlet", "Hadley", "Eva", "Atlas", "Olivia", "Hiro", "Lexie", "Patricia", "Sarah", "Tamantha", "Veronica", "Yobin", "Dolly", "Mila", "Sophia", "Eilzabeth", "Chloe", "Abigail", "Ivy", "Willow", "Delilah", "Sadie", "Maggie", "Madeline", "Eden", "Alina"] #feminine first names
 
-const uFirstNames = ["Robyn", "Jesse", "Quinn", "Riley", "Charly", "Sam", "McKenzie", "Quiche", "Dijon", "Fat", "Beanus", "Monty", "House", "Jaundice", "Gamboge", "Darcy", "Gen", "Bowel", "Luca", "Tomato", "Noel", "Disco", "Steel", "Lightning", "Weezer", "Detlef"] #unisex first names
+const uFirstNames = ["Robyn", "Jesse", "Quinn", "Riley", "Charly", "Sam", "McKenzie", "Quiche", "Dijon", "Fat", "Beanus", "Monty", "House", "Jaundice", "Gamboge", "Darcy", "Gen", "Bowel", "Luca", "Tomato", "Noel", "Disco", "Steel", "Lightning", "Weezer", "Detlef", "Gord", "Rowan", "Aether", "Jamie"] #unisex first names
 
-const lastNames = ["Fries", "Smith", "Daniels", "Derulo", "Bush", "Wheeler", "Lanyard", "Scott", "Waterson", "Karmichael", "Morrison", "Stephens", "Curley", "Strong", "McLucas", "Zillman", "Mason", "Mosby", "Guy", "Esquire Jr.", "Aardvaarsk", "Kevins", "Sweat", "Pritchard", "Lithuania", "North Korea", "Carbohydrate", "Flickweert", "Lim", "Jones", "Pearson", "Campbell", "Wilson", "Robinson", "Spears", "Nacho", "Von Matterhorn", "Ball", "President", "Biden", "Pop", "Gonzalez", "Gooden", "Conners", "Beast", "Jr.", "Igloo", "Randor", "Erikson", "James", "Price", "Arnott", "Cook", "Collins", "McLauglan", "Whipp", "Wilcox", "Anderson", "Mills", "Wickersfeild", "Obama", "Lastname", "F. Kennedy", "Mustard", "Carpet III", "Parker", "Murphy", "Fresh", "Bomba", "Sand", "Lee", "Burton", "Nickels", "Chapman", "Shakespeare", "Bennedict", "St. John", "Lopez", "Cootes", "Pu", "Patrick Harris", "Armstrong", "Lips", "Willis", "Speilberg", "Franklin", "Green", "Smart", "Stinson", "Murdoch", "Swanson", "Bundy", "Sparks", "Ball", "Michaels", "Roberts", "Bryant", "Santos", "Pacheao", "Churnchill", "Seraneno", "Bob", "McKinley", "Mendez", "Joy", "Kubrick", "Lard", "Romaniello", "Hawking", "Polley", "Baker", "Carpenter", "George", "Trahan", "Johnson", "Slater", "Gomez", "MacIntyre", "Shellstrop", "Danger", "Bell", "Holt", "Parolta", "Diaz", "Jeoffards", "Braugher", "Samberg", "Beatriz", "Crews", "Lo Truglio", "Peretti", "Blocker", "Santiago", "Fumero", "Schur", "Goor", "Boyle", "Linetti", "Hitchcock", "Scully", "Danson", "Carden", "Harper", "Peabody", "Nobel", "Anagonye", "Al-Jamil", "Mendoza", "Jacinto", "Guldan", "Emia", "Sircar", "St. Claire", "Wallace", "Hullur", "Lid", "Zuckerberg", "Jackson", "Weeknd", "Wunch", "Worst", "Samuel", "Sparkles", "Lockwood", "Neumann", "Seinfeld", "Brown", "Cranckles", "Quesadilla", "Orthodella", "Joneston", "Thunch", "Banks", "Friday", "Ocean", "Strange", "Bond", "Scherbatsky", "Thicke", "Letterman", "Schaffer", "Rivers", "McConnell", "Milioti", "Barbakow", "Wise", "OBrien", "Loveday", "Lopez-Lopez", "Luna", "McGruginson", "Love-Hewitt", "Grande", "Heeler", "Noir", "Square Garden", "Luther", "King", "Spinach", "Overkill", "Johansson", "Scrumsktstingston", "White", "Martz", "Nacho", "Phelps", "Norris", "McBroom", "McQueen", "Richie", "Hansen", "Walker", "Schrempf", "Withers"] #dude just look at the variable name
+const lastNames = ["Fries", "Smith", "Daniels", "Derulo", "Bush", "Wheeler", "Lanyard", "Scott", "Waterson", "Karmichael", "Morrison", "Stephens", "Curley", "Strong", "McLucas", "Zillman", "Mason", "Mosby", "Guy", "Esquire Jr.", "Aardvaarsk", "Kevins", "Sweat", "Pritchard", "Lithuania", "North Korea", "Carbohydrate", "Flickweert", "Lim", "Jones", "Pearson", "Campbell", "Wilson", "Robinson", "Spears", "Nacho", "Von Matterhorn", "Ball", "President", "Biden", "Pop", "Gonzalez", "Gooden", "Conners", "Beast", "Jr.", "Igloo", "Randor", "Erikson", "James", "Price", "Arnott", "Cook", "Collins", "McLauglan", "Whipp", "Wilcox", "Anderson", "Mills", "Wickersfeild", "Obama", "Lastname", "F. Kennedy", "Mustard", "Carpet III", "Parker", "Murphy", "Fresh", "Bomba", "Sand", "Lee", "Burton", "Nickels", "Chapman", "Shakespeare", "Bennedict", "St. John", "Lopez", "Cootes", "Pu", "Patrick Harris", "Armstrong", "Lips", "Willis", "Speilberg", "Franklin", "Green", "Smart", "Stinson", "Murdoch", "Swanson", "Bundy", "Sparks", "Ball", "Michaels", "Roberts", "Bryant", "Santos", "Pacheao", "Churnchill", "Seraneno", "Bob", "McKinley", "Mendez", "Joy", "Kubrick", "Lard", "Romaniello", "Hawking", "Polley", "Baker", "Carpenter", "George", "Trahan", "Johnson", "Slater", "Gomez", "MacIntyre", "Shellstrop", "Danger", "Bell", "Holt", "Parolta", "Diaz", "Jeoffards", "Braugher", "Samberg", "Beatriz", "Crews", "Lo Truglio", "Peretti", "Blocker", "Santiago", "Fumero", "Schur", "Goor", "Boyle", "Linetti", "Hitchcock", "Scully", "Danson", "Carden", "Harper", "Peabody", "Nobel", "Anagonye", "Al-Jamil", "Mendoza", "Jacinto", "Guldan", "Emia", "Sircar", "St. Claire", "Wallace", "Hullur", "Lid", "Zuckerberg", "Jackson", "Weeknd", "Wunch", "Worst", "Samuel", "Sparkles", "Lockwood", "Neumann", "Seinfeld", "Brown", "Cranckles", "Quesadilla", "Orthodella", "Joneston", "Thunch", "Banks", "Friday", "Ocean", "Strange", "Bond", "Scherbatsky", "Thicke", "Letterman", "Schaffer", "Rivers", "McConnell", "Milioti", "Barbakow", "Wise", "OBrien", "Loveday", "Lopez-Lopez", "Luna", "McGruginson", "Love-Hewitt", "Grande", "Heeler", "Noir", "Square Garden", "Luther", "King", "Spinach", "Overkill", "Johansson", "Scrumsktstingston", "White", "Martz", "Nacho", "Phelps", "Norris", "McBroom", "McQueen", "Richie", "Hansen", "Walker", "Schrempf", "Withers", "Sink", "Bueller", "Glover"] #dude just look at the variable name
 
 const rareFirstNames = ["Marl", "Rob", "Tinky", "Guy", "Paul", "Mildly", "™", "Eggs Bennedict", "Doordash", "Lettuce", "Snoopy", "Martin", "Lump"] #only generated in pairs of first name and last name. Regular names roll once for a first name and again to pick a last name, whereas rare names only roll once and pick the corresponding first and last name. So picking "Rob" as a rare first name cannot result in the name "Rob Salad", it will always result in "Rob Ery" as they are both at the same index. This is to make seperating first and last names easier, but also preserve the rare name as originally intended.
 
@@ -55,13 +55,16 @@ func epicStatChanges(): #changes your stats, epicly, based on factors outside of
 func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME WHY WHY WHYYYY
 	#types (happens first)
 	var howManyGrandparents = 0 #how many gransparents do you have, if any? number is generated later. max is 2x number of parents
+	var howManyParents = 0 #how many parents do you have?
 	if randi_range(1, 12) == 1: #if you have a single parent
+		howManyParents = 1 #you have one parent
 		if randi_range(1, 2) == 1: #if you have a single mother
 			global.familyTypes.append("Mother") #appends mother
 		else: #if you have a single father
 			global.familyTypes.append("Father") #appends father
 		howManyGrandparents = randi_range(0,2) #how many grandparents do you have
 	else: #if you have TWO parents
+		howManyParents = 2 #you have two parents
 		if randi_range(1, 18) == 1: #if you have two parents of the same sex
 			if randi_range(1, 2) == 1: #if two mothers
 				global.familyTypes.append("Mother") #appends mother
@@ -115,7 +118,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 				global.familyTypes.append("Cousin") #don't need to do seperate appendings by sex since cousin is a gender neutral term; sexes will be assigned later
 				howManyCousins -= 1 #1 less cousin left to generate
 	#sexer
-	for i in global.familyTypes.size(): #sets a variable, i, to run through every item in the familyTypes array. Runs once for every item in it. Index of the family member corresponds with the index of their sex.
+	for i in global.familyTypes.size() - 1: #sets a variable, i, to run through every item in the familyTypes array. Runs once for every item in it. Index of the family member corresponds with the index of their sex.
 		if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Sister" || global.familyTypes[i] == "Grandmother" || global.familyTypes[i] == "Aunt": #if family member at index i is female
 			global.familySexes.append("F") #appends female
 		elif global.familyTypes[i] == "Father" || global.familyTypes[i] == "Brother" || global.familyTypes[i] == "Grandfather" || global.familyTypes[i] == "Uncle": #if family member at index i is male
@@ -126,6 +129,55 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 			else: #if cousin is male
 				global.familySexes.append("M") #appends male
 		i += 1 #+1 so it doesn't loop forever and moves on to the index of the next family member
+	#namer
+	var parentsAreMarried = false #parents aren't married by default, but this might change:
+	if howManyParents == 2: #if you have two parents
+		if randi_range(1, 2) == 1: #if parents ARE married (1 in 2 chance)
+			parentsAreMarried = true #then parents being married is TRUE
+	for i in global.familyTypes.size() - 1: #sets a variable, i, to run through every item in the familyTypes array. Runs once for every item in it. Index of the family member corresponds with the index of their name.
+		#last names - Last names are assigned before first names so they can be overridden by rare names, which are all full names.
+		if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Father": #if the family member being analysed now is a parent
+			if howManyParents == 1: #if you only have one parent
+				global.familyLastNames.append(global.lastName) #they get your surname automatically
+			elif parentsAreMarried == true: #if parents are married. If this is true, it also means that you have two parents because of how the true value gets assigned. If true, you and both of them will share the same family surname. If they are not, you and ONE of them will share one. If the family member you would have originally gotten your surname from later gets a rare name and therefore a special rare surname, I guess they made it up because now you've gotten yours from nowhere.
+				global.familyLastNames.append(global.lastName) #gives them the family surname
+			else: #if you have two parents BUT they're aren't married
+				var parentsBeforeThis = false #are there any parents in the familyTypes array before this one? The first parent in the array will get your surname. False by default so it only gets changed if there are other parents before.
+				var x = i-1 #used to keep track of which family member we're checking. Starts off by checking the 
+				while x >= 0: #while there are still family members earlier in the array before this one
+					if global.familyTypes[x] == "Mother" || global.familyTypes[x] == "Father": #if the family member at the index x is a parent, that means there is a parent before the one at i
+						parentsBeforeThis = true #the parent at index i is not the first parent
+					x -= 1 #advance
+				if parentsBeforeThis == false: #if, after we checked, we found there aren't any parents in the array before this
+					global.familyLastNames.append(global.lastName) #parent gets your last name
+		else: #if family member at index i is NOT your parent
+			global.familyLastNames.append(lastNames[randi_range(0, lastNames.size() - 1)]) #gives them a random last name
+		#first names and rare names
+		if randi_range(1, 3000) == 1: #if family member is getting a rare full name
+			var rareNameIndex = randi_range(0, rareFirstNames.size() - 1) #first name and last name have the same index. picks one random index to use.
+			global.familyFirstNames.append(rareFirstNames[rareNameIndex]) #appends the first name of the index
+			global.familyLastNames.pop_back() #removes (pops) the last element of the familyLastNames array. This is because this family member was already given a last name and we are about to override that with a new one.
+			global.familyLastNames.append(rareLastNames[rareNameIndex]) #appends the last name of the index
+		else: #if family member is NOT getting a rare full name
+			if randi_range(1, 20) == 1: #if family member is getting a unisex first name
+				global.familyFirstNames.append(uFirstNames[randi_range(0, uFirstNames.size() - 1)]) #appends a random unisex first name
+			else: #if family member is NOT getting a unisex first name
+				if global.familySexes[i] == "F": #if family member at index i is female
+					global.familyFirstNames.append(fFirstNames[randi_range(0, fFirstNames.size() - 1)]) #appends to familyFirstNames a random female first name
+				else: #if family member at index i is male
+					global.familyFirstNames.append(mFirstNames[randi_range(0, mFirstNames.size() - 1)]) #appends to familyFirstNames a random male first name
+	#relationshipper
+	for i in global.familyTypes.size() - 1: #runs through and checks every family member, assigning them a relationship to you
+		if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Father": #if family member at i is your parent
+			global.familyRelationships.append(randi_range(30, 100))
+		elif global.familyTypes[i] == "Grandmother" || global.familyTypes[i] == "Grandfather": #if family member is your grandparent
+			global.familyRelationships.append(randi_range(30, 100))
+		elif global.familyTypes[i] == "Aunt" || global.familyTypes[i] == "Uncle": #if family member is your aunt/uncle
+			global.familyRelationships.append(randi_range(20, 70))
+		elif global.familyTypes[i] == "Brother" || global.familyTypes[i] == "Sister": #if family member is your sibling
+			global.familyRelationships.append(randi_range(40, 80))
+		elif global.familyTypes[i] == "Cousin": #if family member is your cousin
+			global.familyRelationships.append(randi_range(0, 30))
 	print(global.familyFirstNames)
 	print(global.familyLastNames)
 	print(global.familySexes)
