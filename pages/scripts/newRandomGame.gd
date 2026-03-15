@@ -56,7 +56,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 	#types (happens first)
 	var howManyGrandparents = 0 #how many gransparents do you have, if any? number is generated later. max is 2x number of parents
 	var howManyParents = 0 #how many parents do you have?
-	if randi_range(1, 12) == 1: #if you have a single parent
+	if randi_range(1, 8) == 1: #if you have a single parent
 		howManyParents = 1 #you have one parent
 		if randi_range(1, 2) == 1: #if you have a single mother
 			global.familyTypes.append("Mother") #appends mother
@@ -65,7 +65,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 		howManyGrandparents = randi_range(0,2) #how many grandparents do you have
 	else: #if you have TWO parents
 		howManyParents = 2 #you have two parents
-		if randi_range(1, 18) == 1: #if you have two parents of the same sex
+		if randi_range(1, 14) == 1: #if you have two parents of the same sex
 			if randi_range(1, 2) == 1: #if two mothers
 				global.familyTypes.append("Mother") #appends mother
 				global.familyTypes.append("Mother") #appends mother
@@ -104,37 +104,37 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 			else: #if you have one grandfather
 				global.familyTypes.append("Grandfather") #appends grandfather
 			howManyGrandparents -= 1 #1 less grandparent you need to generate
-	if randi_range(1, 3) == 1: #if you have aunts/uncles
-		var howManyUncaunts = randi_range(1, 4) #you may have any number of aunts/uncles between 1 and 4
-		while howManyUncaunts > 0: #while there are still more aunts/uncles to generate
-			if randi_range(1, 2) == 1: #if you're getting an aunt
-				global.familyTypes.append("Aunt") #appens aunt
-			else: #if you're getting an uncle
-				global.familyTypes.append("Uncle") #appends uncle
-			howManyUncaunts -= 1 #1 less aunt/uncle you need to generate
-		if randi_range(1, 3) == 1: #if you're getting cousins - requires aunts/uncles
-			var howManyCousins = randi_range(1, 5) #how many cousins you will get, from 1 to 5
-			while howManyCousins > 0: #while there are still cousins left to generate
-				global.familyTypes.append("Cousin") #don't need to do seperate appendings by sex since cousin is a gender neutral term; sexes will be assigned later
-				howManyCousins -= 1 #1 less cousin left to generate
+	if global.familyTypes.has("Grandmother") || global.familyTypes.has("Grandfather"): #you CANNOT have an aunt or uncle without grandparents for age generation reasons.
+		if randi_range(1, 3) == 1: #if you have aunts/uncles
+			var howManyUncaunts = randi_range(1, 4) #you may have any number of aunts/uncles between 1 and 4
+			while howManyUncaunts > 0: #while there are still more aunts/uncles to generate
+				if randi_range(1, 2) == 1: #if you're getting an aunt
+					global.familyTypes.append("Aunt") #appens aunt
+				else: #if you're getting an uncle
+					global.familyTypes.append("Uncle") #appends uncle
+				howManyUncaunts -= 1 #1 less aunt/uncle you need to generate
+			if randi_range(1, 3) == 1: #if you're getting cousins - requires aunts/uncles
+				var howManyCousins = randi_range(1, 5) #how many cousins you will get, from 1 to 5
+				while howManyCousins > 0: #while there are still cousins left to generate
+					global.familyTypes.append("Cousin") #don't need to do seperate appendings by sex since cousin is a gender neutral term; sexes will be assigned later
+					howManyCousins -= 1 #1 less cousin left to generate
 	#sexer
-	for i in global.familyTypes.size() - 1: #sets a variable, i, to run through every item in the familyTypes array. Runs once for every item in it. Index of the family member corresponds with the index of their sex.
+	for i in global.familyTypes.size(): #sets a variable, i, to run through every item in the familyTypes array. Runs once for every item in it. Index of the family member corresponds with the index of their sex.
 		if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Sister" || global.familyTypes[i] == "Grandmother" || global.familyTypes[i] == "Aunt": #if family member at index i is female
 			global.familySexes.append("F") #appends female
 		elif global.familyTypes[i] == "Father" || global.familyTypes[i] == "Brother" || global.familyTypes[i] == "Grandfather" || global.familyTypes[i] == "Uncle": #if family member at index i is male
 			global.familySexes.append("M") #appends male
-		else: #if family member at index i is your cousin
+		else: #if family member at index i is your cousin (the only remaining possible type of family member)
 			if randi_range(1, 2) == 1: #if cousin is female
 				global.familySexes.append("F") #appends female
 			else: #if cousin is male
 				global.familySexes.append("M") #appends male
-		i += 1 #+1 so it doesn't loop forever and moves on to the index of the next family member
 	#namer
 	var parentsAreMarried = false #parents aren't married by default, but this might change:
 	if howManyParents == 2: #if you have two parents
 		if randi_range(1, 2) == 1: #if parents ARE married (1 in 2 chance)
 			parentsAreMarried = true #then parents being married is TRUE
-	for i in global.familyTypes.size() - 1: #sets a variable, i, to run through every item in the familyTypes array. Runs once for every item in it. Index of the family member corresponds with the index of their name.
+	for i in global.familyTypes.size(): #sets a variable, i, to run through every item in the familyTypes array. Runs once for every item in it. Index of the family member corresponds with the index of their name.
 		#last names - Last names are assigned before first names so they can be overridden by rare names, which are all full names.
 		if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Father": #if the family member being analysed now is a parent
 			if howManyParents == 1: #if you only have one parent
@@ -167,7 +167,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 				else: #if family member at index i is male
 					global.familyFirstNames.append(mFirstNames[randi_range(0, mFirstNames.size() - 1)]) #appends to familyFirstNames a random male first name
 	#relationshipper
-	for i in global.familyTypes.size() - 1: #runs through and checks every family member, assigning them a relationship to you
+	for i in global.familyTypes.size(): #runs through and checks every family member, assigning them a relationship to you
 		if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Father": #if family member at i is your parent
 			global.familyRelationships.append(randi_range(30, 100))
 		elif global.familyTypes[i] == "Grandmother" || global.familyTypes[i] == "Grandfather": #if family member is your grandparent
@@ -178,12 +178,42 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 			global.familyRelationships.append(randi_range(40, 80))
 		elif global.familyTypes[i] == "Cousin": #if family member is your cousin
 			global.familyRelationships.append(randi_range(0, 30))
+	#ager
+	var ageOfParent
+	var ageOfGrandparent
+	var ageOfUncaunt
+	for i in global.familyTypes.size(): #runs through every family member
+		if global.familyTypes[i] == "Mother": #if family member at index i is your mother
+			global.familyAges.append(randi_range(18, 45)) #gives her a random age between 18 and 45
+		elif global.familyTypes[i] == "Father": #if family member at index i is your father
+			global.familyAges.append(randi_range(18, 45)) #men generally can father at older than around 45, unlike most women, but just for now, fathers will have the same
+		#this has to happen now so the other multple family members' ages who rely on knowing the parents' ages can be generated (this does not have to happen for ageOfGrandparent and ageOfUncaunt:
+		ageOfParent = global.familyTypes.find("Mother") #finds index of mother. This variable is used to keep track of the age of your parents without having to re-find it every time. .find() finds the first mother in the familyTypes array.
+		#in case you have no mother:
+		if ageOfParent == -1: #if you have NO mother; .find() returns -1 by default if it can't find anything
+			ageOfParent = global.familyTypes.find("Father") #finds the first FATHER in the familyTypes array. If you have no mother, you MUST have a father.
+		ageOfParent = global.familyAges[ageOfParent] #finds the age of the parent at the index of ageOfParent
+		if global.familyTypes[i] == "Grandmother" || global.familyTypes[i] == "Grandfather": #if family member is a grandparent
+			global.familyAges.append(randi_range(ageOfParent + 18, ageOfParent + 45)) #gives the grandparent an age between 18 and 45 years older than the first parent in the familyTypes array
+		elif global.familyTypes[i] == "Brother" || global.familyTypes[i] == "Sister": #if family member is a sibling
+			global.familyAges.append(randi_range(0, ageOfParent - 18)) #gives sibling an age between 18 and 45 years younger than the first parent in the array. Your parent would have had them between the ages of 18 and 45, so if they were 18, they would be 18 years younger than them, and if they were 45, they would be 45 years younger.
+		elif global.familyTypes[i] == "Aunt" || global.familyTypes[i] == "Uncle": #if family member is a pibling (sidenote: pibling, or "parent's sibling" is a dumb gender-neutral term for aunt/uncle. We need a better one. I still stand by Uncaunt, a portmanteau of Uncle and Aunt coined by me. I am not biased, but that is the best one)
+			ageOfGrandparent = global.familyTypes.find("Grandmother") #finds index of grandmother
+			if ageOfGrandparent == -1: #if you have NO grandmother
+				ageOfGrandparent = global.familyTypes.find("Grandfather") #if you have neither a grandmother nor a grandfather, this variable won't be used anyway. Don't lose any sleep over it.
+			global.familyAges.append(randi_range(ageOfParent, ageOfGrandparent - 18)) #gives uncaunt an age. They will be between 18 and 45 years younger than your grandparent (their parent).
+		elif global.familyTypes[i] == "Cousin": #if family member is a... cousin. Look, I don't know man, this is super self-explanatory
+			ageOfUncaunt = global.familyTypes.find("Aunt") #finds index of aunt
+			if ageOfUncaunt == -1: #if you have NO aunt
+				ageOfUncaunt = global.familyTypes.find("Uncle") #again, if you have neither an aunt nor an uncle, this variable will not be used. Do not bother worrying about it.
+			global.familyAges.append(randi_range(ageOfUncaunt - 18, ageOfUncaunt - 45)) #gives cousin an age. They will be between 18 and 45 years younger than your Uncaunt (their parent).
 	print(global.familyFirstNames)
 	print(global.familyLastNames)
 	print(global.familySexes)
 	print(global.familyAges)
 	print(global.familyTypes)
 	print(global.familyRelationships)
+	print("in total, you have " + str(global.familyTypes.size()) + " family members")
 
 
 # Called when the node enters the scene tree for the first time.
