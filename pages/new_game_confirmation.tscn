@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://bkg6f4t01e6x6"]
+
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_87tfo"]
+[ext_resource type="Script" uid="uid://bx3k8owwet80g" path="res://pages/scripts/newGameConfirmation.gd" id="1_batlk"]
+[ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="2_lntjx"]
+[ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="3_a71gq"]
+
+[node name="new_game_confirmation" type="Node2D" unique_id=804291492]
+script = ExtResource("1_batlk")
+
+[node name="background" parent="." unique_id=804214627 instance=ExtResource("1_87tfo")]
+
+[node name="warning" type="Label" parent="." unique_id=1188178802]
+offset_top = 500.0
+offset_right = 1080.0
+offset_bottom = 623.0
+text = "Are you sure you want to start a new life?
+All unsaved data will be lost."
+label_settings = ExtResource("2_lntjx")
+horizontal_alignment = 1
+
+[node name="cancel" parent="." unique_id=1658048527 instance=ExtResource("3_a71gq")]
+offset_left = 376.0
+offset_top = 700.0
+offset_right = 704.0
+offset_bottom = 784.0
+text = "Nevermind"
+
+[node name="yes" parent="." unique_id=1544237965 instance=ExtResource("3_a71gq")]
+offset_left = 403.0
+offset_top = 850.0
+offset_right = 677.0
+offset_bottom = 934.0
+text = "Continue"
+
+[connection signal="pressed" from="cancel" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="yes" to="." method="_on_yes_pressed"]

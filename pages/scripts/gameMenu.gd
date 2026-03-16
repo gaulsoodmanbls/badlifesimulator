@@ -1,0 +1,16 @@
+extends Node2D #author(s): Ethan Scott
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+func _on_new_game_egg_mouse_entered() -> void: #when the mouse is hovered over the new game egg button
+	$newGameEgg.scale = Vector2(1.1, 1.1) #increases size by 10%
+
+func _on_new_game_egg_mouse_exited() -> void: #when the mouse leaves hovering the new game egg button
+	$newGameEgg.scale = Vector2(1, 1) #sets size back to normal
+
+func _on_new_game_egg_pressed() -> void: #on new game egg button clicked
+	get_tree().change_scene_to_file("res://pages/new_game_confirmation.tscn")

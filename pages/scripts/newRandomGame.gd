@@ -2,7 +2,7 @@ extends Node2D #author(s): Ethan Scott
 #generates a random life for the player
 
 
-var tips = ["Stuck? Try not being stuck.", "Working minimum wage is not an effective way to earn a high wage.", "Taxes are due! Evading them could lead to fines or imprisonment.", "Remember to eat your one small rock per day.", "Low on sodium? Eat some pure sodium metal.", "Japan has five vending machines per fighter pilot.", "Clumps in your cheesecake? Try using a declumper from your inventory.", "Clumps in your friend group? Try using a declumper from your inventory.", "Donating blood? Make sure your blood type is the same as the recipients'.", "Please inform your doctor if you believe you have played this game before. You might think you have. You haven't. This is only an illusion.", "Sun too bright? Try wearing sunglasses!", "Once dead, you are no longer alive. Keep this in mind when dying.", "Check the UV index in your area before going outside.", "Strapped for cash? Rob a bank.", "Your device is probably extremely slow if you are able to read this.", "You're not eating enough drywall.", "You're eating too much drywall.", "You should have gone to Specsavers.", "Famous poet Reinhardt Böhmer died in 1997 after buying an armchair 14 minutes before it went on a 90% flash sale."] #tips to be displayed on the screen during loading :)
+var tips = ["Stuck? Try not being stuck.", "Working minimum wage is not an effective way to earn a high wage.", "Taxes are due! Evading them could lead to fines or imprisonment.", "Remember to eat your one small rock per day.", "Low on sodium? Eat some pure sodium metal.", "Japan has five vending machines per fighter pilot.", "Clumps in your cheesecake? Try using a declumper from your inventory.", "Clumps in your friend group? Try using a declumper from your inventory.", "Donating blood? Make sure your blood type is the same as the recipients'.", "Please inform your doctor if you believe you have played this game before. You might think you have. You haven't. This is only an illusion.", "Sun too bright? Try wearing sunglasses!", "Once dead, you are no longer alive. Keep this in mind when dying.", "Check the UV index in your area before going outside.", "Strapped for cash? Rob a bank.", "Your device is probably extremely slow if you are able to read this.", "You're not eating enough drywall.", "You're eating too much drywall.", "Famous poet Reinhardt Böhmer died in 1997 after buying an armchair 14 minutes before it went on a 90% flash sale.", "'I'm gonna make him an offer he can[...] refuse.'"] #tips to be displayed on the screen during loading :)
 
 
 #name variables
@@ -10,7 +10,7 @@ const mFirstNames = ["Large", "John", "Jack", "Jason", "Smith", "Scott", "Jackso
 
 const fFirstNames = ["Minh", "Arwyn", "Lily", "Violet", "Fresh", "Plunk", "Hannah", "Elena", "Sienna", "Alice", "Jacqueline", "Debbie", "Cheyanne", "Mrs.", "Lungs", "Ella", "Les", "Amber", "Skylar", "Tracy", "Beatrice", "Hayley", "Denise", "Alexa", "Athena", "Christina", "Holly", "Jessica", "Cook", "Amy", "Jeanette", "Eloise", "Amethyst", "Pheromone", "Cecilia", "Hazel", "Judy", "Gertrude", "Rose", "Lauren", "Ester", "Taylor", "Annabelle", "Jillian", "Jennifer", "Victoria", "Ava", "Hayley", "Mia", "Aria", "Linda", "Julia", "Heather", "Selena", "Dakota", "Stacy", "Stella", "Pearl", "Lea", "Eula", "AuthO", "Valarie", "Mary", "Dorothy", "Sharon", "Dianne", "Dina", "Janet", "Layla", "Charlette", "Mia", "Lori", "Eleanor", "Stephanie", "Tifanny", "Chelsea", "Trish", "Tahani", "Tiya", "Mindy", "Rebecca", "April", "June", "Maya", "Jaundice", "Melinda", "Lick", "Amanda", "Persephone", "Eve", "P.", "Strawberry", "Nicole", "Alanis", "Nora", "Cristin", "Stormy", "Lucy", "Amelia", "Toothbrush", "Evelyn", "Ariana", "Grace", "Harper", "Madison", "Scarlet", "Hadley", "Eva", "Atlas", "Olivia", "Hiro", "Lexie", "Patricia", "Sarah", "Tamantha", "Veronica", "Yobin", "Dolly", "Mila", "Sophia", "Eilzabeth", "Chloe", "Abigail", "Ivy", "Willow", "Delilah", "Sadie", "Maggie", "Madeline", "Eden", "Alina", "Krirsten"] #feminine first names
 
-const uFirstNames = ["Robyn", "Jesse", "Quinn", "Riley", "Charly", "Sam", "McKenzie", "Quiche", "Dijon", "Fat", "Beanus", "Monty", "House", "Jaundice", "Gamboge", "Darcy", "Gen", "Bowel", "Luca", "Tomato", "Noel", "Disco", "Steel", "Lightning", "Weezer", "Detlef", "Gord", "Rowan", "Aether", "Jamie"] #unisex first names
+const uFirstNames = ["Robyn", "Jesse", "Quinn", "Riley", "Charly", "Sam", "McKenzie", "Quiche", "Dijon", "Fat", "Beanus", "Monty", "House", "Jaundice", "Gamboge", "Darcy", "Gen", "Bowel", "Luca", "Tomato", "Noel", "Disco", "Steel", "Lightning", "Weezer", "Detlef", "Gord", "Rowan", "Aether", "Jamie", "Old Jr."] #unisex first names
 
 const lastNames = ["Fries", "Smith", "Daniels", "Derulo", "Bush", "Wheeler", "Lanyard", "Scott", "Waterson", "Karmichael", "Morrison", "Stephens", "Curley", "Strong", "McLucas", "Zillman", "Mason", "Mosby", "Guy", "Esquire Jr.", "Aardvaarsk", "Kevins", "Sweat", "Pritchard", "Lithuania", "North Korea", "Carbohydrate", "Flickweert", "Lim", "Jones", "Pearson", "Campbell", "Wilson", "Robinson", "Spears", "Nacho", "Von Matterhorn", "Ball", "President", "Biden", "Pop", "Gonzalez", "Gooden", "Conners", "Beast", "Jr.", "Igloo", "Randor", "Erikson", "James", "Price", "Arnott", "Cook", "Collins", "McLauglan", "Whipp", "Wilcox", "Anderson", "Mills", "Wickersfeild", "Obama", "Lastname", "F. Kennedy", "Mustard", "Carpet III", "Parker", "Murphy", "Fresh", "Bomba", "Sand", "Lee", "Burton", "Nickels", "Chapman", "Shakespeare", "Bennedict", "St. John", "Lopez", "Cootes", "Pu", "Patrick Harris", "Armstrong", "Lips", "Willis", "Speilberg", "Franklin", "Green", "Smart", "Stinson", "Murdoch", "Swanson", "Bundy", "Sparks", "Ball", "Michaels", "Roberts", "Bryant", "Santos", "Pacheao", "Churnchill", "Seraneno", "Bob", "McKinley", "Mendez", "Joy", "Kubrick", "Lard", "Romaniello", "Hawking", "Polley", "Baker", "Carpenter", "George", "Trahan", "Johnson", "Slater", "Gomez", "MacIntyre", "Shellstrop", "Danger", "Bell", "Holt", "Parolta", "Diaz", "Jeoffards", "Braugher", "Samberg", "Beatriz", "Crews", "Lo Truglio", "Peretti", "Blocker", "Santiago", "Fumero", "Schur", "Goor", "Boyle", "Linetti", "Hitchcock", "Scully", "Danson", "Carden", "Harper", "Peabody", "Nobel", "Anagonye", "Al-Jamil", "Mendoza", "Jacinto", "Guldan", "Emia", "Sircar", "St. Claire", "Wallace", "Hullur", "Lid", "Zuckerberg", "Jackson", "Weeknd", "Wunch", "Worst", "Samuel", "Sparkles", "Lockwood", "Neumann", "Seinfeld", "Brown", "Cranckles", "Quesadilla", "Orthodella", "Joneston", "Thunch", "Banks", "Friday", "Ocean", "Strange", "Bond", "Scherbatsky", "Thicke", "Letterman", "Schaffer", "Rivers", "McConnell", "Milioti", "Barbakow", "Wise", "OBrien", "Loveday", "Lopez-Lopez", "Luna", "McGruginson", "Love-Hewitt", "Grande", "Heeler", "Noir", "Square Garden", "Luther", "King", "Spinach", "Overkill", "Johansson", "Scrumsktstingston", "White", "Martz", "Nacho", "Phelps", "Norris", "McBroom", "McQueen", "Richie", "Hansen", "Walker", "Schrempf", "Withers", "Sink", "Bueller", "Glover"] #dude just look at the variable name
 
@@ -18,6 +18,21 @@ const rareFirstNames = ["Marl", "Rob", "Tinky", "Guy", "Paul", "Mildly", "™", 
 
 const rareLastNames = ["", "Ery", "Tonk Shank", "Man", "Salad", "Concerning", "", "Recipe", "Guy", "Lol", "DaDuck", "McFly", "Sum Payment"] #Marl and ™ have only a first name. This will result in some weird behaviour, such as the player being called "Mr./Mrs.[blank]", but that is a sarcrifice I am willing to make.
 
+func cleanLife(): #resets your existing life (if any) and generates new stats
+	global.joy = randi_range(0, 100)
+	global.health = randi_range(0, 100)
+	global.intellect = randi_range(10, 90)
+	global.looks = randi_range(10, 90)
+	global.age = 0
+	global.sex = ""
+	global.firstName = ""
+	global.lastName = ""
+	global.familyFirstNames = []
+	global.familyLastNames = []
+	global.familyTypes = []
+	global.familyAges = []
+	global.familyRelationships = []
+	global.familySexes = []
 
 func namePicker(): #generates a full name for the player
 	print(str(mFirstNames.size()) + " masculine first names.")
@@ -235,7 +250,8 @@ func _ready() -> void:
 	print("Health: " + str(global.health))
 	print("Intellect: " + str(global.intellect))
 	print("Looks: " + str(global.looks))
+	cleanLife()
 	namePicker()
 	epicStatChanges()
 	familyGenerator() #:sob:
-	get_tree().change_scene_to_file("res://pages/game_menu.tscn") #transport to main game page
+	get_tree().change_scene_to_file("res://pages/game_menu.tscn") #transport to main game page once loading is finished
