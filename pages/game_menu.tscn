@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dvq8vnrwr8s80"]
+
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_owp1n"]
+[ext_resource type="PackedScene" uid="uid://cnln4k2n2uldd" path="res://objects/circular_button.tscn" id="2_jhx4l"]
+[ext_resource type="Texture2D" uid="uid://i1sobtkpdvcs" path="res://assets/plus-white.png" id="3_hnohk"]
+
+[node name="gameMenu" type="Node2D" unique_id=1681199249]
+
+[node name="background" parent="." unique_id=305944048 instance=ExtResource("1_owp1n")]
+
+[node name="circularButton" parent="." unique_id=509130995 instance=ExtResource("2_jhx4l")]
+offset_left = 440.0
+offset_top = 1100.0
+offset_right = 640.0
+offset_bottom = 1300.0
+
+[node name="plus" type="Sprite2D" parent="circularButton" unique_id=1068915531]
+position = Vector2(100, 100)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("3_hnohk")

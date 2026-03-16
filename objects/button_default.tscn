@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck7ra4cupjjkm"]
+[gd_scene format=3 uid="uid://ck7ra4cupjjkm"]
 
-[ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1.tres" id="1_j2vkb"]
+[ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1/button1.tres" id="1_j2vkb"]
 
 [node name="button" type="Button"]
 offset_right = 479.0
