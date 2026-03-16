@@ -19,12 +19,19 @@ const rareFirstNames = ["Marl", "Rob", "Tinky", "Guy", "Paul", "Mildly", "™", 
 const rareLastNames = ["", "Ery", "Tonk Shank", "Man", "Salad", "Concerning", "", "Recipe", "Guy", "Lol", "DaDuck", "McFly", "Sum Payment"] #Marl and ™ have only a first name. This will result in some weird behaviour, such as the player being called "Mr./Mrs.[blank]", but that is a sarcrifice I am willing to make.
 
 func cleanLife(): #resets your existing life (if any) and generates new stats
-	global.joy = randi_range(0, 100)
+	global.sex = randi_range(0,1) #turns sex into a random number, either 0 or 1
+	match global.sex: #assigns sex
+		0: #if the number is 0, you are male
+			global.sex = "M"
+			print("you are male!")
+		1: #if 1, you are female
+			global.sex = "F"
+			print("you are female!")
+	global.joy = randi_range(10, 90)
 	global.health = randi_range(0, 100)
 	global.intellect = randi_range(10, 90)
-	global.looks = randi_range(10, 90)
+	global.looks = randi_range(0, 100)
 	global.age = 0
-	global.sex = ""
 	global.firstName = ""
 	global.lastName = ""
 	global.familyFirstNames = []
@@ -33,6 +40,10 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	global.familyAges = []
 	global.familyRelationships = []
 	global.familySexes = []
+	print("Joy: " + str(global.joy))
+	print("Health: " + str(global.health))
+	print("Intellect: " + str(global.intellect))
+	print("Looks: " + str(global.looks))
 
 func namePicker(): #generates a full name for the player
 	print(str(mFirstNames.size()) + " masculine first names.")
@@ -56,7 +67,7 @@ func namePicker(): #generates a full name for the player
 					global.firstName = mFirstNames[randi_range(0, mFirstNames.size() - 1)] #assigns a male name
 				"F":
 					global.firstName = fFirstNames[randi_range(0, fFirstNames.size() - 1)] #assigns a female name
-		global.lastName = lastNames[randi_range(0,lastNames.size() - 1)] #assigns a random last name. Function does not change depending on sex.
+		global.lastName = lastNames[randi_range(0, lastNames.size() - 1)] #assigns a random last name. Function does not change depending on sex.
 	print("your name is " + global.firstName + " " + global.lastName)
 
 
@@ -234,24 +245,9 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	$loadingText.text = tips[randi_range(0, tips.size() - 1)] #picks a random tip to display. Must be size -1 because arrays are 0-indexed, meaning that the number of items in the array will be 1 more than the index of the last item.
-	global.sex = randi_range(0,1) #turns sex into a random number, either 0 or 1
-	match global.sex: #assigns sex
-		0: #if the number is 0, you are male
-			global.sex = "M"
-			print("you are male!")
-		1: #if 1, you are female
-			global.sex = "F"
-			print("you are female!")
-	global.joy = randi_range(10,90)
-	global.health = randi_range(1, 100)
-	global.intellect = randi_range(10,90)
-	global.looks = randi_range(1,100)
-	print("Joy: " + str(global.joy))
-	print("Health: " + str(global.health))
-	print("Intellect: " + str(global.intellect))
-	print("Looks: " + str(global.looks))
 	cleanLife()
 	namePicker()
 	epicStatChanges()
 	familyGenerator() #:sob:
+	print("life generated. starting...")
 	get_tree().change_scene_to_file("res://pages/game_menu.tscn") #transport to main game page once loading is finished

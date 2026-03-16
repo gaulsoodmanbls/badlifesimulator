@@ -9,5 +9,13 @@ script = ExtResource("1_uqewy")
 
 [node name="background" parent="." unique_id=1290927283 instance=ExtResource("2_itaww")]
 
-[node name="global" type="Node" parent="." unique_id=1694662340]
+[node name="timer" type="Timer" parent="." unique_id=720370252]
+wait_time = 0.1
+one_shot = true
+autostart = true
+ignore_time_scale = true
+
+[node name="global" type="Node" parent="." unique_id=886032543]
 script = ExtResource("6_ijqpa")
+
+[connection signal="timeout" from="timer" to="." method="_on_timer_timeout"]

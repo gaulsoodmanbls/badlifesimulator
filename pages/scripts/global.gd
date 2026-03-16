@@ -1,6 +1,6 @@
 extends Node #author(s): Ethan Scott
 
-#this is this game's global script. It is accessibile from any script at any point. If you need to access or change a variable from here, for instance, firstName, in a different scene, type "global." before the variable name: "global.firstName".
+#this is this game's global script. It is accessible from any script at any point. If you need to access or change a variable from here, for instance, firstName, in a different scene, type "global." before the variable name: "global.firstName".
 
 
 #engine

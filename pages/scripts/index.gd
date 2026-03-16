@@ -10,4 +10,8 @@ func _ready() -> void:
 		DisplayServer.window_set_position(Vector2i(100, 100)) #sets window position to the top-left of the screen. Without any repositioning, the window is by default clipping off the screen on PC displays with a resolution of 1080p or lower.
 		print("window size adjusted")
 	print("running version " + global.versionNumber)
-	get_tree().change_scene_to_file("res://pages/main_menu.tscn")
+
+
+func _on_timer_timeout() -> void: #after 0.1 second has passed
+	get_tree().change_scene_to_file("res://pages/main_menu.tscn") #change scene to main menu
+	#requires a wait time otherwise the global script is busy loading and godot will throw an error when you try to change scene
