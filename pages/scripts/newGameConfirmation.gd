@@ -1,4 +1,4 @@
-extends Node2D
+extends Node2D #author(s): Ethan Scott
 
 
 func _on_cancel_pressed() -> void:

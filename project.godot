@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Bad Life Simulator"
 config/version="1.0.0"
-run/main_scene="uid://y7n60rw1xrms"
+run/main_scene="uid://cj3dgkom38uu8"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 boot_splash/image="uid://b3n2jrkyfy1am"
 config/icon="res://icon.svg"

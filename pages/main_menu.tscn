@@ -1,0 +1,56 @@
+[gd_scene format=3 uid="uid://y7n60rw1xrms"]
+
+[ext_resource type="Script" uid="uid://d2op8ltqca71i" path="res://pages/scripts/mainMenu.gd" id="1_f8ivl"]
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="2_68ntq"]
+[ext_resource type="LabelSettings" uid="uid://c3r4rskc4jrad" path="res://styles/text/heading.tres" id="3_pmb4e"]
+[ext_resource type="FontFile" uid="uid://bf7pfy6renkw4" path="res://assets/fonts/poppins/Poppins-Regular.ttf" id="4_0p0xg"]
+[ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="5_n5qs2"]
+[ext_resource type="Texture2D" uid="uid://c3a0ewygoqbo3" path="res://assets/cog.png" id="6_64g6t"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_itaww"]
+font = ExtResource("4_0p0xg")
+font_size = 28
+font_color = Color(0, 0, 0, 1)
+
+[node name="main_menu" type="Node2D" unique_id=791832117]
+script = ExtResource("1_f8ivl")
+
+[node name="background" parent="." unique_id=1747168065 instance=ExtResource("2_68ntq")]
+
+[node name="title" type="Label" parent="." unique_id=1828840752]
+offset_top = 150.0
+offset_right = 1080.0
+offset_bottom = 173.0
+text = "Bad Life Simulator"
+label_settings = ExtResource("3_pmb4e")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="versionNumber" type="Label" parent="." unique_id=671678497]
+offset_left = 28.0
+offset_top = 1850.0
+offset_right = 1108.0
+offset_bottom = 1901.0
+text = "vX.y.z"
+label_settings = SubResource("LabelSettings_itaww")
+vertical_alignment = 2
+autowrap_mode = 2
+
+[node name="newGame" parent="." unique_id=1258056692 instance=ExtResource("5_n5qs2")]
+offset_left = 301.0
+offset_top = 500.0
+offset_right = 780.0
+offset_bottom = 584.0
+text = "Start new game"
+
+[node name="settings" type="TextureButton" parent="." unique_id=1926293411]
+offset_left = 960.0
+offset_top = 1800.0
+offset_right = 1060.0
+offset_bottom = 1900.0
+texture_normal = ExtResource("6_64g6t")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="newGame" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
