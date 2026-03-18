@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bf7pfy6renkw4" path="res://assets/fonts/poppins/Poppins-Regular.ttf" id="4_0p0xg"]
 [ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="5_n5qs2"]
 [ext_resource type="Texture2D" uid="uid://c3a0ewygoqbo3" path="res://assets/cog.png" id="6_64g6t"]
+[ext_resource type="Texture2D" uid="uid://c32hg43t7tlpy" path="res://assets/discord.png" id="7_f8ivl"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_itaww"]
 font = ExtResource("4_0p0xg")
@@ -52,5 +53,15 @@ texture_normal = ExtResource("6_64g6t")
 ignore_texture_size = true
 stretch_mode = 0
 
+[node name="discord" type="TextureButton" parent="." unique_id=407585112]
+offset_left = 840.0
+offset_top = 1800.0
+offset_right = 940.0
+offset_bottom = 1900.0
+texture_normal = ExtResource("7_f8ivl")
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="pressed" from="newGame" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="discord" to="." method="_on_discord_pressed"]

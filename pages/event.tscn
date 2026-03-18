@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://b4rxd2u6jpmgg"]
+
+[ext_resource type="Script" uid="uid://ck3lo8ixyy67y" path="res://pages/scripts/event.gd" id="1_pi1xr"]
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="2_tphct"]
+[ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="3_ueyd5"]
+[ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="4_0ykd5"]
+[ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="5_1lnki"]
+[ext_resource type="Theme" uid="uid://b7ik156icwyyk" path="res://styles/button1/button1EventOptions.tres" id="6_tadka"]
+
+[node name="event4" type="Node2D" unique_id=102854654]
+script = ExtResource("1_pi1xr")
+
+[node name="background" parent="." unique_id=1499591412 instance=ExtResource("2_tphct")]
+
+[node name="heading" type="Label" parent="." unique_id=631056579]
+offset_left = 40.0
+offset_top = 140.0
+offset_right = 1040.0
+offset_bottom = 222.0
+text = "Event name"
+label_settings = ExtResource("3_ueyd5")
+horizontal_alignment = 1
+
+[node name="body" type="Label" parent="." unique_id=556120999]
+offset_left = 40.0
+offset_top = 250.0
+offset_right = 1040.0
+offset_bottom = 310.0
+text = "Event body text."
+label_settings = ExtResource("4_0ykd5")
+horizontal_alignment = 1
+
+[node name="option1" parent="." unique_id=1544237965 instance=ExtResource("5_1lnki")]
+offset_left = 40.0
+offset_right = 40.0
+theme = ExtResource("6_tadka")
+text = ""
+
+[node name="option2" parent="." unique_id=1802928132 instance=ExtResource("5_1lnki")]
+offset_left = 40.0
+offset_right = 40.0
+theme = ExtResource("6_tadka")
+text = ""
+
+[node name="option3" parent="." unique_id=536436195 instance=ExtResource("5_1lnki")]
+offset_left = 40.0
+offset_right = 40.0
+theme = ExtResource("6_tadka")
+text = ""
+
+[node name="option4" parent="." unique_id=1964760354 instance=ExtResource("5_1lnki")]
+offset_left = 40.0
+offset_right = 40.0
+theme = ExtResource("6_tadka")
+text = ""

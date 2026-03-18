@@ -38,14 +38,27 @@ func repositionResize(): #repositions and resizes the nodes on-screen
 	$option3.position.x = 1080 / 2 - ($option3.size.x / 2)
 	$option4.position.x = 1080 / 2 - ($option4.size.x / 2)
 
+
+func eventer(): #does the events
+	#toddlerhood
+	if global.revent[0] == "toddler-0": #if first element in the revent array is the following one
+		$heading.text = "Parkscream"
+		$body.text = "While out with your family at the park, you notice that there is an ice cream shop situated across the road."
+		if global.familyTypes.has("Mother"): #if you have a mother
+			$option1.text = "Ask your mother for one"
+		elif global.familyTypes.has("Father"): #if you have no mother, only (a) father(s)
+			$option1.text = "Ask your father for one"
+		$option2.text = "Cry until you get one"
+		$option3.text = "Bite your tongue and don't say anything"
+		$option4.modulate.a = 0 #there is no fourth option; this makes the button transparent (opacity of 0) so you can't see it. There is no way to interact with it either, provided its click functionality isn't implemented within the "if" statement for this event.
+	#childhood
+	#teenagehood
+	#adulthood
+	#elderlyhood
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().process_frame #waits for frame to be processed first to avoid weirdness
-	#testing purposes:
-	$heading.text = "Soft start"
-	$body.text = "It's your fourth birthday, and your uncle Randall just gave the first gift of the night: a bunch of blankets and other bedding."
-	$option1.text = "Force a smile and pretend to be thankful, then cry in secret"
-	$option2.text = "Kill him"
-	$option3.text = "Regift them at his birthday next year while laughing maniachally"
-	$option4.text = "Spit in his face, run away screaming, and never speak to him again"
+	eventer()
 	repositionResize()
