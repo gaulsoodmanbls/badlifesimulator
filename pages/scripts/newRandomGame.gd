@@ -8,7 +8,7 @@ var tips = ["Stuck? Try not being stuck.", "Working minimum wage is not an effec
 #name variables
 const mFirstNames = ["Large", "John", "Jack", "Jason", "Smith", "Scott", "Jackson", "Fred", "Drew", "Austin", "Bruce", "Peter", "Liam", "Noah", "Oliver", "Kurtis", "Daniel", "George", "Nathan", "Ethan", "Matthew", "Racist", "Donald", "Stephen", "Robert", "Aardvaark", "Kevin", "Barbonious", "Michael", "Seth", "Zeke", "Ted", "Dominic", "Domestic", "David", "Jeffery", "Hunter", "Owen", "Jim", "Lorenzo", "Joseph", "Mr.", "Howard", "Josh", "Marshall", "LeBron", "James", "Fischer", "Tim", "Lucas", "Billy", "Lachlan", "Gary", "Norman", "Barrack", "Eddie", "Eco", "Tsar", "Ranjit", "Lincoln", "William", "Frank", "Jerome", "Neil", "Patrick", "Logan", "Albert", "Ernest", "Benjamin", "Adam", "Barney", "Felix", "Ralph", "Jaquavius", "Throquemorton", "Emmett", "Junior", "Nicholas", "Julian", "Aaron", "Skeeth", "Brian", "Denson", "Kelvin", "Gorge", "Pinkle", "Posture", "Lawrence", "Stanley", "Gregory", "Heath", "Ryan", "Ross", "Jake", "Raymond", "Glenn", "Terry", "Andre", "Joe", "Dirk", "Norme", "Oscar", "Fredandrewjamin", "Chidi", "Jianyu", "Manny", "Luke", "Bambadjan", "Trevor", "Tejas", "Taste", "Lithuania", "Nerd", "Mark", "The", "Lupus", "Harry", "Flint", "Bartholomew", "Brown", "Squnch", "Elliot", "Chase", "Daryl", "Alan", "Sandy", "Garrison", "Carter", "Gru", "Chandler", "Cheese", "Vince", "Miles", "Martin", "Carl", "Manase", "Henry", "Leo", "Arthur", "Hudson", "Chunce", "Brunch", "Lionel", "Chris", "Aden", "Dean", "Cameron", "Ferris", "Xander", "Zachary"] #masculine first names
 
-const fFirstNames = ["Minh", "Arwyn", "Lily", "Violet", "Fresh", "Plunk", "Hannah", "Elena", "Sienna", "Alice", "Jacqueline", "Debbie", "Cheyanne", "Mrs.", "Lungs", "Ella", "Les", "Amber", "Skylar", "Tracy", "Beatrice", "Hayley", "Denise", "Alexa", "Athena", "Christina", "Holly", "Jessica", "Cook", "Amy", "Jeanette", "Eloise", "Amethyst", "Pheromone", "Cecilia", "Hazel", "Judy", "Gertrude", "Rose", "Lauren", "Ester", "Taylor", "Annabelle", "Jillian", "Jennifer", "Victoria", "Ava", "Hayley", "Mia", "Aria", "Linda", "Julia", "Heather", "Selena", "Dakota", "Stacy", "Stella", "Pearl", "Lea", "Eula", "AuthO", "Valarie", "Mary", "Dorothy", "Sharon", "Dianne", "Dina", "Janet", "Layla", "Charlette", "Mia", "Lori", "Eleanor", "Stephanie", "Tifanny", "Chelsea", "Trish", "Tahani", "Tiya", "Mindy", "Rebecca", "April", "June", "Maya", "Jaundice", "Melinda", "Lick", "Amanda", "Persephone", "Eve", "P.", "Strawberry", "Nicole", "Alanis", "Nora", "Cristin", "Stormy", "Lucy", "Amelia", "Toothbrush", "Evelyn", "Ariana", "Grace", "Harper", "Madison", "Scarlet", "Hadley", "Eva", "Atlas", "Olivia", "Hiro", "Lexie", "Patricia", "Sarah", "Tamantha", "Veronica", "Yobin", "Dolly", "Mila", "Sophia", "Eilzabeth", "Chloe", "Abigail", "Ivy", "Willow", "Delilah", "Sadie", "Maggie", "Madeline", "Eden", "Alina", "Krirsten"] #feminine first names
+const fFirstNames = ["Minh", "Arwyn", "Lily", "Violet", "Fresh", "Plunk", "Hannah", "Elena", "Sienna", "Alice", "Jacqueline", "Debbie", "Cheyanne", "Mrs.", "Lungs", "Ella", "Les", "Amber", "Skylar", "Tracy", "Beatrice", "Hayley", "Denise", "Alexa", "Athena", "Christina", "Holly", "Jessica", "Cook", "Amy", "Jeanette", "Eloise", "Amethyst", "Pheromone", "Cecilia", "Hazel", "Judy", "Gertrude", "Rose", "Lauren", "Ester", "Taylor", "Annabelle", "Jillian", "Jennifer", "Victoria", "Ava", "Hayley", "Mia", "Aria", "Linda", "Julia", "Heather", "Selena", "Dakota", "Stacy", "Stella", "Pearl", "Lea", "Eula", "AuthO", "Valarie", "Mary", "Dorothy", "Sharon", "Dianne", "Dina", "Janet", "Layla", "Charlette", "Mia", "Lori", "Eleanor", "Stephanie", "Tifanny", "Chelsea", "Trish", "Tahani", "Tiya", "Mindy", "Rebecca", "April", "June", "Maya", "Jaundice", "Melinda", "Lick", "Amanda", "Persephone", "Eve", "P.", "Strawberry", "Nicole", "Alanis", "Nora", "Cristin", "Stormy", "Lucy", "Amelia", "Toothbrush", "Evelyn", "Ariana", "Grace", "Harper", "Madison", "Scarlet", "Hadley", "Eva", "Atlas", "Olivia", "Hiro", "Lexie", "Patricia", "Sarah", "Tamantha", "Veronica", "Yobin", "Dolly", "Mila", "Sophia", "Eilzabeth", "Chloe", "Abigail", "Ivy", "Willow", "Delilah", "Sadie", "Maggie", "Madeline", "Eden", "Alina", "Krirsten", "L'Oreal"] #feminine first names
 
 const uFirstNames = ["Robyn", "Jesse", "Quinn", "Riley", "Charly", "Sam", "McKenzie", "Quiche", "Dijon", "Fat", "Beanus", "Monty", "House", "Jaundice", "Gamboge", "Darcy", "Gen", "Bowel", "Luca", "Tomato", "Noel", "Disco", "Steel", "Lightning", "Weezer", "Detlef", "Gord", "Rowan", "Aether", "Jamie", "Old Jr."] #unisex first names
 
@@ -27,9 +27,9 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 		1: #if 1, you are female
 			global.sex = "F"
 			print("you are female!")
-	global.joy = randi_range(10, 90)
+	global.joy = randi_range(0, 100)
 	global.health = randi_range(0, 100)
-	global.intellect = randi_range(10, 90)
+	global.intellect = randi_range(0, 100)
 	global.looks = randi_range(0, 100)
 	global.age = 0
 	global.firstName = ""
@@ -40,6 +40,8 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	global.familyAges = []
 	global.familyRelationships = []
 	global.familySexes = []
+	global.logs = ""
+	global.money = 0
 	print("Joy: " + str(global.joy))
 	print("Health: " + str(global.health))
 	print("Intellect: " + str(global.intellect))
@@ -88,7 +90,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 			global.familyTypes.append("Mother") #appends mother
 		else: #if you have a single father
 			global.familyTypes.append("Father") #appends father
-		howManyGrandparents = randi_range(0,2) #how many grandparents do you have
+		howManyGrandparents = randi_range(0, 2) #how many grandparents do you have
 	else: #if you have TWO parents
 		howManyParents = 2 #you have two parents
 		if randi_range(1, 14) == 1: #if you have two parents of the same sex
@@ -101,7 +103,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 		else: #if you have two parents of DIFFERENT sex
 			global.familyTypes.append("Mother") #appends mother
 			global.familyTypes.append("Father") #appends father
-		howManyGrandparents = randi_range(0,4) #how many grandparents do you have
+		howManyGrandparents = randi_range(0, 4) #how many grandparents do you have
 	if randi_range(1, 2) == 1: #if you're getting siblings
 		var howManySiblings = randi_range(1, 4) #how many siblings will be generated
 		while howManySiblings > 0: #while there are still siblings left to be generated
@@ -124,7 +126,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 				global.familyTypes.append("Grandmother") #appends grandmother
 				global.familyTypes.append("Grandfather") #appends grandfather
 				howManyGrandparents -= 2 #-2 because we just appended two grandparents at once
-		else: #if you only have one grandparent left to generate (can't be 0 because to be here in the first place you must have over 0
+		else: #if you only have one grandparent left to generate (can't be 0 because to be here in the first place you must have over 0)
 			if randi_range(1, 2) == 1: #if you have one grandmother
 				global.familyTypes.append("Grandmother") #appends grandmother
 			else: #if you have one grandfather
@@ -227,12 +229,13 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 			ageOfGrandparent = global.familyTypes.find("Grandmother") #finds index of grandmother
 			if ageOfGrandparent == -1: #if you have NO grandmother
 				ageOfGrandparent = global.familyTypes.find("Grandfather") #if you have neither a grandmother nor a grandfather, this variable won't be used anyway. Don't lose any sleep over it.
-			global.familyAges.append(randi_range(ageOfParent, ageOfGrandparent - 18)) #gives uncaunt an age. They will be between 18 and 45 years younger than your grandparent (their parent).
+			ageOfGrandparent = global.familyAges[ageOfGrandparent] #sets ageOfGrandparent to the actual age of the grandparent at index ageOfGrandparent (set just before) (it's confusing)
+			global.familyAges.append(randi_range(ageOfParent, ageOfGrandparent - 18)) #gives uncaunt an age. They will be between the age of YOUR parent and 18 years younger than your grandparent (THEIR parent).
 		elif global.familyTypes[i] == "Cousin": #if family member is a... cousin. Look, I don't know man, this is super self-explanatory
 			ageOfUncaunt = global.familyTypes.find("Aunt") #finds index of aunt
 			if ageOfUncaunt == -1: #if you have NO aunt
 				ageOfUncaunt = global.familyTypes.find("Uncle") #again, if you have neither an aunt nor an uncle, this variable will not be used. Do not bother worrying about it.
-			global.familyAges.append(randi_range(ageOfUncaunt - 18, ageOfUncaunt - 45)) #gives cousin an age. They will be between 18 and 45 years younger than your Uncaunt (their parent).
+			global.familyAges.append(randi_range(0, ageOfUncaunt - 18)) #gives cousin an age. They will be between 18 and 45 years younger than your Uncaunt (their parent).
 	print(global.familyFirstNames)
 	print(global.familyLastNames)
 	print(global.familySexes)
@@ -244,6 +247,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	await get_tree().process_frame #waits until the frame is fully loaded. Without this, the screen flashes gray while on this scene
 	$loadingText.text = tips[randi_range(0, tips.size() - 1)] #picks a random tip to display. Must be size -1 because arrays are 0-indexed, meaning that the number of items in the array will be 1 more than the index of the last item.
 	cleanLife()
 	namePicker()

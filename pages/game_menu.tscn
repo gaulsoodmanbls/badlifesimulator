@@ -6,6 +6,14 @@
 [ext_resource type="Texture2D" uid="uid://i1sobtkpdvcs" path="res://assets/plus-white.png" id="3_hnohk"]
 [ext_resource type="Texture2D" uid="uid://di3wdmdrsyafk" path="res://assets/egg-cracked-full-used-rotated.png" id="4_4h7a2"]
 [ext_resource type="Texture2D" uid="uid://dem3xsw7xi24n" path="res://assets/egg-cracked.png" id="5_ec2j7"]
+[ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="7_ec2j7"]
+[ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="7_qyc5l"]
+[ext_resource type="LabelSettings" uid="uid://yi5vjum7s3is" path="res://styles/text/body_bold.tres" id="8_5i0yf"]
+[ext_resource type="LabelSettings" uid="uid://pehp7xsrxr1l" path="res://styles/text/money.tres" id="10_smqxy"]
+[ext_resource type="Texture2D" uid="uid://cdgf0atv5lvrf" path="res://assets/run.png" id="11_i16v1"]
+[ext_resource type="Texture2D" uid="uid://bvbejub1v4kkh" path="res://assets/heart.png" id="12_bqpvg"]
+[ext_resource type="Texture2D" uid="uid://clp2stmtuu3hu" path="res://assets/shopping-bag.png" id="13_q0b0c"]
+[ext_resource type="Texture2D" uid="uid://bjetevdv5fljh" path="res://assets/briefcase.png" id="14_lw86i"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qyc5l"]
 texture = ExtResource("4_4h7a2")
@@ -26,13 +34,23 @@ script = ExtResource("1_4h7a2")
 
 [node name="background" parent="." unique_id=305944048 instance=ExtResource("1_owp1n")]
 
-[node name="circularButton" parent="." unique_id=509130995 instance=ExtResource("2_jhx4l")]
-offset_left = 440.0
-offset_top = 1100.0
-offset_right = 640.0
-offset_bottom = 1300.0
+[node name="name" type="Label" parent="." unique_id=674454806]
+offset_left = 100.0
+offset_top = 50.0
+offset_right = 980.0
+offset_bottom = 1962.0
+text = "Name Johnson"
+label_settings = ExtResource("7_qyc5l")
+horizontal_alignment = 1
+autowrap_mode = 2
 
-[node name="plus" type="Sprite2D" parent="circularButton" unique_id=1068915531]
+[node name="ageUpButton" parent="." unique_id=509130995 instance=ExtResource("2_jhx4l")]
+offset_left = 440.0
+offset_top = 980.0
+offset_right = 640.0
+offset_bottom = 1180.0
+
+[node name="plus" type="Sprite2D" parent="ageUpButton" unique_id=1068915531]
 position = Vector2(100, 100)
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("3_hnohk")
@@ -52,6 +70,100 @@ grow_vertical = 2
 pivot_offset = Vector2(50, 50)
 theme = SubResource("Theme_bqpvg")
 
+[node name="logs" type="Label" parent="." unique_id=505672089]
+offset_top = 550.0
+offset_right = 1080.0
+offset_bottom = 822.0
+text = "Logs will go here."
+label_settings = ExtResource("7_ec2j7")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="money" type="Label" parent="." unique_id=744660011]
+offset_top = 1300.0
+offset_right = 1080.0
+offset_bottom = 1360.0
+text = "Money: $N/A"
+label_settings = ExtResource("10_smqxy")
+horizontal_alignment = 1
+
+[node name="age" type="Label" parent="." unique_id=1513164279]
+offset_top = 1400.0
+offset_right = 1080.0
+offset_bottom = 1460.0
+text = "Age: x"
+label_settings = ExtResource("8_5i0yf")
+horizontal_alignment = 1
+
+[node name="joy" type="Label" parent="." unique_id=1646613292]
+offset_top = 1475.0
+offset_right = 1080.0
+offset_bottom = 1535.0
+text = "Joy: x"
+label_settings = ExtResource("7_ec2j7")
+horizontal_alignment = 1
+
+[node name="health" type="Label" parent="." unique_id=370618692]
+offset_top = 1550.0
+offset_right = 1080.0
+offset_bottom = 1610.0
+text = "Health: x"
+label_settings = ExtResource("7_ec2j7")
+horizontal_alignment = 1
+
+[node name="intellect" type="Label" parent="." unique_id=964933205]
+offset_top = 1625.0
+offset_right = 1080.0
+offset_bottom = 1685.0
+text = "Intellect: x"
+label_settings = ExtResource("7_ec2j7")
+horizontal_alignment = 1
+
+[node name="looks" type="Label" parent="." unique_id=1746060993]
+offset_top = 1700.0
+offset_right = 1080.0
+offset_bottom = 1760.0
+text = "Looks: x"
+label_settings = ExtResource("7_ec2j7")
+horizontal_alignment = 1
+
+[node name="activities" type="TextureButton" parent="." unique_id=1637612223]
+offset_left = 670.0
+offset_top = 1010.0
+offset_right = 820.0
+offset_bottom = 1160.0
+texture_normal = ExtResource("11_i16v1")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="relationships" type="TextureButton" parent="." unique_id=1799853155]
+offset_left = 830.0
+offset_top = 1010.0
+offset_right = 980.0
+offset_bottom = 1160.0
+texture_normal = ExtResource("12_bqpvg")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="inventory" type="TextureButton" parent="." unique_id=490609811]
+offset_left = 260.0
+offset_top = 1010.0
+offset_right = 410.0
+offset_bottom = 1160.0
+texture_normal = ExtResource("13_q0b0c")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="occupation" type="TextureButton" parent="." unique_id=859879304]
+offset_left = 100.0
+offset_top = 1015.0
+offset_right = 250.0
+offset_bottom = 1165.0
+texture_normal = ExtResource("14_lw86i")
+ignore_texture_size = true
+stretch_mode = 0
+
+[connection signal="pressed" from="ageUpButton" to="." method="_on_age_up_button_pressed"]
 [connection signal="mouse_entered" from="newGameEgg" to="." method="_on_new_game_egg_mouse_entered"]
 [connection signal="mouse_exited" from="newGameEgg" to="." method="_on_new_game_egg_mouse_exited"]
 [connection signal="pressed" from="newGameEgg" to="." method="_on_new_game_egg_pressed"]

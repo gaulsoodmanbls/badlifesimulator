@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://8du6o0docy8y"]
+
+[ext_resource type="Script" uid="uid://c74wfp3173dux" path="res://pages/scripts/ageUp.gd" id="1_c48n8"]
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="2_01tjl"]
+
+[node name="age_up" type="Node2D" unique_id=1256341001]
+script = ExtResource("1_c48n8")
+
+[node name="background" parent="." unique_id=1846199054 instance=ExtResource("2_01tjl")]

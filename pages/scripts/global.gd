@@ -16,6 +16,8 @@ var joy = 0
 var health = 0
 var intellect = 0
 var looks = 0
+var logs = ""
+var money = 0
 
 
 #family

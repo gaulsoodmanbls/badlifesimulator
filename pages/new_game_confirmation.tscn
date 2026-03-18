@@ -27,11 +27,19 @@ offset_bottom = 784.0
 text = "Nevermind"
 
 [node name="yes" parent="." unique_id=1544237965 instance=ExtResource("3_a71gq")]
-offset_left = 403.0
+offset_left = 378.0
 offset_top = 850.0
-offset_right = 677.0
+offset_right = 703.0
 offset_bottom = 934.0
-text = "Continue"
+text = "New game"
+
+[node name="mainMenu" parent="." unique_id=1983260893 instance=ExtResource("3_a71gq")]
+offset_left = 248.0
+offset_top = 1000.0
+offset_right = 833.0
+offset_bottom = 1084.0
+text = "Back to main menu"
 
 [connection signal="pressed" from="cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="yes" to="." method="_on_yes_pressed"]
+[connection signal="pressed" from="mainMenu" to="." method="_on_main_menu_pressed"]

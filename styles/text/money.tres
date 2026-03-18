@@ -1,0 +1,8 @@
+[gd_resource type="LabelSettings" format=3 uid="uid://pehp7xsrxr1l"]
+
+[ext_resource type="FontFile" uid="uid://bf7pfy6renkw4" path="res://assets/fonts/poppins/Poppins-Regular.ttf" id="1_3pdca"]
+
+[resource]
+font = ExtResource("1_3pdca")
+font_size = 42
+font_color = Color(0, 0.5019608, 0, 1)
