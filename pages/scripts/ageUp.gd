@@ -27,7 +27,7 @@ func _ready() -> void:
 		global.looks = 0
 	elif global.looks > 100:
 		global.looks = 100
-	if randi_range(1, 2): #if you're getting a random event (1 in 2 chance)
+	if randi_range(1, 2) == 1: #if you're getting a random event (1 in 2 chance)
 		if global.age >= 2: #you must be 2 or over to get random age up events
 			print("choosing random age up event...")
 			if global.age <= 4: #if age is 4 or above

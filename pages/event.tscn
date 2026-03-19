@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="5_1lnki"]
 [ext_resource type="Theme" uid="uid://b7ik156icwyyk" path="res://styles/button1/button1EventOptions.tres" id="6_tadka"]
 
-[node name="event4" type="Node2D" unique_id=102854654]
+[node name="event" type="Node2D" unique_id=102854654]
 script = ExtResource("1_pi1xr")
 
 [node name="background" parent="." unique_id=1499591412 instance=ExtResource("2_tphct")]
@@ -53,3 +53,7 @@ offset_left = 40.0
 offset_right = 40.0
 theme = ExtResource("6_tadka")
 text = ""
+
+[connection signal="pressed" from="option1" to="." method="_on_option_1_pressed"]
+[connection signal="pressed" from="option2" to="." method="_on_option_2_pressed"]
+[connection signal="pressed" from="option3" to="." method="_on_option_3_pressed"]

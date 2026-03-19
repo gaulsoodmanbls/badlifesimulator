@@ -55,6 +55,76 @@ func eventer(): #does the events
 	#teenagehood
 	#adulthood
 	#elderlyhood
+	
+	#option 1
+	if global.revent[0] == "toddler-0-o1":
+		$heading.text = "Nooo"
+		if global.familyTypes.has("Mother"): #if you have a mother
+			$body.text = "She says no. You go home depressed and don't leave your room for 11 days.\n- 10 Joy" #mother-specific body text
+		elif global.familyTypes.has("Father"): #if you have a father
+			$body.text = "He says no. You go home depressed and don't keave your room for 11 days.\n- 10 Joy" #father-specific body text
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		global.joy -= 10 #deducts 10 joy
+	
+	#option 2
+	if global.revent[0] == "toddler-0-o2":
+		$heading.text = "You screamed for ice cream"
+		if global.familyTypes.has("Mother"):
+			$body.text = "You cry, and eventually your mother gives in and buys you one.\nJoy + 5, relationship with mother -5"
+			global.familyRelationships[global.familyTypes.find("Mother")] -= 5
+		elif global.familyTypes.has("Father"):
+			$body.text = "You cry, and eventually your father gives in and buys you one.\nJoy + 5, relationship with father -5"
+			global.familyRelationships[global.familyTypes.find("Father")] -= 5
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		global.joy += 5
+	
+	#option 3
+	if global.revent[0] == "toddler-0-o3":
+		$heading.text = "If you insist"
+		if global.familyTypes.has("Mother"):
+			$body.text = "Your mother points to the shop and asks you if you want to get one. You go on to have a great day out together.\nJoy + 10, relationship with mother + 10"
+			global.familyRelationships[global.familyTypes.find("Mother")] += 10
+		elif global.familyTypes.has("Father"):
+			$body.text = "Your father points to the shop and asks you if you want to get one. You go on to have a great day out together.\nJoy + 10, relationship with father + 10"
+			global.familyRelationships[global.familyTypes.find("Father")] += 10
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		global.joy += 10
+		
+
+
+func _on_option_1_pressed() -> void: #on option 1 selected
+	if global.revent[0] == "toddler-0":
+		global.revent[0] = "toddler-0-o1" #replaces the first revent (toddler 0) to toddler-0 option 1
+		get_tree().reload_current_scene() #reloads page to update so the new revent displays
+		return
+	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
+	if global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3":
+		global.revent.pop_front() #removes element at index 0 from the revent array
+		get_tree().change_scene_to_file("res://pages/game_menu.tscn")
+		return
+
+
+func _on_option_2_pressed() -> void: #on option 2 selected
+	if global.revent[0] == "toddler-0":
+		global.revent[0] = "toddler-0-o2" #replaces the first revent (toddler 0) to toddler-0 option 2
+		get_tree().reload_current_scene()
+		return
+
+
+func _on_option_3_pressed() -> void:
+	if global.revent[0] == "toddler-0":
+		global.revent[0] = "toddler-0-o3" #replaces the first revent (toddler 0) to toddler-0 option 2
+		get_tree().reload_current_scene()
+		return
 
 
 # Called when the node enters the scene tree for the first time.
