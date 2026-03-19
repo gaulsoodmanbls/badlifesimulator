@@ -39,8 +39,19 @@ func repositionResize(): #repositions and resizes the nodes on-screen
 	$option4.position.x = 1080 / 2 - ($option4.size.x / 2)
 
 
-func eventer(): #does the events
-	#toddlerhood
+func outcome(reventID):
+	global.revent[0] = reventID
+	get_tree().reload_current_scene()
+	return
+
+
+func goHome():
+	global.revent.pop_front()
+	get_tree().change_scene_to_file("res://pages/game_menu.tscn")
+	return
+
+
+func toddlerhood(): #toddlerhood base events - prefix is "toddler-"
 	if global.revent[0] == "toddler-0": #if first element in the revent array is the following one
 		$heading.text = "Parkscream"
 		$body.text = "While out with your family at the park, you notice that there is an ice cream shop situated across the road."
@@ -51,12 +62,34 @@ func eventer(): #does the events
 		$option2.text = "Cry until you get one"
 		$option3.text = "Bite your tongue and don't say anything"
 		$option4.modulate.a = 0 #there is no fourth option; this makes the button transparent (opacity of 0) so you can't see it. There is no way to interact with it either, provided its click functionality isn't implemented within the "if" statement for this event.
-	#childhood
-	#teenagehood
-	#adulthood
-	#elderlyhood
-	
-	#option 1
+		$credit.text = "mconcerning"
+
+
+func childhood(): #childhood base events - prefix is "child-"
+	if global.revent[0] == "child-0":
+		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #which relative will be featured in this event? gets the index of the family member you have the lowest relationship with.
+		$heading.text = "Soft start"
+		$body.text = "It's your birthday party, and it's time to open presents! But the first present you open from your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice]) + ", was just a bunch of pillows and other bedding."
+		$option1.text = "Thank them anyways"
+		$option2.text = "Thank them enthusiastically"
+		$option3.text = "Pitch a fit and cry"
+		$option4.modulate.a = 0
+		$credit.text = "Goblin + mconcerning"
+
+
+func teenagehood(): #teenage base events - prefix is "teenager-"
+	pass
+
+
+func adulthood(): #adult base events - prefix is "adult-"
+	pass
+
+
+func elderhood(): #elderly base events - prefix is "elder-"
+	pass
+
+
+func option1events(): #option 1 has been picked
 	if global.revent[0] == "toddler-0-o1":
 		$heading.text = "Nooo"
 		if global.familyTypes.has("Mother"): #if you have a mother
@@ -68,8 +101,18 @@ func eventer(): #does the events
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 		global.joy -= 10 #deducts 10 joy
-	
-	#option 2
+	elif global.revent[0] == "child-0-o1":
+		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
+		$heading.text = "Wow... It's just... Wow."
+		$body.text = "They appreciate your kind words, but you feel kind of bad about lying.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 5 Joy"
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		global.familyRelationships[relativeOfChoice] += 5 #adds 5 to the relationship you have with the gifter
+
+
+func option2events(): #option 2 has been picked
 	if global.revent[0] == "toddler-0-o2":
 		$heading.text = "You screamed for ice cream"
 		if global.familyTypes.has("Mother"):
@@ -83,8 +126,20 @@ func eventer(): #does the events
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 		global.joy += 5
-	
-	#option 3
+	elif global.revent[0] == "child-0-o2":
+		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
+		$heading.text = "Wow! It's just... Wow!"
+		$body.text = "They appreciate your kind words, so much so that they surprise you with another $50, but you feel really bad about lying.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 10 Joy, + $50"
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		global.familyRelationships[relativeOfChoice] += 8
+		global.joy -= 10
+		global.money += 50
+
+
+func option3events(): #option 3 has been picked
 	if global.revent[0] == "toddler-0-o3":
 		$heading.text = "If you insist"
 		if global.familyTypes.has("Mother"):
@@ -98,7 +153,29 @@ func eventer(): #does the events
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 		global.joy += 10
-		
+	elif global.revent[0] == "child-0-o3":
+		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
+		$heading.text = "Wow, this sucks"
+		var parents = [] #indexes of all parents; size determines whether "parent" should be plural or not in the body text
+		for i in global.familyTypes.size(): #runs through every family member to check for parents
+			if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Father": #if family member at the index we're checking is a parent
+				parents.append(i)
+		if parents.size() > 1: #if you have more than one parent
+			$body.text = "Your parents scold you for being unappreciative.\n- 8 relationship with gifter, -8 relationship with parents, - 12 Joy"
+		else: #if you only have one parent
+			$body.text = "Your parent scolds you for being unappreciative.\n- 8 relationship with gifter, -8 relationship with parents, - 12 Joy"
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		global.familyRelationships[relativeOfChoice] -= 8 #deduct 8 relationship with gifter
+		for i in parents.size(): #runs through every parent
+				global.familyRelationships[parents[i]] -= 8 #deducts 8 relationship from the parent at the index of parents[i] (parents stores indexes, so the parents at position i in the parents array could have a different index to themself in the other family arrays.
+		global.joy -= 12
+
+
+func option4events(): #option 3 has been picked
+	pass
 
 
 func _on_option_1_pressed() -> void: #on option 1 selected
@@ -107,10 +184,14 @@ func _on_option_1_pressed() -> void: #on option 1 selected
 		get_tree().reload_current_scene() #reloads page to update so the new revent displays
 		return
 	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
-	if global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3":
+	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3":
 		global.revent.pop_front() #removes element at index 0 from the revent array
 		get_tree().change_scene_to_file("res://pages/game_menu.tscn")
 		return
+	elif global.revent[0] == "child-0":
+		outcome("child-0-o1")
+	elif global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3":
+		goHome()
 
 
 func _on_option_2_pressed() -> void: #on option 2 selected
@@ -118,17 +199,42 @@ func _on_option_2_pressed() -> void: #on option 2 selected
 		global.revent[0] = "toddler-0-o2" #replaces the first revent (toddler 0) to toddler-0 option 2
 		get_tree().reload_current_scene()
 		return
-
-
-func _on_option_3_pressed() -> void:
-	if global.revent[0] == "toddler-0":
-		global.revent[0] = "toddler-0-o3" #replaces the first revent (toddler 0) to toddler-0 option 2
+	elif global.revent[0] == "child-0":
+		global.revent[0] = "child-0-o2"
 		get_tree().reload_current_scene()
 		return
 
 
+func _on_option_3_pressed() -> void: #on option 3 selected
+	if global.revent[0] == "toddler-0":
+		global.revent[0] = "toddler-0-o3" #replaces the first revent (toddler 0) to toddler-0 option 2
+		get_tree().reload_current_scene()
+		return
+	elif global.revent[0] == "child-0":
+		global.revent[0] = "child-0-o3"
+		get_tree().reload_current_scene()
+		return
+
+
+func _on_option_4_pressed() -> void: #on option 4 selected
+	pass # Replace with function body.
+
+
+func eventer(): #does the base events (before options are picked)
+	toddlerhood()
+	childhood()
+	teenagehood()
+	adulthood()
+	elderhood()
+	option1events()
+	option2events()
+	option3events()
+	option4events()
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	print("showing event " + str(global.revent[0])) #prints the first event ID (the one that is about to be shown) in the revent array
 	await get_tree().process_frame #waits for frame to be processed first to avoid weirdness
 	eventer()
 	repositionResize()

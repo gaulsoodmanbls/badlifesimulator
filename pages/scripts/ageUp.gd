@@ -40,7 +40,7 @@ func _ready() -> void:
 				global.revent.append("adult-" + str(randi_range(0, 0)))
 			elif global.age >= 66: #if age is over 66
 				global.revent.append("elder-" + str(randi_range(0, 0)))
-			print(global.revent[global.revent.size() - 1]) #prints the last event ID (the one that was just appended now) in the revent array
+			print("appended event " + str(global.revent[global.revent.size() - 1])) #prints the last event ID (the one that was just appended) in the revent array
 	if global.revent.size() > 0: #if there are random events slated to appear
 		get_tree().change_scene_to_file("res://pages/event.tscn") #goes to the event page
 	else: #if there aren't random events slated to appear

@@ -5,6 +5,7 @@
 [ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="3_ueyd5"]
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="4_0ykd5"]
 [ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="5_1lnki"]
+[ext_resource type="LabelSettings" uid="uid://d2sr5rgpltp8f" path="res://styles/text/small_body.tres" id="5_tphct"]
 [ext_resource type="Theme" uid="uid://b7ik156icwyyk" path="res://styles/button1/button1EventOptions.tres" id="6_tadka"]
 
 [node name="event" type="Node2D" unique_id=102854654]
@@ -29,6 +30,13 @@ offset_bottom = 310.0
 text = "Event body text."
 label_settings = ExtResource("4_0ykd5")
 horizontal_alignment = 1
+
+[node name="credit" type="Label" parent="." unique_id=1815895007]
+offset_left = 30.0
+offset_top = 1860.0
+offset_right = 1043.0
+offset_bottom = 1903.0
+label_settings = ExtResource("5_tphct")
 
 [node name="option1" parent="." unique_id=1544237965 instance=ExtResource("5_1lnki")]
 offset_left = 40.0
@@ -57,3 +65,4 @@ text = ""
 [connection signal="pressed" from="option1" to="." method="_on_option_1_pressed"]
 [connection signal="pressed" from="option2" to="." method="_on_option_2_pressed"]
 [connection signal="pressed" from="option3" to="." method="_on_option_3_pressed"]
+[connection signal="pressed" from="option4" to="." method="_on_option_4_pressed"]
