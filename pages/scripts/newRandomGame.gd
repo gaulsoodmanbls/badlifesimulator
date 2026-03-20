@@ -2,6 +2,10 @@ extends Node2D #author(s): Ethan Scott
 #generates a random life for the player
 
 
+func load_list(path): #loads list of anything from a seperate file :) used for names
+	return FileAccess.get_file_as_string(path).split(",") #items in the list are split up by commas
+
+
 var tips = ["Stuck? Try not being stuck.", "Working minimum wage is not an effective way to earn a high wage.", "Taxes are due! Evading them could lead to fines or imprisonment.", "Remember to eat your one small rock per day.", "Low on sodium? Eat some pure sodium metal.", "Japan has five vending machines per fighter pilot.", "Clumps in your cheesecake? Try using a declumper from your inventory.", "Clumps in your friend group? Try using a declumper from your inventory.", "Donating blood? Make sure your blood type is the same as the recipients'.", "Please inform your doctor if you believe you have played this game before. You might think you have. You haven't. This is only an illusion.", "Sun too bright? Try wearing sunglasses!", "Once dead, you are no longer alive. Keep this in mind when dying.", "Check the UV index in your area before going outside.", "Strapped for cash? Rob a bank.", "Your device is probably extremely slow if you are able to read this.", "You're not eating enough drywall.", "You're eating too much drywall.", "Famous poet Reinhardt Böhmer died in 1997 after buying an armchair 14 minutes before it went on a 90% flash sale.", "'I'm gonna make him an offer he can[...] refuse.'"] #tips to be displayed on the screen during loading :)
 
 
@@ -82,7 +86,7 @@ func epicStatChanges(): #changes your stats, epicly, based on factors outside of
 
 func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME WHY WHY WHYYYY
 	#types (happens first)
-	var howManyGrandparents = 0 #how many gransparents do you have, if any? number is generated later. max is 2x number of parents
+	var howManyGrandparents = 0 #how many grandparents do you have, if any? number is generated later. max is 2x number of parents
 	var howManyParents = 0 #how many parents do you have?
 	if randi_range(1, 8) == 1: #if you have a single parent
 		howManyParents = 1 #you have one parent

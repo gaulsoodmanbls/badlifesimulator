@@ -19,6 +19,8 @@ var intellect = 0
 var looks = 0
 var logs = ""
 var money = 0
+#hidden stats - not shown to the player
+var evality = 0 #on a scale from 0 - 100, how evil are you? i.e. how much joy do you derive from doing bad things, and what bad things are you capable of? higher is more.
 
 
 #family
@@ -28,3 +30,19 @@ var familyTypes = []
 var familyAges = []
 var familySexes = []
 var familyRelationships = []
+
+#other (miscellanious) relationships
+var miscFirstNames = []
+var miscLastNames = []
+var miscTypes = []
+var miscAges = []
+var miscSexes = []
+var miscRelationships = []
+
+
+#miscellanious stuff that must be stored over multiple pages
+#things that must be kept track of when inventing new people for events
+var eventPersonFirstName = ""
+var eventPersonLastName = ""
+var eventPersonAge = ""
+var eventPersonSex = ""

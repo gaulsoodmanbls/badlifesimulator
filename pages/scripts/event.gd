@@ -2,7 +2,6 @@ extends Node2D #author(s): Ethan Scott
 #handles events with 4 options
 
 
-@warning_ignore("integer_division") #this is really annoying, inconsequential, and I don't know how to fix it so
 func repositionResize(): #repositions and resizes the nodes on-screen
 	$heading.size.y = 0
 	$body.size.y = 0
@@ -69,7 +68,7 @@ func childhood(): #childhood base events - prefix is "child-"
 	if global.revent[0] == "child-0":
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #which relative will be featured in this event? gets the index of the family member you have the lowest relationship with.
 		$heading.text = "Soft start"
-		$body.text = "It's your birthday party, and it's time to open presents! But the first present you open from your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice]) + ", was just a bunch of pillows and other bedding."
+		$body.text = "It's your birthday party, and it's time to open presents! But the first present you open from your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice]) + ", was just a bunch of pillows and other bedding. You kind of wish they had just gotten you something else instead."
 		$option1.text = "Thank them anyways"
 		$option2.text = "Thank them enthusiastically"
 		$option3.text = "Pitch a fit and cry"
@@ -104,12 +103,17 @@ func option1events(): #option 1 has been picked
 	elif global.revent[0] == "child-0-o1":
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
 		$heading.text = "Wow... It's just... Wow."
-		$body.text = "They appreciate your kind words, but you feel kind of bad about lying.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 5 Joy"
+		if global.evality < 30: #if evality is under 30, you feel bad about lying
+			$body.text = "They appreciate your kind words, but you feel kind of bad about lying.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 5 Joy"
+			global.joy -= 5
+		else: #if evality is 30 or over, you don't feel bad
+			$body.text = "They appreciate your kind words.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice])
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 		global.familyRelationships[relativeOfChoice] += 5 #adds 5 to the relationship you have with the gifter
+		global.evality += 3 #since you did something semi-bad, you become slightly desensitised to doing bad things
 
 
 func option2events(): #option 2 has been picked
@@ -126,17 +130,22 @@ func option2events(): #option 2 has been picked
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 		global.joy += 5
+		global.evality += 4
 	elif global.revent[0] == "child-0-o2":
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
 		$heading.text = "Wow! It's just... Wow!"
-		$body.text = "They appreciate your kind words, so much so that they surprise you with another $50, but you feel really bad about lying.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 10 Joy, + $50"
+		if global.evality < 40: #if evality is under 40, you feel bad about lying
+			$body.text = "They appreciate your kind words, so much so that they surprise you with another $50, but you feel really bad about lying.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 10 Joy, + $50"
+			global.joy -= 10
+		else: #if evality is 40 or above, you don't feel bad
+			$body.text = "They appreciate your kind words, so much so that they surprise you with another $50.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", + $50"
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 		global.familyRelationships[relativeOfChoice] += 8
-		global.joy -= 10
 		global.money += 50
+		global.evality += 4 #since you did something bad, you become slightly desensitised to doing bad things
 
 
 func option3events(): #option 3 has been picked
@@ -234,6 +243,9 @@ func eventer(): #does the base events (before options are picked)
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if global.revent.size() == 0: #if there are no events queued
+		get_tree().change_scene_to_file("res://pages/game_menu.tscn")
+		return
 	print("showing event " + str(global.revent[0])) #prints the first event ID (the one that is about to be shown) in the revent array
 	await get_tree().process_frame #waits for frame to be processed first to avoid weirdness
 	eventer()

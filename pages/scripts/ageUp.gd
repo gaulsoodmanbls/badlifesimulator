@@ -10,23 +10,6 @@ func _ready() -> void:
 	global.health += randi_range(-8, 8)
 	global.intellect += randi_range(-8, 8)
 	global.looks += randi_range(-8, 8)
-	#if stats are out of bounds (above or below their max/min value)
-	if global.joy < 0:
-		global.joy = 0
-	elif global.joy > 100:
-		global.joy = 100
-	if global.health < 0:
-		global.health = 0
-	elif global.health > 100:
-		global.health = 100
-	if global.intellect < 0:
-		global.intellect = 0
-	elif global.intellect > 100:
-		global.intellect = 100
-	if global.looks < 0:
-		global.looks = 0
-	elif global.looks > 100:
-		global.looks = 100
 	if randi_range(1, 2) == 1: #if you're getting a random event (1 in 2 chance)
 		if global.age >= 2: #you must be 2 or over to get random age up events
 			print("choosing random age up event...")
@@ -41,6 +24,18 @@ func _ready() -> void:
 			elif global.age >= 66: #if age is over 66
 				global.revent.append("elder-" + str(randi_range(0, 0)))
 			print("appended event " + str(global.revent[global.revent.size() - 1])) #prints the last event ID (the one that was just appended) in the revent array
+	if randi_range(1, 10) == 1: #if you're randomly getting a new friend :)
+		if global.age <= 4: #if age is 4 or above
+			global.revent.append("toddler-friend")
+		elif global.age >= 5 && global.age <= 12: #if age is between 5 and 12
+			global.revent.append("child-friend")
+		elif global.age >= 13 && global.age <= 19: #if age is between 13 and 19
+			global.revent.append("teenager-friend")
+		elif global.age >= 20 && global.age <= 65: #if age is between 20 and 65
+			global.revent.append("adult-friend")
+		elif global.age >= 66: #if age is over 66
+			global.revent.append("elder-friend")
+		print("appended event " + str(global.revent[global.revent.size() - 1])) #prints the last event ID (the one that was just appended) in the revent array
 	if global.revent.size() > 0: #if there are random events slated to appear
 		get_tree().change_scene_to_file("res://pages/event.tscn") #goes to the event page
 	else: #if there aren't random events slated to appear
