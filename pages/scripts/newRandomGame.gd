@@ -2,24 +2,25 @@ extends Node2D #author(s): Ethan Scott, GrayyGray
 #generates a random life for the player
 
 
-func loadList(path): #loads list of anything from a seperate file :) used for names. thanks to GrayyGray for using this method originally in a fork
-	return FileAccess.get_file_as_string(path).split(", ") #items in the list are split up by commas followed by spaces
+func loadList(path, splitter): #loads list of anything from a seperate file :) used for names. thanks to GrayyGray for using this method originally in a fork
+	return FileAccess.get_file_as_string(path).split(splitter) #items in the list are split up by commas followed by spaces
 #lists end in a comma followed by a space so any useless data after it (i.e. a new line) is included as the last element, which is popped (removed) when this script is loaded. must be strictly typed as arrays because otherwise godot automatically makes the name arrays and other string arrays into "packed string arrays", which don't let you remove elements as far as I know, but are more memory-efficient than regular arrays. Trust me, I would use those if I could.
 
 
-var tips = ["Stuck? Try not being stuck.", "Working minimum wage is not an effective way to earn a high wage.", "Taxes are due! Evading them could lead to fines or imprisonment.", "Remember to eat your one small rock per day.", "Low on sodium? Eat some pure sodium metal.", "Japan has five vending machines per fighter pilot.", "Clumps in your cheesecake? Try using a declumper from your inventory.", "Clumps in your friend group? Try using a declumper from your inventory.", "Donating blood? Make sure your blood type is the same as the recipients'.", "Please inform your doctor if you believe you have played this game before. You might think you have. You haven't. This is only an illusion.", "Sun too bright? Try wearing sunglasses!", "Once dead, you are no longer alive. Keep this in mind when dying.", "Check the UV index in your area before going outside.", "Strapped for cash? Rob a bank.", "Your device is probably extremely slow if you are able to read this.", "You're not eating enough drywall.", "You're eating too much drywall.", "Famous poet Reinhardt Böhmer died in 1997 after buying an armchair 14 minutes before it went on a 90% flash sale.", "'I'm gonna make him an offer he can[...] refuse.'"] #tips to be displayed on the screen during loading :)
+var tips : Array = loadList("res://data/tips.txt", " | ") #tips to be displayed on the screen during loading :) - items in THIS list are seperated by " | "
 
 
 #name variables
-var mFirstNames : Array = loadList("res://data/mFirstNames.txt") #loads list of masculine first names
-var fFirstNames : Array = loadList("res://data/fFirstNames.txt") #feminine first names
-var uFirstNames : Array = loadList("res://data/uFirstNames.txt") #unisex first names
-var lastNames : Array = loadList("res://data/lastNames.txt") #dude just look at the variable name
-var rareFirstNames : Array = loadList("res://data/rareFirstNames.txt") #only generated in pairs of first name and last name. Regular names roll once for a first name and again to pick a last name, whereas rare names only roll once and pick the corresponding first and last name. So picking "Rob" as a rare first name cannot result in the name "Rob Salad", it will always result in "Rob Ery" as they are both at the same index. This is to make seperating first and last names easier, but also preserve the rare name as originally intended.
-var rareLastNames : Array = loadList("res://data/rareLastNames.txt") #Marl and ™ have only a first name. This will result in some weird behaviour, such as the player being called "Mr./Mrs.[blank]", but that is a sarcrifice I am willing to make.
+var mFirstNames : Array = loadList("res://data/names/mFirstNames.txt", ", ") #loads list of masculine first names
+var fFirstNames : Array = loadList("res://data/names/fFirstNames.txt", ", ") #feminine first names
+var uFirstNames : Array = loadList("res://data/names/uFirstNames.txt", ", ") #unisex first names
+var lastNames : Array = loadList("res://data/names/lastNames.txt", ", ") #dude just look at the variable name
+var rareFirstNames : Array = loadList("res://data/names/rareFirstNames.txt", ", ") #only generated in pairs of first name and last name. Regular names roll once for a first name and again to pick a last name, whereas rare names only roll once and pick the corresponding first and last name. So picking "Rob" as a rare first name cannot result in the name "Rob Salad", it will always result in "Rob Ery" as they are both at the same index. This is to make seperating first and last names easier, but also preserve the rare name as originally intended.
+var rareLastNames : Array = loadList("res://data/names/rareLastNames.txt", ", ") #Marl and ™ have only a first name. This will result in some weird behaviour, such as the player being called "Mr./Mrs.[blank]", but that is a sarcrifice I am willing to make.
 
 
-func arrayCleaner(): #removes the last element of all imported arrays, which SHOULD be occupied by dead space and no actual data
+func arrayCleaner(): #removes the last element of all IMPORTED arrays (from a txt file in res://data/), which SHOULD be occupied by dead space and no actual data
+	tips.pop_back()
 	mFirstNames.pop_back()
 	fFirstNames.pop_back()
 	uFirstNames.pop_back()
@@ -258,8 +259,8 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().process_frame #waits until the frame is fully loaded. Without this, the screen sometimes flashes gray while on this scene
-	$loadingText.text = tips[randi_range(0, tips.size() - 1)] #picks a random tip to display. Must be size -1 because arrays are 0-indexed, meaning that the number of items in the array will be 1 more than the index of the last item.
 	arrayCleaner()
+	$loadingText.text = tips[randi_range(0, tips.size() - 1)] #picks a random tip to display. Must be size -1 because arrays are 0-indexed, meaning that the number of items in the array will be 1 more than the index of the last item.
 	cleanLife()
 	namePicker()
 	epicStatChanges()

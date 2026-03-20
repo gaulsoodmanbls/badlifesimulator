@@ -2,6 +2,53 @@ extends Node2D #author(s): Ethan Scott
 #handles events with 4 options
 
 
+func loadList(path, splitter): #see newRandomGame.gd for more info
+	return FileAccess.get_file_as_string(path).split(splitter)
+
+func arrayCleaner(): #removes the last element of all IMPORTED arrays (from a txt file in res://data/), which SHOULD be occupied by dead space and no actual data
+	mFirstNames.pop_back()
+	fFirstNames.pop_back()
+	uFirstNames.pop_back()
+	lastNames.pop_back()
+	rareFirstNames.pop_back()
+	rareLastNames.pop_back()
+
+
+func EGPGenerator(ageRange): #randomly generates EGPs (Event Generated Persons)
+	#sexer
+	if randi_range(1,2) == 1: #if EGP is male
+		global.eventPersonSex = "M"
+	else: #if EGP is female
+		global.eventPersonSex = "F"
+	#namer
+	if randi_range(1,3000) == 1: #if they're getting a rare name, picks rare first and last names
+		var rareNameIndex = randi_range(0, rareFirstNames.size() - 1) #the first and last names MUST be from the same index in their respective arrays. This generates a random index for them both to be sourced from.
+		global.eventPersonFirstName = rareFirstNames[rareNameIndex] #assigns them a random rare first name
+		global.eventPersonLastName = rareLastNames[rareNameIndex] #assigns them the accompanying rare last name
+		return #done!
+	else: #if they're NOT getting a rare name
+		if randi_range(1,20) == 1: #if they're getting a unisex first name
+			global.eventPersonFirstName = uFirstNames[randi_range(0, uFirstNames.size() - 1)] #assigns them a random unisex first name
+		else: #if they're NOT getting a unisex first name
+			if global.eventPersonSex == "M": #if they are male
+				global.eventPersonFirstName = mFirstNames[randi_range(0, mFirstNames.size() - 1)]
+			else: #if they are female
+				global.eventPersonFirstName = fFirstNames[randi_range(0, fFirstNames.size() - 1)]
+		global.eventPersonLastName = lastNames[randi_range(0, lastNames.size() - 1)] #gives them a random last name
+	#ager
+	global.eventPersonAge = global.age + randi_range(-ageRange, ageRange) #makes the event person between ageRange years younger and ageRange years older than you
+	if global.eventPersonAge < 0: #if the event person's age is less than 0 (possible if you're under the age of the ageRange provided)
+		global.eventPersonAge = 0 #sets their age to 0
+
+#again, see newRandomGame.gd for more info
+var mFirstNames : Array = loadList("res://data/names/mFirstNames.txt", ", ") #loads list of masculine first names
+var fFirstNames : Array = loadList("res://data/names/fFirstNames.txt", ", ") #feminine first names
+var uFirstNames : Array = loadList("res://data/names/uFirstNames.txt", ", ") #unisex first names
+var lastNames : Array = loadList("res://data/names/lastNames.txt", ", ") #last names
+var rareFirstNames : Array = loadList("res://data/names/rareFirstNames.txt", ", ") #rare first names
+var rareLastNames : Array = loadList("res://data/names/rareLastNames.txt", ", ") #rare last names
+
+
 func repositionResize(): #repositions and resizes the nodes on-screen
 	$heading.size.y = 0
 	$body.size.y = 0
@@ -51,7 +98,20 @@ func goHome():
 
 
 func toddlerhood(): #toddlerhood base events - prefix is "toddler-"
-	if global.revent[0] == "toddler-0": #if first element in the revent array is the following one
+	if global.revent[0] == "toddler-friend":
+		$heading.text = "New friend?"
+		EGPGenerator(4) #generates a brand new, never-before-seen person to be featured in this event. Perameter is age range; in this case, the EGP will be between 4 years younger and 4 years older than you.
+		$body.text = "While out visiting a family friend, a small child emerges from another room and sits down to start playing with you.\n(" + global.eventPersonFirstName + " " + global.eventPersonLastName + ", " + global.eventPersonSex + ", " + str(global.eventPersonAge) + " years old)"
+		if global.eventPersonSex == "M": #if EPG is male
+			$option1.text = "Befriend him"
+			$option2.text = "Ignore him"
+		else: #if EPG is female
+			$option1.text = "Befriend her"
+			$option2.text = "Ignore her"
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		$credit.text = "mconcerning"
+	elif global.revent[0] == "toddler-0": #if first element in the revent array is the following one
 		$heading.text = "Parkscream"
 		$body.text = "While out with your family at the park, you notice that there is an ice cream shop situated across the road."
 		if global.familyTypes.has("Mother"): #if you have a mother
@@ -89,7 +149,20 @@ func elderhood(): #elderly base events - prefix is "elder-"
 
 
 func option1events(): #option 1 has been picked
-	if global.revent[0] == "toddler-0-o1":
+	if global.revent[0] == "toddler-friend-o1":
+		$heading.text = "Yay"
+		$body.text = "You befriended " + global.eventPersonFirstName + " " + global.eventPersonLastName + "!"
+		$option1.text = "Hooray"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		#adds the EGP to your miscellanious relationships array
+		global.miscSexes.append(global.eventPersonSex)
+		global.miscFirstNames.append(global.eventPersonFirstName)
+		global.miscLastNames.append(global.eventPersonLastName)
+		global.miscAges.append(global.eventPersonAge)
+		global.miscRelationships.append(randi_range(20, 50))
+	elif global.revent[0] == "toddler-0-o1":
 		$heading.text = "Nooo"
 		if global.familyTypes.has("Mother"): #if you have a mother
 			$body.text = "She says no. You go home depressed and don't leave your room for 11 days.\n- 10 Joy" #mother-specific body text
@@ -117,7 +190,18 @@ func option1events(): #option 1 has been picked
 
 
 func option2events(): #option 2 has been picked
-	if global.revent[0] == "toddler-0-o2":
+	if global.revent[0] == "toddler-friend-o2":
+		$heading.text = "...Can you go away?"
+		if global.eventPersonSex == "M": #if they are male
+			$body.text = "You ignore him for a while, and eventually he goes away."
+		else: #if they are female
+			$body.text = "You ignore her for a while, and eventually she goes away."
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		global.evality += 4 #i mean, it was kind of rude...
+	elif global.revent[0] == "toddler-0-o2":
 		$heading.text = "You screamed for ice cream"
 		if global.familyTypes.has("Mother"):
 			$body.text = "You cry, and eventually your mother gives in and buys you one.\nJoy + 5, relationship with mother -5"
@@ -194,12 +278,14 @@ func _on_option_1_pressed() -> void: #on option 1 selected
 		return
 	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
 	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3":
-		global.revent.pop_front() #removes element at index 0 from the revent array
-		get_tree().change_scene_to_file("res://pages/game_menu.tscn")
-		return
+		goHome()
 	elif global.revent[0] == "child-0":
 		outcome("child-0-o1")
 	elif global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3":
+		goHome()
+	elif global.revent[0] == "toddler-friend":
+		outcome("toddler-friend-o1")
+	elif global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2":
 		goHome()
 
 
@@ -212,6 +298,8 @@ func _on_option_2_pressed() -> void: #on option 2 selected
 		global.revent[0] = "child-0-o2"
 		get_tree().reload_current_scene()
 		return
+	elif global.revent[0] == "toddler-friend":
+		outcome("toddler-friend-o2")
 
 
 func _on_option_3_pressed() -> void: #on option 3 selected

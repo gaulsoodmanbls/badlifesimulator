@@ -22,9 +22,10 @@ label_settings = ExtResource("2_0xm2l")
 horizontal_alignment = 1
 
 [node name="scrollContainer" type="ScrollContainer" parent="." unique_id=1810097621]
-offset_top = 250.0
-offset_right = 1080.0
-offset_bottom = 1977.0
+offset_left = 4.0
+offset_top = 270.0
+offset_right = 1092.0
+offset_bottom = 1997.0
 theme = SubResource("Theme_73mna")
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
