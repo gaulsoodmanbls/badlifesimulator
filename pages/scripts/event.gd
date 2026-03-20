@@ -107,7 +107,7 @@ func option1events(): #option 1 has been picked
 			$body.text = "They appreciate your kind words, but you feel kind of bad about lying.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 5 Joy"
 			global.joy -= 5
 		else: #if evality is 30 or over, you don't feel bad
-			$body.text = "They appreciate your kind words.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice])
+			$body.text = "They appreciate your kind words.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice])
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
@@ -135,10 +135,10 @@ func option2events(): #option 2 has been picked
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
 		$heading.text = "Wow! It's just... Wow!"
 		if global.evality < 40: #if evality is under 40, you feel bad about lying
-			$body.text = "They appreciate your kind words, so much so that they surprise you with another $50, but you feel really bad about lying.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 10 Joy, + $50"
+			$body.text = "They appreciate your kind words, so much so that they surprise you with another $50, but you feel really bad about lying.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice]) + ", - 10 Joy, + $50"
 			global.joy -= 10
 		else: #if evality is 40 or above, you don't feel bad
-			$body.text = "They appreciate your kind words, so much so that they surprise you with another $50.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", + $50"
+			$body.text = "They appreciate your kind words, so much so that they surprise you with another $50.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice]) + ", + $50"
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
