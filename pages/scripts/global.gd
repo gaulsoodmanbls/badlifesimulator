@@ -1,6 +1,6 @@
 extends Node #author(s): Ethan Scott
 
-#this is this game's global script. It is accessible from any script at any point. If you need to access or change a variable from here, for instance, firstName, in a different scene, type "global." before the variable name: "global.firstName".
+#this is this game's global script. It is accessible from any script at any point. If you need to access or change a variable from here, for instance, firstName, in a different script, type "global." before the variable name: "global.firstName".
 
 
 #engine
@@ -21,6 +21,7 @@ var logs = ""
 var money = 0
 #hidden stats - not shown to the player
 var evality = 0 #on a scale from 0 - 100, how evil are you? i.e. how much joy do you derive from doing bad things, and what bad things are you capable of? higher is more.
+var sexuality = "" #stored definitively, not relative to the sex of the player, i.e. if you're attracted to men, this value would be "M", if you're attracted to women, it would be "F", if you were attracted to both, it would be "Bi", and so on.
 
 
 #family
@@ -31,7 +32,7 @@ var familyAges = []
 var familySexes = []
 var familyRelationships = []
 
-#other (miscellanious) relationships
+#other (miscellaneous) relationships
 var miscFirstNames = []
 var miscLastNames = []
 var miscTypes = []
@@ -40,9 +41,49 @@ var miscSexes = []
 var miscRelationships = []
 
 
-#miscellanious stuff that must be stored over multiple pages
+#miscellaneous stuff that must be stored over multiple pages
 #things that must be kept track of when inventing new people for events
 var eventPersonFirstName = ""
 var eventPersonLastName = ""
 var eventPersonAge = ""
 var eventPersonSex = ""
+
+
+#savegame stuff
+func serialiser(): #serialises every variable we need to save into a dictionary and then returns it
+	var collinsDictionary = {
+		#engine
+		"revent" : revent,
+		#personal
+		"firstName" : firstName,
+		"lastName" : lastName,
+		"age" : age,
+		"sex" : sex,
+		"joy" : joy,
+		"health" : health,
+		"intellect" : intellect,
+		"looks" : looks,
+		"logs" : logs,
+		"money" : money,
+		"evality" : evality,
+		"sexuality" : sexuality,
+		#family relationships
+		"familyFirstNames" : familyFirstNames,
+		"familyLastNames" : familyLastNames,
+		"familyTypes" : familyTypes,
+		"familyAges" : familyAges,
+		"familySexes" : familySexes,
+		"familyRelationships" : familyRelationships,
+		#other relationships
+		"miscFirstNames" : miscFirstNames,
+		"miscLastNames" : miscLastNames,
+		"miscTypes" : miscTypes,
+		"miscAges" : miscAges,
+		"miscSexes" : miscSexes,
+		"miscRelationships" : miscRelationships
+	}
+	return collinsDictionary
+
+func saveGame(): #does the actual saving
+	var saveFile = FileAccess.open("user://spycarsinc/bls/savegame.bls", FileAccess.WRITE)
+	#and now do the rest

@@ -33,6 +33,8 @@ func _ready() -> void:
 	$health.text = "Health: " + str(global.health)
 	$intellect.text = "Intellect: " + str(global.intellect)
 	$looks.text = "Looks: " + str(global.looks)
+	if global.revent.size() != 0: #if there are random events queued
+		get_tree().change_scene_to_file("res://pages/event.tscn")
 
 
 func _on_new_game_egg_mouse_entered() -> void: #when the mouse is hovered over the new game egg button
