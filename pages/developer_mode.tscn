@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://c860g857mxlin"]
+
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_0vgvw"]
+[ext_resource type="Script" uid="uid://dax5d1uygehpj" path="res://pages/scripts/developerMode.gd" id="1_x7xls"]
+[ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="2_0eyul"]
+[ext_resource type="Texture2D" uid="uid://gu2yglnbm4e1" path="res://assets/x.png" id="3_x7xls"]
+[ext_resource type="Theme" uid="uid://dshdkxfve2nxr" path="res://styles/input/text_single_line_input.tres" id="5_mj11j"]
+[ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1/button1.tres" id="6_llmlx"]
+[ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="6_uksx0"]
+[ext_resource type="Theme" uid="uid://4yl7do75l14d" path="res://styles/enabledisable/checkButton.tres" id="8_4vx13"]
+
+[node name="developerMode" type="Node2D" unique_id=1691854714]
+script = ExtResource("1_x7xls")
+
+[node name="background" parent="." unique_id=1811531068 instance=ExtResource("1_0vgvw")]
+
+[node name="heading" type="Label" parent="." unique_id=107182598]
+offset_top = 140.0
+offset_right = 1080.0
+offset_bottom = 222.0
+text = "Developer mode"
+label_settings = ExtResource("2_0eyul")
+horizontal_alignment = 1
+
+[node name="exit" type="TextureButton" parent="." unique_id=1109763433]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 120.0
+texture_normal = ExtResource("3_x7xls")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="input" type="LineEdit" parent="." unique_id=941077151]
+offset_left = 240.0
+offset_top = 320.0
+offset_right = 840.0
+offset_bottom = 379.0
+theme = ExtResource("5_mj11j")
+placeholder_text = "Input value"
+caret_blink = true
+
+[node name="confirmation" type="Label" parent="." unique_id=1042720683]
+offset_top = 1820.0
+offset_right = 1080.0
+offset_bottom = 1880.0
+label_settings = ExtResource("6_uksx0")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="scrollContainer" type="ScrollContainer" parent="." unique_id=416486000]
+offset_left = -50.0
+offset_top = 479.0
+offset_right = 1130.0
+offset_bottom = 1766.0
+
+[node name="control" type="Control" parent="scrollContainer" unique_id=77656955]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="setAge" type="Button" parent="scrollContainer/control" unique_id=1429525849]
+layout_mode = 0
+offset_left = 466.0
+offset_right = 694.0
+offset_bottom = 84.0
+theme = ExtResource("6_llmlx")
+text = "Set age"
+
+[node name="setJoy" type="Button" parent="scrollContainer/control" unique_id=220462692]
+layout_mode = 0
+offset_left = 482.0
+offset_top = 150.0
+offset_right = 679.0
+offset_bottom = 234.0
+theme = ExtResource("6_llmlx")
+text = "Set joy"
+
+[node name="setHealth" type="Button" parent="scrollContainer/control" unique_id=49862777]
+layout_mode = 0
+offset_left = 430.0
+offset_top = 300.0
+offset_right = 731.0
+offset_bottom = 384.0
+theme = ExtResource("6_llmlx")
+text = "Set health"
+
+[node name="setIntellect" type="Button" parent="scrollContainer/control" unique_id=899678539]
+layout_mode = 0
+offset_left = 407.0
+offset_top = 450.0
+offset_right = 754.0
+offset_bottom = 534.0
+theme = ExtResource("6_llmlx")
+text = "Set intellect"
+
+[node name="setLooks" type="Button" parent="scrollContainer/control" unique_id=993642163]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 600.0
+offset_right = 712.0
+offset_bottom = 684.0
+theme = ExtResource("6_llmlx")
+text = "Set looks"
+
+[node name="RAUE" type="CheckButton" parent="scrollContainer/control" unique_id=1602878121]
+layout_mode = 0
+offset_left = 463.0
+offset_top = 750.0
+offset_right = 698.0
+offset_bottom = 834.0
+theme = ExtResource("8_4vx13")
+button_pressed = true
+text = "R.A.U.E."
+
+[connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="scrollContainer/control/setAge" to="." method="_on_set_age_pressed"]
+[connection signal="pressed" from="scrollContainer/control/setJoy" to="." method="_on_set_joy_pressed"]
+[connection signal="pressed" from="scrollContainer/control/setHealth" to="." method="_on_set_health_pressed"]
+[connection signal="pressed" from="scrollContainer/control/setIntellect" to="." method="_on_set_intellect_pressed"]
+[connection signal="pressed" from="scrollContainer/control/setLooks" to="." method="_on_set_looks_pressed"]

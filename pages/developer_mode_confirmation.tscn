@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://cf5i6y8v2j8fj"]
 
+[ext_resource type="Script" uid="uid://bies52ekqcmdr" path="res://pages/scripts/developerModeConfirmation.gd" id="1_6p6lj"]
 [ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_nk2rx"]
 [ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="2_6wfco"]
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="3_6wfco"]
@@ -7,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1/button1.tres" id="5_dh07j"]
 
 [node name="developerModeConfirmation" type="Node2D" unique_id=825374424]
+script = ExtResource("1_6p6lj")
 
 [node name="background" parent="." unique_id=819180226 instance=ExtResource("1_nk2rx")]
 
@@ -37,7 +39,6 @@ offset_bottom = 681.0
 theme = ExtResource("4_pm3bh")
 placeholder_text = "Password"
 caret_blink = true
-secret = true
 
 [node name="goBack" type="Button" parent="." unique_id=944077469]
 offset_left = 415.5
@@ -56,9 +57,11 @@ theme = ExtResource("5_dh07j")
 text = "Proceed"
 
 [node name="incorrectPassword" type="Label" parent="." unique_id=412771454]
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Incorrect password.
-Please try again."
+offset_top = 1100.0
+offset_right = 1080.0
+offset_bottom = 1223.0
 label_settings = ExtResource("3_6wfco")
 horizontal_alignment = 1
+
+[connection signal="pressed" from="goBack" to="." method="_on_go_back_pressed"]
+[connection signal="pressed" from="understandProceed" to="." method="_on_understand_proceed_pressed"]

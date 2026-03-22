@@ -49,6 +49,10 @@ var eventPersonAge = ""
 var eventPersonSex = ""
 
 
+#testing variables - used in developer mode
+var RAUE = true #RAUE is an acronym for Random Age Up Events. When true, events will randomly appear when aging up. When false, they will not.
+
+
 #savegame stuff
 func serialiser(): #serialises every variable we need to save into a dictionary and then returns it
 	var collinsDictionary = {

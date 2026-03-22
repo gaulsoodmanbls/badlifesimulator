@@ -14,4 +14,4 @@ func _on_main_menu_pressed() -> void:
 
 
 func _on_developer_mode_pressed() -> void:
-	get_tree().change_scene_to_file("res://pages/main_menu.tscn") #back to developer mode page
+	get_tree().change_scene_to_file("res://pages/developer_mode_confirmation.tscn") #goes to the developer mode confirmation page

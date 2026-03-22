@@ -276,8 +276,7 @@ func _on_option_2_pressed() -> void: #on option 2 selected
 
 
 func _on_option_3_pressed() -> void: #on option 3 selected
-	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend":
-		outcome(global.revent[0] + "-o3")
+	outcome(global.revent[0] + "-o3")
 
 
 func _on_option_4_pressed() -> void: #on option 4 selected
