@@ -24,8 +24,8 @@ func _ready() -> void:
 			elif global.age >= 66: #if age is over 66
 				global.revent.append("elder-" + str(randi_range(0, 0)))
 			print("appended event " + str(global.revent[global.revent.size() - 1])) #prints the last event ID (the one that was just appended) in the revent array
-	if randi_range(1, 20) == 1: #if you're randomly getting a new friend :)
-		if global.age <= 4: #if age is 4 or above
+	if randi_range(1, 20): #if you're randomly getting a new friend :)
+		if global.age <= 4: #if age is 4 or below
 			global.revent.append("toddler-friend")
 		elif global.age >= 5 && global.age <= 12: #if age is between 5 and 12
 			global.revent.append("child-friend")

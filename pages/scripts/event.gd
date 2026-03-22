@@ -71,6 +71,23 @@ func pronounGenerator(type, sex): #returns pronouns so you don't have to do it m
 			return "girl"
 
 
+func personRemover(index, whichArray): #removes the person at index "index" in the array "whichArray" (could be family, misc, etc.)
+	if whichArray == "family":
+		global.familyFirstNames.pop_at(index)
+		global.familyLastNames.pop_at(index)
+		global.familySexes.pop_at(index)
+		global.familyAges.pop_at(index)
+		global.familyRelationships.pop_at(index)
+		global.familyTypes.pop_at(index)
+	elif whichArray == "misc":
+		global.miscFirstNames.pop_at(index)
+		global.miscLastNames.pop_at(index)
+		global.miscSexes.pop_at(index)
+		global.miscAges.pop_at(index)
+		global.miscRelationships.pop_at(index)
+		global.miscTypes.pop_at(index)
+
+
 #again, see newRandomGame.gd for more info
 var mFirstNames : Array = loadList("res://data/names/mFirstNames.txt", ", ") #loads list of masculine first names
 var fFirstNames : Array = loadList("res://data/names/fFirstNames.txt", ", ") #feminine first names
@@ -209,6 +226,22 @@ func adulthood(): #adult base events - prefix is "adult-"
 
 
 func elderhood(): #elderly base events - prefix is "elder-"
+	if global.revent[0] == "elder-friend":
+		$heading.text = "New connection"
+		EGPGenerator(12, 55)
+		if randi_range(1,2) == 1: #body text variation
+			$body.text = "While out running errands, you strike up a conversation with a random person and you realise you have a lot in common.\n("
+		else: #body text variation
+			$body.text = "While eating out at a restaurant, you strike up a conversation with a random person and you realise you have a lot in common.\n("
+		$body.text = $body.text + global.eventPersonFirstName + " " + global.eventPersonLastName + ", " + global.eventPersonSex + ", " + str(global.eventPersonAge) + " years old)"
+		$option1.text = "Befriend " + pronounGenerator("him", global.eventPersonSex)
+		$option2.text = "Ask " + pronounGenerator("him", global.eventPersonSex) + " on a date"
+		$option3.text = "Leave " + pronounGenerator("him", global.eventPersonSex) + " alone"
+		$option4.modulate.a = 0
+		$credit.text = "mconcerning"
+
+
+func multiAgeRange(): #runs events that span across multiple age ranges
 	pass
 
 
@@ -217,59 +250,34 @@ func specialised(): #runs any specialised, non-age-up events
 
 
 func _on_option_1_pressed() -> void: #on option 1 selected
-	if global.revent[0] == "toddler-0":
-		global.revent[0] = "toddler-0-o1" #replaces the first revent (toddler 0) to toddler-0 option 1
-		get_tree().reload_current_scene() #reloads page to update so the new revent displays
-		return
+	#event - option 1 will be an actual option
+	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "child-friend" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend":
+		outcome(global.revent[0] + "-o1")
 	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
 	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3":
 		goHome()
-	elif global.revent[0] == "child-0":
-		outcome("child-0-o1")
 	elif global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3":
 		goHome()
-	elif global.revent[0] == "toddler-friend":
-		outcome("toddler-friend-o1")
 	elif global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2":
 		goHome()
-	elif global.revent[0] == "child-friend":
-		outcome("child-friend-o1")
 	elif global.revent[0] == "child-friend-o1" || global.revent[0] == "child-friend-o2":
 		goHome()
-	elif global.revent[0] == "teenager-friend":
-		outcome("teenager-friend-o1")
 	elif global.revent[0] == "teenager-friend-o1" || global.revent[0] == "teenager-friend-o2" || global.revent[0] == "teenager-friend-o3":
 		goHome()
-	elif global.revent[0] == "adult-friend":
-		outcome("adult-friend-o1")
 	elif global.revent[0] == "adult-friend-o1" || global.revent[0] == "adult-friend-o2" || global.revent[0] == "adult-friend-o3":
+		goHome()
+	elif global.revent[0] == "elder-friend-o1" || global.revent[0] == "elder-friend-o2" || global.revent[0] == "elder-friend-o3":
 		goHome()
 
 
 func _on_option_2_pressed() -> void: #on option 2 selected
-	if global.revent[0] == "toddler-0":
-		outcome("toddler-0-o2")
-	elif global.revent[0] == "child-0":
-		outcome("child-0-o2")
-	elif global.revent[0] == "toddler-friend":
-		outcome("toddler-friend-o2")
-	elif global.revent[0] == "child-friend":
-		outcome("child-friend-o2")
-	elif global.revent[0] == "teenager-friend":
-		outcome("teenager-friend-o2")
-	elif global.revent[0] == "adult-friend":
-		outcome("adult-friend-o2")
+	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend":
+		outcome(global.revent[0] + "-o2")
 
 
 func _on_option_3_pressed() -> void: #on option 3 selected
-	if global.revent[0] == "toddler-0":
-		outcome("toddler-0-o3")
-	elif global.revent[0] == "child-0":
-		outcome("child-0-o3")
-	elif global.revent[0] == "teenager-friend":
-		outcome("teenager-friend-o3")
-	elif global.revent[0] == "adult-friend":
-		outcome("adult-friend-o3")
+	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend":
+		outcome(global.revent[0] + "-o3")
 
 
 func _on_option_4_pressed() -> void: #on option 4 selected
@@ -303,7 +311,7 @@ func option1outcomes(): #option 1 has been picked
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
-	elif global.revent[0] == "adult-friend-o1":
+	elif global.revent[0] == "adult-friend-o1" || global.revent[0] == "elder-friend-o1":
 		if randi_range(1,2) == 1: #if they refuse to be your friend
 			$heading.text = "Okay..."
 			$body.text = "You try to befriend " + pronounGenerator("him", global.eventPersonSex) + ", but " + pronounGenerator("he", global.eventPersonSex) + " rejects you."
@@ -356,6 +364,11 @@ func option2outcomes(): #option 2 has been picked
 			$heading.text = "What's your number?"
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, and " + pronounGenerator("he", global.eventPersonSex) + " says yes.\nJoy + 15"
 			global.joy += 15
+			#if you already have an S/O, break up with (removes) them
+			for i in global.miscTypes.size(): #runs through every non-familial relationship
+				if global.miscTypes[i] == "Boyfriend" || global.miscTypes[i] == "Girlfriend": #and if they're your gf/bf
+					personRemover(i, "misc") #removes them
+				#for loops automatically increase the variable they use (in this case, i) so no need to manually increment it
 			#adds them to your relationships
 			global.miscFirstNames.append(global.eventPersonFirstName)
 			global.miscLastNames.append(global.eventPersonLastName)
@@ -376,6 +389,11 @@ func option2outcomes(): #option 2 has been picked
 		if randi_range(1, round((36 - global.looks / 4) / 2) - 3) == 1: #if you're more physically attractive, you have a higher chance of being accepted
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, and " + pronounGenerator("he", global.eventPersonSex) + " says yes.\nJoy + 15"
 			global.joy += 15
+			#if you already have an S/O, break up with (removes) them
+			for i in global.miscTypes.size(): #runs through every non-familial relationship
+				if global.miscTypes[i] == "Boyfriend" || global.miscTypes[i] == "Girlfriend": #and if they're your gf/bf
+					personRemover(i, "misc") #removes them
+				#for loops automatically increase the variable they use (in this case, i) so no need to manually increment it
 			#adds them to your relationships
 			global.miscFirstNames.append(global.eventPersonFirstName)
 			global.miscLastNames.append(global.eventPersonLastName)
@@ -385,6 +403,31 @@ func option2outcomes(): #option 2 has been picked
 			global.miscTypes.append((pronounGenerator("boy", global.eventPersonSex) + "friend").capitalize())
 		else: #they DON'T want to date you
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out, but " + pronounGenerator("he", global.eventPersonSex) + " rejects you.\nJoy - 15"
+			global.joy -= 15
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+	elif global.revent[0] == "elder-friend-o2":
+		if randi_range(1, round(36 - global.looks / 4) - 3) == 1: #if you're more physically attractive, you have a higher chance of being accepted. You have lower chances either way though since you're older.
+			$heading.text = "Better late than never"
+			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, and " + pronounGenerator("he", global.eventPersonSex) + " says yes.\nJoy + 15"
+			global.joy += 15
+			#if you already have an S/O, break up with (removes) them
+			for i in global.miscTypes.size(): #runs through every non-familial relationship
+				if global.miscTypes[i] == "Boyfriend" || global.miscTypes[i] == "Girlfriend": #and if they're your gf/bf
+					personRemover(i, "misc") #removes them
+				#for loops automatically increase the variable they use (in this case, i) so no need to manually increment it
+			#adds them to your relationships
+			global.miscFirstNames.append(global.eventPersonFirstName)
+			global.miscLastNames.append(global.eventPersonLastName)
+			global.miscSexes.append(global.eventPersonSex)
+			global.miscAges.append(global.eventPersonAge)
+			global.miscRelationships.append(randi_range(40, 80))
+			global.miscTypes.append((pronounGenerator("boy", global.eventPersonSex) + "friend").capitalize())
+		else: #they DON'T want to date you
+			$heading.text = str(global.age) + " and still unmarried"
+			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, but " + pronounGenerator("he", global.eventPersonSex) + " rejects you.\nJoy - 15"
 			global.joy -= 15
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
@@ -422,7 +465,7 @@ func option2outcomes(): #option 2 has been picked
 
 
 func option3outcomes(): #option 3 has been picked
-	if global.revent[0] == "teenager-friend-o3" || "adult-friend-o3":
+	if global.revent[0] == "teenager-friend-o3" || global.revent[0] == "adult-friend-o3" || global.revent[0] == "elder-friend-o3":
 		$heading.text = "Alright, bye"
 		$body.text = "You finish talking to " + pronounGenerator("him", global.eventPersonSex) + " and you go your seperate ways."
 		$option1.text = "Okay"

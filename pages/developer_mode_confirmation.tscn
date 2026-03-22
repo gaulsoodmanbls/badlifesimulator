@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cf5i6y8v2j8fj"]
+
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_nk2rx"]
+[ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="2_6wfco"]
+[ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="3_6wfco"]
+[ext_resource type="Theme" uid="uid://dshdkxfve2nxr" path="res://styles/input/text_single_line_input.tres" id="4_pm3bh"]
+[ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1/button1.tres" id="5_dh07j"]
+
+[node name="developerModeConfirmation" type="Node2D" unique_id=825374424]
+
+[node name="background" parent="." unique_id=819180226 instance=ExtResource("1_nk2rx")]
+
+[node name="heading" type="Label" parent="." unique_id=1791388044]
+offset_top = 140.0
+offset_right = 1080.0
+offset_bottom = 222.0
+text = "Developer mode"
+label_settings = ExtResource("2_6wfco")
+horizontal_alignment = 1
+
+[node name="areYouSure" type="Label" parent="." unique_id=15679043]
+offset_left = 40.0
+offset_top = 300.0
+offset_right = 1040.0
+offset_bottom = 549.0
+text = "Are you sure you want to proceed with enabling developer mode?
+If you don't know what you're doing here, your entire save could be corrupted."
+label_settings = ExtResource("3_6wfco")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="passwordEntry" type="LineEdit" parent="." unique_id=1057002264]
+offset_left = 200.0
+offset_top = 650.0
+offset_right = 880.0
+offset_bottom = 681.0
+theme = ExtResource("4_pm3bh")
+placeholder_text = "Password"
+caret_blink = true
+secret = true
+
+[node name="goBack" type="Button" parent="." unique_id=944077469]
+offset_left = 415.5
+offset_top = 800.0
+offset_right = 664.5
+offset_bottom = 884.0
+theme = ExtResource("5_dh07j")
+text = "Go back"
+
+[node name="understandProceed" type="Button" parent="." unique_id=264826654]
+offset_left = 415.5
+offset_top = 950.0
+offset_right = 664.5
+offset_bottom = 1034.0
+theme = ExtResource("5_dh07j")
+text = "Proceed"
+
+[node name="incorrectPassword" type="Label" parent="." unique_id=412771454]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Incorrect password.
+Please try again."
+label_settings = ExtResource("3_6wfco")
+horizontal_alignment = 1
