@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://moehuc8f6dgg"]
+
+[ext_resource type="Texture2D" uid="uid://gu2yglnbm4e1" path="res://assets/x.png" id="1_kljq8"]
+
+[node name="exit" type="TextureButton" unique_id=1865769784]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 120.0
+offset_bottom = 120.0
+texture_normal = ExtResource("1_kljq8")
+ignore_texture_size = true
+stretch_mode = 0

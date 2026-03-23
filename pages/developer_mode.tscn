@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_0vgvw"]
 [ext_resource type="Script" uid="uid://dax5d1uygehpj" path="res://pages/scripts/developerMode.gd" id="1_x7xls"]
 [ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="2_0eyul"]
-[ext_resource type="Texture2D" uid="uid://gu2yglnbm4e1" path="res://assets/x.png" id="3_x7xls"]
+[ext_resource type="PackedScene" uid="uid://moehuc8f6dgg" path="res://objects/exit.tscn" id="4_4vx13"]
 [ext_resource type="Theme" uid="uid://dshdkxfve2nxr" path="res://styles/input/text_single_line_input.tres" id="5_mj11j"]
 [ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1/button1.tres" id="6_llmlx"]
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="6_uksx0"]
@@ -22,14 +22,7 @@ text = "Developer mode"
 label_settings = ExtResource("2_0eyul")
 horizontal_alignment = 1
 
-[node name="exit" type="TextureButton" parent="." unique_id=1109763433]
-offset_left = 20.0
-offset_top = 20.0
-offset_right = 120.0
-offset_bottom = 120.0
-texture_normal = ExtResource("3_x7xls")
-ignore_texture_size = true
-stretch_mode = 0
+[node name="exit" parent="." unique_id=1865769784 instance=ExtResource("4_4vx13")]
 
 [node name="input" type="LineEdit" parent="." unique_id=941077151]
 offset_left = 240.0

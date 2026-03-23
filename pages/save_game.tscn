@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://b0ey5pljcryvw"]
+
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_3fw71"]
+[ext_resource type="Script" uid="uid://rbnp34icuove" path="res://pages/scripts/saveGame.gd" id="1_tiiku"]
+[ext_resource type="PackedScene" uid="uid://b7bfib5vbcvk6" path="res://objects/heading.tscn" id="3_kqiid"]
+[ext_resource type="PackedScene" uid="uid://cjnbhqp8obehv" path="res://objects/back_button.tscn" id="4_nfrcw"]
+[ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="5_kqiid"]
+[ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="6_nfrcw"]
+
+[node name="saveGame" type="Node2D" unique_id=1065341072]
+script = ExtResource("1_tiiku")
+
+[node name="background" parent="." unique_id=562890933 instance=ExtResource("1_3fw71")]
+
+[node name="heading" parent="." unique_id=33655322 instance=ExtResource("3_kqiid")]
+text = "Save game"
+
+[node name="back" parent="." unique_id=17962498 instance=ExtResource("4_nfrcw")]
+
+[node name="body" type="Label" parent="." unique_id=166332865]
+offset_left = 40.0
+offset_top = 300.0
+offset_right = 1040.0
+offset_bottom = 323.0
+text = "Bad Life Simulator saves automatically, but if you want to manually do it here... I guess you can."
+label_settings = ExtResource("5_kqiid")
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="saveLife" parent="." unique_id=1544237965 instance=ExtResource("6_nfrcw")]
+offset_left = 416.0
+offset_top = 566.0
+offset_right = 665.0
+offset_bottom = 650.0
+text = "Save life"
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="saveLife" to="." method="_on_save_life_pressed"]
