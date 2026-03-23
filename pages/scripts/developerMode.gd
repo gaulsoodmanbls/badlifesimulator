@@ -1,6 +1,13 @@
 extends Node2D #author(s): Ethan Scott
 
 
+func _ready() -> void:
+	if global.RAUE == true:
+		$scrollContainer/control/RAUECheck.frame = 1
+	else: #if global.RAUE == false
+		$scrollContainer/control/RAUECheck.frame = 0
+
+
 func _on_exit_pressed() -> void:
 	get_tree().change_scene_to_file("res://pages/new_game_confirmation.tscn") #go back
 
@@ -29,3 +36,14 @@ func _on_set_looks_pressed() -> void:
 	global.looks = int($input.text)
 	$confirmation.text = "Successfully set looks!"
 	print("set looks to " + str(global.looks))
+
+func _on_raue_pressed() -> void:
+	if global.RAUE == true:
+		$scrollContainer/control/RAUECheck.frame = 0
+		global.RAUE = false
+		$confirmation.text = "Successfully set RAUE to false!"
+	else: #if false
+		$scrollContainer/control/RAUECheck.frame = 1
+		global.RAUE = true
+		$confirmation.text = "Successfully set RAUE to true!"
+	print("set RAUE to " + str(global.RAUE))

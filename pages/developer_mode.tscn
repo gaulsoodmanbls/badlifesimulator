@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://dshdkxfve2nxr" path="res://styles/input/text_single_line_input.tres" id="5_mj11j"]
 [ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1/button1.tres" id="6_llmlx"]
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="6_uksx0"]
-[ext_resource type="Theme" uid="uid://4yl7do75l14d" path="res://styles/enabledisable/checkButton.tres" id="8_4vx13"]
+[ext_resource type="PackedScene" uid="uid://cil46lqksrpuy" path="res://objects/checkbox.tscn" id="8_4vx13"]
 
 [node name="developerMode" type="Node2D" unique_id=1691854714]
 script = ExtResource("1_x7xls")
@@ -103,15 +103,17 @@ offset_bottom = 684.0
 theme = ExtResource("6_llmlx")
 text = "Set looks"
 
-[node name="RAUE" type="CheckButton" parent="scrollContainer/control" unique_id=1602878121]
+[node name="RAUE" type="Button" parent="scrollContainer/control" unique_id=251619083]
 layout_mode = 0
-offset_left = 463.0
+offset_left = 506.0
 offset_top = 750.0
-offset_right = 698.0
+offset_right = 654.0
 offset_bottom = 834.0
-theme = ExtResource("8_4vx13")
-button_pressed = true
-text = "R.A.U.E."
+theme = ExtResource("6_llmlx")
+text = "RAUE"
+
+[node name="RAUECheck" parent="scrollContainer/control" unique_id=124453344 instance=ExtResource("8_4vx13")]
+position = Vector2(704, 756)
 
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="scrollContainer/control/setAge" to="." method="_on_set_age_pressed"]
@@ -119,3 +121,4 @@ text = "R.A.U.E."
 [connection signal="pressed" from="scrollContainer/control/setHealth" to="." method="_on_set_health_pressed"]
 [connection signal="pressed" from="scrollContainer/control/setIntellect" to="." method="_on_set_intellect_pressed"]
 [connection signal="pressed" from="scrollContainer/control/setLooks" to="." method="_on_set_looks_pressed"]
+[connection signal="pressed" from="scrollContainer/control/RAUE" to="." method="_on_raue_pressed"]

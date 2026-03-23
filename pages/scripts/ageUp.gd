@@ -10,7 +10,7 @@ func _ready() -> void:
 	global.health += randi_range(-8, 8)
 	global.intellect += randi_range(-8, 8)
 	global.looks += randi_range(-8, 8)
-	if randi_range(1, 2) == 1: #if you're getting a random event (1 in 2 chance)
+	if randi_range(1, 2) == 1 && global.RAUE == true: #if you're getting a random event (1 in 2 chance) and random events are enabled
 		if global.age >= 2: #you must be 2 or over to get random age up events
 			print("choosing random age up event...")
 			if global.age <= 4: #if age is 4 or above
@@ -24,7 +24,7 @@ func _ready() -> void:
 			elif global.age >= 66: #if age is over 66
 				global.revent.append("elder-" + str(randi_range(0, 0)))
 			print("appended event " + str(global.revent[global.revent.size() - 1])) #prints the last event ID (the one that was just appended) in the revent array
-	if randi_range(1, 20): #if you're randomly getting a new friend :)
+	if randi_range(1, 20) == 1 && global.RAUE == true: #if you're randomly getting a new friend :) and RAUE is enabled
 		if global.age <= 4: #if age is 4 or below
 			global.revent.append("toddler-friend")
 		elif global.age >= 5 && global.age <= 12: #if age is between 5 and 12

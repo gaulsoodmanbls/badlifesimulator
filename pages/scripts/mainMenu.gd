@@ -11,8 +11,8 @@ func _on_new_game_pressed() -> void: #on new game button pressed
 	get_tree().change_scene_to_file("res://pages/new_random_game.tscn")
 
 
-func _on_settings_pressed() -> void: #actually add setting at some point, not just credits
-	get_tree().change_scene_to_file("res://pages/credits.tscn")
+func _on_settings_pressed() -> void:
+	get_tree().change_scene_to_file("res://pages/settings.tscn")
 
 
 func _on_discord_pressed() -> void: #discord server invite

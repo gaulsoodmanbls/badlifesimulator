@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://c5kuhvecihiea" path="res://pages/scripts/credits.gd" id="1_73mna"]
 [ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_n1v63"]
-[ext_resource type="LabelSettings" uid="uid://c3r4rskc4jrad" path="res://styles/text/heading.tres" id="2_0xm2l"]
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="3_0xm2l"]
+[ext_resource type="PackedScene" uid="uid://b7bfib5vbcvk6" path="res://objects/heading.tscn" id="3_73mna"]
 [ext_resource type="PackedScene" uid="uid://cjnbhqp8obehv" path="res://objects/back_button.tscn" id="5_73mna"]
 
 [sub_resource type="Theme" id="Theme_73mna"]
@@ -13,13 +13,7 @@ script = ExtResource("1_73mna")
 
 [node name="background" parent="." unique_id=1928474665 instance=ExtResource("1_n1v63")]
 
-[node name="heading" type="Label" parent="." unique_id=1981699557]
-offset_top = 80.0
-offset_right = 1080.0
-offset_bottom = 220.0
-text = "Credits"
-label_settings = ExtResource("2_0xm2l")
-horizontal_alignment = 1
+[node name="heading" parent="." unique_id=33655322 instance=ExtResource("3_73mna")]
 
 [node name="scrollContainer" type="ScrollContainer" parent="." unique_id=1810097621]
 offset_left = 4.0
@@ -37,7 +31,9 @@ size_flags_vertical = 3
 
 [node name="credits" type="Label" parent="scrollContainer/centerContainer" unique_id=1016172437]
 layout_mode = 2
-text = "Created by:
+text = "Made in Godot
+
+Created by:
 Ethan Scott
 
 Developed by:
@@ -62,12 +58,17 @@ Orsted1
 
 Playtesting:
 SnoopyDaDuck
+lettucelol
 
 Special thanks to:
 SnoopyDaDuck
 lettucelol
 GrayyGray
+no
 Everyone else in the server :)
+
+Zero thanks to:
+Doordash Guy
 
 "
 label_settings = ExtResource("3_0xm2l")

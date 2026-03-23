@@ -54,7 +54,7 @@ var RAUE = true #RAUE is an acronym for Random Age Up Events. When true, events 
 
 
 #savegame stuff
-func serialiser(): #serialises every variable we need to save into a dictionary and then returns it
+func lifeSerialiser(): #serialises every life-specific variable we need to save into a dictionary and then returns it
 	var collinsDictionary = {
 		#engine
 		"revent" : revent,
@@ -89,5 +89,24 @@ func serialiser(): #serialises every variable we need to save into a dictionary 
 	return collinsDictionary
 
 func saveGame(): #does the actual saving
-	var saveFile = FileAccess.open("user://spycarsinc/bls/savegame.bls", FileAccess.WRITE)
+	#checks the paths exist
+	var dir_path = "user://spycarsinc/bls/lives/"
+	if not DirAccess.dir_exists_absolute(dir_path):
+		DirAccess.make_dir_recursive_absolute(dir_path) #if they don't exist, creat them
+	#has two save files - one for life-specific variables, and one for non-life-specific (game) variables.
+	#unique file checking
+	var lifeAnd = 0
+	var uniqueLifeSaveName = false
+	while uniqueLifeSaveName == false:
+		if FileAccess.file_exists("user://spycarsinc/bls/lives/" + firstName + "-" + lastName + "-" + str(lifeAnd) + ".bls"): #if there is already a file with the same name (so it doesn't get overwritten against your will)
+			lifeAnd += 1 #try incrementing the lifeAnd number that gets appended to the file name
+		else: #if the file name is unique, and so writing to it will not overwrite another life
+			uniqueLifeSaveName = true #stops loop; we have a valid file name
+	var lifeSavePath = "user://spycarsinc/bls/lives/" + firstName + "-" + lastName + "-" + str(lifeAnd) + ".bls" #the path on the user's device the save will be located - this save only stores the life-specific stuff that doesn't persist between lives (age, relationships, health...)
+	var gameSavePath  = "user://spycarsinc/bls/game.bls" #this save stores all of the non-life-specific stuff that does persist between lives (achievements, XP and levels, DNA, etc...)
+	var lifeSaveFile = FileAccess.open(lifeSavePath, FileAccess.WRITE)
+	var gameSaveFile = FileAccess.open(gameSavePath, FileAccess.WRITE)
 	#and now do the rest
+	lifeSaveFile.store_var(lifeSerialiser()) #overwrites the life save file with collinsDictionary from the lifeSerialiser() function above.
+	lifeSaveFile.close() #closes file and saves changes
+	gameSaveFile.close() #closes file and saves changes

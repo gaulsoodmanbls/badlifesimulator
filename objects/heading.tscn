@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b7bfib5vbcvk6"]
+
+[ext_resource type="LabelSettings" uid="uid://c3r4rskc4jrad" path="res://styles/text/heading.tres" id="1_l5li1"]
+
+[node name="heading" type="Label" unique_id=33655322]
+offset_top = 80.0
+offset_right = 1080.0
+offset_bottom = 220.0
+text = "Credits"
+label_settings = ExtResource("1_l5li1")
+horizontal_alignment = 1

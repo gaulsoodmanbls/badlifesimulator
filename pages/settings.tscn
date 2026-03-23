@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dsqttyw22sf6g"]
+
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_1ofq1"]
+[ext_resource type="Script" uid="uid://6bw4gnyrloru" path="res://pages/scripts/settings.gd" id="1_kbnjn"]
+[ext_resource type="PackedScene" uid="uid://cjnbhqp8obehv" path="res://objects/back_button.tscn" id="3_w6vqt"]
+[ext_resource type="PackedScene" uid="uid://b7bfib5vbcvk6" path="res://objects/heading.tscn" id="4_kbnjn"]
+[ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="5_w6vqt"]
+
+[node name="settings" type="Node2D" unique_id=1974988509]
+script = ExtResource("1_kbnjn")
+
+[node name="background" parent="." unique_id=132212067 instance=ExtResource("1_1ofq1")]
+
+[node name="back" parent="." unique_id=17962498 instance=ExtResource("3_w6vqt")]
+
+[node name="heading" parent="." unique_id=33655322 instance=ExtResource("4_kbnjn")]
+text = "Settings"
+
+[node name="credits" parent="." unique_id=1544237965 instance=ExtResource("5_w6vqt")]
+offset_left = 433.0
+offset_top = 300.0
+offset_right = 647.0
+offset_bottom = 384.0
+text = "Credits"
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]
+[connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]

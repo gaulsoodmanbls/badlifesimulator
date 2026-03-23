@@ -465,8 +465,13 @@ func option2outcomes(): #option 2 has been picked
 
 func option3outcomes(): #option 3 has been picked
 	if global.revent[0] == "teenager-friend-o3" || global.revent[0] == "adult-friend-o3" || global.revent[0] == "elder-friend-o3":
-		$heading.text = "Alright, bye"
-		$body.text = "You finish talking to " + pronounGenerator("him", global.eventPersonSex) + " and you go your seperate ways."
+		if global.evality >= 60:
+			$heading.text = "Can you go away"
+			$body.text = "You stop talking to " + pronounGenerator("him", global.eventPersonSex) + " and " + pronounGenerator("he", global.eventPersonSex) + " eventually goes away."
+			global.evality += 5
+		else:
+			$heading.text = "Alright, bye"
+			$body.text = "You finish talking to " + pronounGenerator("him", global.eventPersonSex) + " and you go your seperate ways."
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
