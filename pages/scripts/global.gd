@@ -62,6 +62,7 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 	var collinsDictionary = {
 		#engine
 		"revent" : revent,
+		"RAUE" : RAUE,
 		#personal
 		"firstName" : firstName,
 		"lastName" : lastName,
@@ -124,3 +125,57 @@ func saveGame(): #does the actual saving
 	gameSaveFile.store_var(gameSerialiser()) #overwrites the game save file with cambridgeDictionary from the gameSerialiser() function above.
 	lifeSaveFile.close() #closes file and saves changes
 	gameSaveFile.close() #closes file and saves changes
+
+func loadGame(): #does the actual GAME loading
+	if FileAccess.file_exists("user://spycarsinc/bls/game.bls") == true: #if the game save file exists, continue and load
+		var gameSaveFile = FileAccess.open("user://spycarsinc/bls/game.bls", FileAccess.READ) #opens file to read
+		if gameSaveFile:
+			var dictionary = gameSaveFile.get_var()
+			currentLife = dictionary["currentLife"]
+			gameSaveFile.close() #closes file so it doesn't do anything weird
+			print("hoorah, game load successful")
+			print(currentLife)
+			return #cease function function
+	else: #file does not exist
+		print("no game save file, will create a brand new one...")
+
+func loadLife(): #does the actual LIFE loading
+	if FileAccess.file_exists("user://spycarsinc/bls/lives/" + currentLife + ".bls") == true: #if the life save file exists, continue and load
+		var lifeSaveFile = FileAccess.open("user://spycarsinc/bls/lives/" + currentLife + ".bls", FileAccess.READ) #opens file to read
+		if lifeSaveFile:
+			var dictionary = lifeSaveFile.get_var()
+			#engine
+			revent = dictionary["revent"]
+			RAUE = dictionary["RAUE"]
+			#personal
+			firstName = dictionary["firstName"]
+			lastName = dictionary["lastName"]
+			age = dictionary["age"]
+			sex = dictionary["sex"]
+			joy = dictionary["joy"]
+			health = dictionary["health"]
+			intellect = dictionary["intellect"]
+			looks = dictionary["looks"]
+			logs = dictionary["logs"]
+			money = dictionary["money"]
+			evality = dictionary["evality"]
+			sexuality = dictionary["sexuality"]
+			#family relationships
+			familyFirstNames = dictionary["familyFirstNames"]
+			familyLastNames = dictionary["familyLastNames"]
+			familyTypes = dictionary["familyTypes"]
+			familyAges = dictionary["familyAges"]
+			familySexes = dictionary["familySexes"]
+			familyRelationships = dictionary["familyRelationships"]
+			#misc relationships
+			miscFirstNames = dictionary["miscFirstNames"]
+			miscLastNames = dictionary["miscLastNames"]
+			miscTypes = dictionary["miscTypes"]
+			miscAges = dictionary["miscAges"]
+			miscSexes = dictionary["miscSexes"]
+			miscRelationships = dictionary["miscRelationships"]
+			lifeSaveFile.close() #closes file so it doesn't do anything weird
+			print("hoorah, life load successful")
+			get_tree().change_scene_to_file("res://pages/game_menu.tscn")
+	else: #file does not exist
+		print("no life save file... how did you even run this function if there's no... i-")

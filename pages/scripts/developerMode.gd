@@ -12,6 +12,10 @@ func _on_exit_pressed() -> void:
 	get_tree().change_scene_to_file("res://pages/new_game_confirmation.tscn") #go back
 
 
+func _on_save_game_pressed() -> void:
+	get_tree().change_scene_to_file("res://pages/save_game.tscn")
+
+
 func _on_set_age_pressed() -> void:
 	global.age = int($input.text)
 	$confirmation.text = "Successfully set age!"

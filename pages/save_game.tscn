@@ -23,7 +23,7 @@ offset_left = 40.0
 offset_top = 300.0
 offset_right = 1040.0
 offset_bottom = 323.0
-text = "Bad Life Simulator saves automatically, but if you want to manually do it here... I guess you can."
+text = "Bad Life Simulator constantly saves automatically, but if you want to manually do it here... I guess you can."
 label_settings = ExtResource("5_kqiid")
 horizontal_alignment = 1
 autowrap_mode = 2
@@ -35,6 +35,13 @@ offset_right = 665.0
 offset_bottom = 650.0
 text = "Save life"
 
+[node name="openSaveLocation" parent="." unique_id=1265057156 instance=ExtResource("6_nfrcw")]
+offset_left = 249.0
+offset_top = 716.0
+offset_right = 831.0
+offset_bottom = 800.0
+text = "Open save location"
+
 [node name="confirmation" type="Label" parent="." unique_id=1595533241]
 offset_top = 1700.0
 offset_right = 1080.0
@@ -45,3 +52,4 @@ autowrap_mode = 3
 
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="saveLife" to="." method="_on_save_life_pressed"]
+[connection signal="pressed" from="openSaveLocation" to="." method="_on_open_save_location_pressed"]

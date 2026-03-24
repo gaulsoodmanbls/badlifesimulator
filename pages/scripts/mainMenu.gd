@@ -3,7 +3,14 @@ extends Node2D #author(s): Ethan Scott
 
 # Called when the node enters the scene tree for the first time. (in this case, since this is the index, on startup)
 func _ready() -> void:
-	$versionNumber.text = "v" + global.versionNumber
+	$versionNumber.text = "v" + global.versionNumber #sets version number text
+	if global.currentLife != "": #if there is a recent life ready to be resumed
+		$continue.disabled = false #enable the continue button
+
+
+func _on_continue_pressed() -> void:
+	if $continue.disabled == false: #if the continue button is enabled (you are able to continue)
+		global.loadLife() #loads life
 
 
 func _on_new_game_pressed() -> void: #on new game button pressed

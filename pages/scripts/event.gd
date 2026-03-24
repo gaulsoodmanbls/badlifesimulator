@@ -532,6 +532,7 @@ func _ready() -> void:
 		get_tree().change_scene_to_file("res://pages/game_menu.tscn")
 		return
 	print("showing event " + str(global.revent[0])) #prints the first event ID (the one that is about to be shown) in the revent array
+	global.saveGame()
 	await get_tree().process_frame #waits for frame to be processed first to avoid weirdness
 	eventer()
 	repositionResize()

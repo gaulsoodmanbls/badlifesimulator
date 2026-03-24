@@ -5,12 +5,23 @@
 [ext_resource type="StyleBox" uid="uid://b2onuwwy2xaed" path="res://styles/button1/button1StyleBoxFlat.tres" id="2_jr7sa"]
 [ext_resource type="StyleBox" uid="uid://ebccpvum0hlj" path="res://styles/button1/button1StyleBoxFlatPressed.tres" id="3_10fmf"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jr7sa"]
+bg_color = Color(0.4700758, 0.47007585, 0.47007567, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
+expand_margin_left = 20.0
+expand_margin_right = 20.0
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5y3ty"]
 
 [resource]
 Button/colors/font_color = Color(1, 1, 1, 1)
+Button/colors/font_disabled_color = Color(1, 1, 1, 1)
 Button/font_sizes/font_size = 60
 Button/fonts/font = ExtResource("1_s04dj")
+Button/styles/disabled = SubResource("StyleBoxFlat_jr7sa")
 Button/styles/focus = SubResource("StyleBoxEmpty_5y3ty")
 Button/styles/hover = ExtResource("2_10fmf")
 Button/styles/normal = ExtResource("2_jr7sa")

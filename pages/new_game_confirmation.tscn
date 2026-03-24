@@ -5,7 +5,6 @@
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="2_lntjx"]
 [ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="3_a71gq"]
 [ext_resource type="Texture2D" uid="uid://3n8s5ffpj2bi" path="res://assets/developer.png" id="5_olmvu"]
-[ext_resource type="Texture2D" uid="uid://vya22elwah4a" path="res://assets/floppy.png" id="6_se0sp"]
 
 [node name="new_game_confirmation" type="Node2D" unique_id=804291492]
 script = ExtResource("1_batlk")
@@ -51,17 +50,7 @@ texture_normal = ExtResource("5_olmvu")
 ignore_texture_size = true
 stretch_mode = 0
 
-[node name="saveGame" type="TextureButton" parent="." unique_id=1468096001]
-offset_left = 140.0
-offset_top = 1800.0
-offset_right = 240.0
-offset_bottom = 1900.0
-texture_normal = ExtResource("6_se0sp")
-ignore_texture_size = true
-stretch_mode = 0
-
 [connection signal="pressed" from="cancel" to="." method="_on_cancel_pressed"]
 [connection signal="pressed" from="yes" to="." method="_on_yes_pressed"]
 [connection signal="pressed" from="mainMenu" to="." method="_on_main_menu_pressed"]
 [connection signal="pressed" from="developerMode" to="." method="_on_developer_mode_pressed"]
-[connection signal="pressed" from="saveGame" to="." method="_on_save_game_pressed"]

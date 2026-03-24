@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://bstk834mafqp" path="res://styles/button1/button1.tres" id="6_llmlx"]
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="6_uksx0"]
 [ext_resource type="PackedScene" uid="uid://cil46lqksrpuy" path="res://objects/checkbox.tscn" id="8_4vx13"]
+[ext_resource type="Texture2D" uid="uid://vya22elwah4a" path="res://assets/floppy.png" id="9_flnsc"]
 
 [node name="developerMode" type="Node2D" unique_id=1691854714]
 script = ExtResource("1_x7xls")
@@ -108,6 +109,15 @@ text = "RAUE"
 [node name="RAUECheck" parent="scrollContainer/control" unique_id=124453344 instance=ExtResource("8_4vx13")]
 position = Vector2(704, 756)
 
+[node name="saveGame" type="TextureButton" parent="." unique_id=1317964170]
+offset_left = 960.0
+offset_top = 20.0
+offset_right = 1060.0
+offset_bottom = 120.0
+texture_normal = ExtResource("9_flnsc")
+ignore_texture_size = true
+stretch_mode = 0
+
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="scrollContainer/control/setAge" to="." method="_on_set_age_pressed"]
 [connection signal="pressed" from="scrollContainer/control/setJoy" to="." method="_on_set_joy_pressed"]
@@ -115,3 +125,4 @@ position = Vector2(704, 756)
 [connection signal="pressed" from="scrollContainer/control/setIntellect" to="." method="_on_set_intellect_pressed"]
 [connection signal="pressed" from="scrollContainer/control/setLooks" to="." method="_on_set_looks_pressed"]
 [connection signal="pressed" from="scrollContainer/control/RAUE" to="." method="_on_raue_pressed"]
+[connection signal="pressed" from="saveGame" to="." method="_on_save_game_pressed"]
