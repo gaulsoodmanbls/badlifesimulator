@@ -23,13 +23,5 @@ offset_right = 647.0
 offset_bottom = 384.0
 text = "Credits"
 
-[node name="saveGame" parent="." unique_id=163180911 instance=ExtResource("5_w6vqt")]
-offset_left = 369.0
-offset_top = 450.0
-offset_right = 712.0
-offset_bottom = 534.0
-text = "Save game"
-
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="saveGame" to="." method="_on_save_game_pressed"]

@@ -53,6 +53,10 @@ var eventPersonSex = ""
 var RAUE = true #RAUE is an acronym for Random Age Up Events. When true, events will randomly appear when aging up. When false, they will not.
 
 
+#inter-life variables (non-life specific, saved into the game save file, persists across all lives)
+var currentLife = ""
+
+
 #savegame stuff
 func lifeSerialiser(): #serialises every life-specific variable we need to save into a dictionary and then returns it
 	var collinsDictionary = {
@@ -88,11 +92,17 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 	}
 	return collinsDictionary
 
-func saveGame(): #does the actual saving
+func gameSerialiser(): #serialises every NON-life-specific variable we need to save into a dictionary and then returns it
+	var cambridgeDictionary = {
+		"currentLife" : currentLife
+	}
+	return cambridgeDictionary
+
+func getSaveLifeFileName(): #will return the unqiue file name, e.g. "Marsden-Gord-9"
 	#checks the paths exist
-	var dir_path = "user://spycarsinc/bls/lives/"
-	if not DirAccess.dir_exists_absolute(dir_path):
-		DirAccess.make_dir_recursive_absolute(dir_path) #if they don't exist, creat them
+	var dirPath = "user://spycarsinc/bls/lives/"
+	if not DirAccess.dir_exists_absolute(dirPath):
+		DirAccess.make_dir_recursive_absolute(dirPath) #if the paths don't exist, create them
 	#has two save files - one for life-specific variables, and one for non-life-specific (game) variables.
 	#unique file checking
 	var lifeAnd = 0
@@ -102,11 +112,15 @@ func saveGame(): #does the actual saving
 			lifeAnd += 1 #try incrementing the lifeAnd number that gets appended to the file name
 		else: #if the file name is unique, and so writing to it will not overwrite another life
 			uniqueLifeSaveName = true #stops loop; we have a valid file name
-	var lifeSavePath = "user://spycarsinc/bls/lives/" + firstName + "-" + lastName + "-" + str(lifeAnd) + ".bls" #the path on the user's device the save will be located - this save only stores the life-specific stuff that doesn't persist between lives (age, relationships, health...)
+	return firstName + "-" + lastName + "-" + str(lifeAnd) #returns the unique file name
+
+func saveGame(): #does the actual saving
+	var lifeSavePath = "user://spycarsinc/bls/lives/" + currentLife + ".bls" #the path on the user's device the save will be located - this save only stores the life-specific stuff that doesn't persist between lives (age, relationships, health...)
 	var gameSavePath  = "user://spycarsinc/bls/game.bls" #this save stores all of the non-life-specific stuff that does persist between lives (achievements, XP and levels, DNA, etc...)
 	var lifeSaveFile = FileAccess.open(lifeSavePath, FileAccess.WRITE)
 	var gameSaveFile = FileAccess.open(gameSavePath, FileAccess.WRITE)
 	#and now do the rest
 	lifeSaveFile.store_var(lifeSerialiser()) #overwrites the life save file with collinsDictionary from the lifeSerialiser() function above.
+	gameSaveFile.store_var(gameSerialiser()) #overwrites the game save file with cambridgeDictionary from the gameSerialiser() function above.
 	lifeSaveFile.close() #closes file and saves changes
 	gameSaveFile.close() #closes file and saves changes

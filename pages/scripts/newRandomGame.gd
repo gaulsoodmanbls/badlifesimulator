@@ -82,6 +82,7 @@ func namePicker(): #generates a full name for the player
 					global.firstName = fFirstNames[randi_range(0, fFirstNames.size() - 1)] #assigns a female name
 		global.lastName = lastNames[randi_range(0, lastNames.size() - 1)] #assigns a random last name. Function does not change depending on sex.
 	print("your name is " + global.firstName + " " + global.lastName)
+	global.currentLife = global.getSaveLifeFileName() #sets the currentLife variable to a unique file name
 
 
 func epicStatChanges(): #changes your stats, epicly, based on factors outside of your control
