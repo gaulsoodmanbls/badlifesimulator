@@ -15,13 +15,20 @@ func _ready() -> void:
 	#adds the button for each save file
 	for i in dir.size(): #runs through every file in the directory
 		var button = buttonPreload.instantiate() #makes the new button not a tscn file and an actual node
-		$scrollContainer/control.add_child(button) #acutally creates the new node as a child of scrollContainer/control
+		$scrollContainer/centerContainer/vBoxContainer.add_child(button) #acutally creates the new node as a child of scrollContainer/centerContainer/vBoxContainer
 		button.name = "life" + str(i) #renames the new node
 		button.text = dir[i].get_basename() #sets the text on the new button to the extension-less file name of the "i"th save file
 		button.size.x = 0 #sets the button to the minimum width it can be
-		button.position = Vector2(1080 / 2 - button.size.x / 2 + 50, positionDown) #sets its position to be centred horizontally (+50 because the scrollContainer and control nodes are 100 pixels wider than the 2D scene) and positionDown pixels lower on the y axis than the top of the scrollContainer
-		$scrollContainer.size.y += 50 + button.size.y #makes the scrollContainer taller so it can fit more buttons (we don't need to change the size of the control node that is a child of it
-		positionDown += 50 + button.size.y #adds 100 + size of this button to positionDown so the next button will be lower down
+		button.position = Vector2(1080 / 2 - button.size.x / 2, positionDown) #sets its position to be centred horizontally and positionDown pixels lower on the y axis than the top of the scrollContainer
+		button.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		button.clip_text = true
+		#gets how much x size the text takes up on the button
+		var text_width = button.get_theme_font("font").get_string_size(button.text, HORIZONTAL_ALIGNMENT_LEFT, -1, button.get_theme_font_size("font_size")).x #gets the total width of the text
+		button.custom_minimum_size.x = min(text_width, 1000) #sets the button's cap (by setting its minimum size to either the size of the text or 1000, whichever's lower). This leads to buttons that are too big being abruptly cut off, but it doesn't really matter all that much.
+		print(button.global_position.x)
+		print(button.size.x)
+	$scrollContainer/centerContainer/vBoxContainer.size.y += 50 #increases the size of the container so the scrolling doesn't stop as soon as you hit the bottom of the last button
+	$scrollContainer/centerContainer.custom_minimum_size.x = $scrollContainer.size.x #sets the centerContainer's minimum x size to the scrollContainer's x size
 
 
 func _on_back_pressed() -> void:
