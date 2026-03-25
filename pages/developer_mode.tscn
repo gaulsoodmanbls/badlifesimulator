@@ -109,6 +109,15 @@ text = "RAUE"
 [node name="RAUECheck" parent="scrollContainer/control" unique_id=124453344 instance=ExtResource("8_4vx13")]
 position = Vector2(704, 756)
 
+[node name="setEvality" type="Button" parent="scrollContainer/control" unique_id=851334678]
+layout_mode = 0
+offset_left = 427.0
+offset_top = 900.0
+offset_right = 734.0
+offset_bottom = 984.0
+theme = ExtResource("6_llmlx")
+text = "Set evality"
+
 [node name="saveGame" type="TextureButton" parent="." unique_id=1317964170]
 offset_left = 960.0
 offset_top = 20.0
@@ -125,4 +134,5 @@ stretch_mode = 0
 [connection signal="pressed" from="scrollContainer/control/setIntellect" to="." method="_on_set_intellect_pressed"]
 [connection signal="pressed" from="scrollContainer/control/setLooks" to="." method="_on_set_looks_pressed"]
 [connection signal="pressed" from="scrollContainer/control/RAUE" to="." method="_on_raue_pressed"]
+[connection signal="pressed" from="scrollContainer/control/setEvality" to="." method="_on_set_evality_pressed"]
 [connection signal="pressed" from="saveGame" to="." method="_on_save_game_pressed"]

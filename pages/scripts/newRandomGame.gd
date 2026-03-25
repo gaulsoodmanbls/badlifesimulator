@@ -38,6 +38,19 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 		1: #if 1, you are female
 			global.sex = "F"
 			print("you are female!")
+	global.sexuality = randi_range(1,30)
+	if global.sexuality <= 15: #if you're straight
+		if global.sex == "M":
+			global.sexuality = "F"
+		elif global.sex == "F":
+			global.sexuality = "M"
+	elif global.sexuality > 15 && global.sexuality <= 24: #if you're bisexual
+		global.sexuality = "Bi"
+	elif global.sexuality > 24: #if you're gay
+		if global.sex == "M":
+			global.sexuality = "M"
+		elif global.sex == "F":
+			global.sexuality = "F"
 	global.joy = randi_range(0, 100)
 	global.health = randi_range(0, 100)
 	global.intellect = randi_range(0, 100)
@@ -45,14 +58,23 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	global.age = 0
 	global.firstName = ""
 	global.lastName = ""
+	global.logs = ""
+	global.money = 0
+	global.evality = 0
+	global.crimes = []
+	global.crimesSeverity = []
 	global.familyFirstNames = []
 	global.familyLastNames = []
 	global.familyTypes = []
 	global.familyAges = []
 	global.familyRelationships = []
 	global.familySexes = []
-	global.logs = ""
-	global.money = 0
+	global.miscFirstNames = []
+	global.miscLastNames = []
+	global.miscTypes = []
+	global.miscAges = []
+	global.miscRelationships = []
+	global.miscSexes = []
 	print("Joy: " + str(global.joy))
 	print("Health: " + str(global.health))
 	print("Intellect: " + str(global.intellect))

@@ -6,6 +6,7 @@ extends Node #author(s): Ethan Scott
 #engine
 var versionNumber = ProjectSettings.get_setting("application/config/version") #change this in settings when working on an update to the next version number :) go to project -> project settings -> application -> config
 var revent = [] #event IDs (can store multiple). begins with an age identifier (toddler, child, teenager, adult, elder, or "na" for not applicable) and ends with a unique number.
+var currentLife = ""
 
 
 #personal
@@ -22,6 +23,11 @@ var money = 0
 #hidden stats - not shown to the player
 var evality = 0 #on a scale from 0 - 100, how evil are you? i.e. how much joy do you derive from doing bad things, and what bad things are you capable of? higher is more.
 var sexuality = "" #stored definitively, not relative to the sex of the player, i.e. if you're attracted to men, this value would be "M", if you're attracted to women, it would be "F", if you were attracted to both, it would be "Bi", and so on.
+
+
+#rest-of-life-related
+var crimes = []
+var crimesSeverity = []
 
 
 #family
@@ -54,7 +60,7 @@ var RAUE = true #RAUE is an acronym for Random Age Up Events. When true, events 
 
 
 #inter-life variables (non-life specific, saved into the game save file, persists across all lives)
-var currentLife = ""
+#none yet!
 
 
 #savegame stuff
@@ -76,6 +82,9 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		"money" : money,
 		"evality" : evality,
 		"sexuality" : sexuality,
+		#rest-of-life-related
+		"crimes" : crimes,
+		"crimesSeverity" : crimesSeverity,
 		#family relationships
 		"familyFirstNames" : familyFirstNames,
 		"familyLastNames" : familyLastNames,
@@ -114,6 +123,10 @@ func getSaveLifeFileName(): #will return the unqiue file name, e.g. "Marsden-Gor
 		else: #if the file name is unique, and so writing to it will not overwrite another life
 			uniqueLifeSaveName = true #stops loop; we have a valid file name
 	return firstName + "-" + lastName + "-" + str(lifeAnd) #returns the unique file name
+
+func directoryGetter(): #gets path to lives
+	getSaveLifeFileName() #makes sure path exists
+	return "user://spycarsinc/bls/lives/" #returns path
 
 func saveGame(): #does the actual saving
 	var lifeSavePath = "user://spycarsinc/bls/lives/" + currentLife + ".bls" #the path on the user's device the save will be located - this save only stores the life-specific stuff that doesn't persist between lives (age, relationships, health...)
@@ -160,6 +173,9 @@ func loadLife(): #does the actual LIFE loading
 			money = dictionary["money"]
 			evality = dictionary["evality"]
 			sexuality = dictionary["sexuality"]
+			#rest-of-life-related
+			crimes = dictionary["crimes"]
+			crimesSeverity = dictionary["crimesSeverity"]
 			#family relationships
 			familyFirstNames = dictionary["familyFirstNames"]
 			familyLastNames = dictionary["familyLastNames"]

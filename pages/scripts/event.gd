@@ -119,7 +119,10 @@ func repositionResize(): #repositions and resizes the nodes on-screen
 	if $option4.get_minimum_size().x >= 1000:
 		$option4.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
 		$option4.size.x = 900
-	await get_tree().process_frame #wait one frame so the word wrap stuff is able to apply
+	if is_inside_tree() == true: #if this node still exists
+		await get_tree().process_frame #wait one frame so the word wrap stuff is able to apply
+	else:
+		return #if it doesn't exist, why are you even running this code??
 	$body.position.y = $heading.position.y + $heading.get_minimum_size().y + 50 #sets position of body text to be 50 px lower than the heading text
 	$option1.position.y = $body.position.y + $body.get_minimum_size().y + 100 #sets position of the option 1 button to be 100 px lower than the body text
 	$option2.position.y = $option1.position.y + $option1.get_minimum_size().y + 50
@@ -142,6 +145,12 @@ func outcome(reventID):
 func goHome():
 	global.revent.pop_front()
 	get_tree().change_scene_to_file("res://pages/game_menu.tscn")
+	return
+
+
+func goToSpecific(page):
+	#global.revent.pop_front() doesn't run here - you'll need to do that on the page you're going to
+	get_tree().change_scene_to_file(page)
 	return
 
 
@@ -189,7 +198,10 @@ func childhood(): #childhood base events - prefix is "child-"
 		$option1.text = "Thank them anyways"
 		$option2.text = "Thank them enthusiastically"
 		$option3.text = "Pitch a fit and cry"
-		$option4.modulate.a = 0
+		if global.evality >= 90: #if you're like, REALLY evil
+			$option4.text = "Kill " + pronounGenerator("him", global.familySexes[relativeOfChoice]) #uh oh!???
+		else: #if you're not
+			$option4.modulate.a = 0 #don't worry, you can't press it on accident
 		$credit.text = "Goblin + mconcerning"
 
 
@@ -198,9 +210,9 @@ func teenagehood(): #teenage base events - prefix is "teenager-"
 		$heading.text = "New friend?"
 		EGPGenerator(3, 10)
 		if randi_range(1,2) == 1: #body text variation
-			$body.text = "While visiting a family friend, "
+			$body.text = "While visiting a family friend, " #this isn't unfinished, it gets appended to in a second
 		else:
-			$body.text = "While out with family, "
+			$body.text = "While out with family, " #this isn't unfinished, it gets appended to in a second
 		$body.text = $body.text + "you run into a " + pronounGenerator("boy", global.eventPersonSex) + " named " + global.eventPersonFirstName + ". You start talking and realise you have a lot of chemistry."
 		$option1.text = "Befriend " + pronounGenerator("him", global.eventPersonSex)
 		$option.text = "Ask " + pronounGenerator("him", global.eventPersonSex) + " out"
@@ -246,17 +258,23 @@ func multiAgeRange(): #runs events that span across multiple age ranges
 
 
 func specialised(): #runs any specialised, non-age-up events
-	pass
+	if global.revent[0] == "change-save-management-mode-to-delete":
+		$heading.text = "Please confirm"
+		$body.text = "Are you sure you want to enter delete mode?\nANY save file you press will be PERMANENTLY deleted. This action CANNOT be undone.\nPress the ''Load mode'' button above your save files to switch back to load mode at any time.\nYou cannot delete your MAIN game save here. Rest assured, no matter what, that will stay intact. You can, however, delete individual lives, including the one you're playing on currently."
+		$option1.text = "Nevermind, back to load mode"
+		$option2.text = "I understand, please let me delete stuff"
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
 
 
 func _on_option_1_pressed() -> void: #on option 1 selected
 	#event - option 1 will be an actual option
-	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "child-friend" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend":
+	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "child-friend" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend" || global.revent[0] == "change-save-management-mode-to-delete":
 		outcome(global.revent[0] + "-o1")
 	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
 	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3":
 		goHome()
-	elif global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3":
+	elif global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3" || global.revent[0] == "child-0-o4":
 		goHome()
 	elif global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2":
 		goHome()
@@ -271,7 +289,7 @@ func _on_option_1_pressed() -> void: #on option 1 selected
 
 
 func _on_option_2_pressed() -> void: #on option 2 selected
-	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend":
+	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend" || global.revent[0] == "change-save-management-mode-to-delete":
 		outcome(global.revent[0] + "-o2")
 
 
@@ -280,7 +298,10 @@ func _on_option_3_pressed() -> void: #on option 3 selected
 
 
 func _on_option_4_pressed() -> void: #on option 4 selected
-	pass # Replace with function body.
+	if global.revent[0] == "child-0":
+		if global.evality >= 90: #if you meet the requirements to access this option
+			outcome(global.revent[0] + "-o4")
+	outcome(global.revent[0] + "-o4")
 
 
 func option1outcomes(): #option 1 has been picked
@@ -347,6 +368,8 @@ func option1outcomes(): #option 1 has been picked
 		$option4.modulate.a = 0
 		global.familyRelationships[relativeOfChoice] += 5 #adds 5 to the relationship you have with the gifter
 		global.evality += 3 #since you did something semi-bad, you become slightly desensitised to doing bad things
+	elif global.revent[0] == "change-save-management-mode-to-delete-o1":
+		goToSpecific("res://pages/life_save_files.tscn")
 
 
 func option2outcomes(): #option 2 has been picked
@@ -461,6 +484,8 @@ func option2outcomes(): #option 2 has been picked
 		global.familyRelationships[relativeOfChoice] += 8
 		global.money += 50
 		global.evality += 4 #since you did something bad, you become slightly desensitised to doing bad things
+	elif global.revent[0] == "change-save-management-mode-to-delete-o2":
+		goToSpecific("res://pages/life_save_files.tscn")
 
 
 func option3outcomes(): #option 3 has been picked
@@ -511,15 +536,35 @@ func option3outcomes(): #option 3 has been picked
 
 
 func option4outcomes(): #option 4 has been picked
-	pass
+	if global.revent[0] == "child-0-o4":
+		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the relative featured in this event
+		$heading.text = "No one can ever know."
+		$body.text = "You kill your " + global.familyTypes[relativeOfChoice].to_lower() + " in cold blood. You push " + pronounGenerator("him", global.familySexes[relativeOfChoice]) + " down the stairs while no-one's looking.\n+ 100 Intellect"
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		#kills uncle
+		global.familyFirstNames.remove_at(relativeOfChoice)
+		global.familyLastNames.remove_at(relativeOfChoice)
+		global.familyRelationships.remove_at(relativeOfChoice)
+		global.familyTypes.remove_at(relativeOfChoice)
+		global.familyAges.remove_at(relativeOfChoice)
+		global.familySexes.remove_at(relativeOfChoice)
+		#stat effects
+		global.intellect = 100
+		global.crimes.append("1st-degree-murder")
+		global.crimesSeverity.append(100)
 
 
-func eventer(): #does the base events (before options are picked)
+func eventer(): #runs all the functions
 	toddlerhood()
 	childhood()
 	teenagehood()
 	adulthood()
 	elderhood()
+	multiAgeRange()
+	specialised()
 	option1outcomes()
 	option2outcomes()
 	option3outcomes()
@@ -532,7 +577,8 @@ func _ready() -> void:
 		get_tree().change_scene_to_file("res://pages/game_menu.tscn")
 		return
 	print("showing event " + str(global.revent[0])) #prints the first event ID (the one that is about to be shown) in the revent array
-	global.saveGame()
+	if global.firstName != "": #if there IS a save file
+		global.saveGame()
 	await get_tree().process_frame #waits for frame to be processed first to avoid weirdness
 	eventer()
 	repositionResize()
