@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://c4m5njyc8mrym"]
+
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="1_1r7n8"]
+[ext_resource type="Script" uid="uid://jhwmawn34q8b" path="res://pages/scripts/lifeSaveFiles.gd" id="1_opkno"]
+[ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="3_e11vn"]
+[ext_resource type="PackedScene" uid="uid://cjnbhqp8obehv" path="res://objects/back_button.tscn" id="3_ptwqe"]
+[ext_resource type="PackedScene" uid="uid://b7bfib5vbcvk6" path="res://objects/heading.tscn" id="3_urobc"]
+
+[node name="lifeSaveFiles" type="Node2D" unique_id=1127518010]
+script = ExtResource("1_opkno")
+
+[node name="background" parent="." unique_id=888694656 instance=ExtResource("1_1r7n8")]
+
+[node name="back" parent="." unique_id=17962498 instance=ExtResource("3_ptwqe")]
+
+[node name="heading" parent="." unique_id=33655322 instance=ExtResource("3_urobc")]
+text = "Saved lives"
+
+[node name="howManySavedLives" type="Label" parent="." unique_id=448534271]
+offset_left = 40.0
+offset_top = 250.0
+offset_right = 1040.0
+offset_bottom = 310.0
+text = "You have 0 saved lives."
+label_settings = ExtResource("3_e11vn")
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="scrollContainer" type="ScrollContainer" parent="." unique_id=679167767]
+offset_left = -50.0
+offset_top = 400.0
+offset_right = 1130.0
+offset_bottom = 500.0
+
+[node name="control" type="Control" parent="scrollContainer" unique_id=71536353]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

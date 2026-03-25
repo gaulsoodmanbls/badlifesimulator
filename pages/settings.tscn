@@ -23,5 +23,13 @@ offset_right = 647.0
 offset_bottom = 384.0
 text = "Credits"
 
+[node name="saveFiles" parent="." unique_id=262623303 instance=ExtResource("5_w6vqt")]
+offset_left = 400.0
+offset_top = 450.0
+offset_right = 681.0
+offset_bottom = 534.0
+text = "Save files"
+
 [connection signal="pressed" from="back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="saveFiles" to="." method="_on_save_files_pressed"]

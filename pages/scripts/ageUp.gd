@@ -10,10 +10,14 @@ func _ready() -> void:
 	global.health += randi_range(-8, 8)
 	global.intellect += randi_range(-8, 8)
 	global.looks += randi_range(-8, 8)
+	for i in global.familyAges.size(): #runs through every family member and ages them up
+		global.familyAges[i] += 1
+	for i in global.miscAges.size(): #runs through every miscellanious person you know and ages them up
+		global.miscAges[i] += 1
 	if randi_range(1, 2) == 1 && global.RAUE == true: #if you're getting a random event (1 in 2 chance) and random events are enabled
 		if global.age >= 2: #you must be 2 or over to get random age up events
 			print("choosing random age up event...")
-			if global.age <= 4: #if age is 4 or above
+			if global.age <= 4: #if age is 4 or below
 				global.revent.append("toddler-" + str(randi_range(0, 0))) #second number in the randi_range is the last ID for the event that exists
 			elif global.age >= 5 && global.age <= 12: #if age is between 5 and 12
 				global.revent.append("child-" + str(randi_range(0, 0)))

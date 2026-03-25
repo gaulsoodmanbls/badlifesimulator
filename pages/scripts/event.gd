@@ -5,7 +5,7 @@ extends Node2D #author(s): Ethan Scott
 func loadList(path, splitter): #see newRandomGame.gd for more info
 	return FileAccess.get_file_as_string(path).split(splitter)
 
-func arrayCleaner(): #removes the last element of all IMPORTED arrays (from a txt file in res://data/), which SHOULD be occupied by dead space and no actual data
+func arrayCleaner(): #used for random NPC name generation - removes the last element of all IMPORTED arrays (from a txt file in res://data/), which SHOULD be occupied by dead space and no actual data
 	mFirstNames.pop_back()
 	fFirstNames.pop_back()
 	uFirstNames.pop_back()
