@@ -6,6 +6,7 @@ var avgJoy = averageFinder(global.joyOverTime)
 var avgHealth = averageFinder(global.healthOverTime)
 var avgIntellect = averageFinder(global.intellectOverTime)
 var avgLooks = averageFinder(global.looksOverTime)
+var XPThatWasQueued = 0 #since XPQueued is cleared before you can see it and moving its clearing until after you're shown it would cause issues with saving and therefore cheesing death, it is stored here temporarily and holds no bearing on how much XP you actually earn
 
 
 func averageFinder(array): #finds the average value of all elements in an array (note: only works if all elements are numerals, because of maths)
@@ -40,11 +41,17 @@ func _on_100ms_timeout() -> void: #every 0.1s
 		$stats.text += "\n\nAverage Looks: " + averageFinder(global.looksOverTime)
 	elif timerRuns == 9:
 		$stats.text += "\nLooks at death: " + str(global.looks)
+	elif timerRuns == 10:
+		$stats.text += "\n\nXP earned: " + str(XPThatWasQueued)
+	elif timerRuns == 11:
+		$stats.text += "\nLevel " + str(global.level)
+	elif timerRuns == 12:
+		$stats.text += "\nYou need " + str(global.XPRequired - global.XP) + " more XP to level up"
 	timerRuns += 1
 
 
-func _on_2s_timeout() -> void: #first 2s
-	get_node("100ms").start() #$100ms doesn't work here for some reason (??)
+func _on_2s_timeout() -> void: #first 2s; i.e. runs after animation is finished playing
+	get_node("100ms").start() #starts playing the stats reveal animation. $100ms doesn't work here for some reason (??)
 
 
 #when you die
@@ -53,4 +60,11 @@ func _ready() -> void:
 		DirAccess.remove_absolute("user://spycarsinc/bls/lives/" + global.currentLife + ".bls") #deletes the save file for this life
 		print("successfully deleted save file for " + global.currentLife)
 	global.currentLife = "" #no more currentLife
+	global.XP += global.XPQueued #adds the XP you are owed to your XP
+	XPThatWasQueued = global.XPQueued
+	global.XPQueued = 0 #you are no longer owed XP
+	while global.XP >= global.XPRequired: #while you have more XP than you need to level up
+		global.XP -= global.XPRequired #deducts the XP required to level up from your XP
+		global.level += 1 #levels up
+		global.XPRequired += 500 #makes the next level up harder to reach
 	global.saveGame()
