@@ -69,11 +69,13 @@ var eventPersonAge = ""
 var eventPersonSex = ""
 
 
-#keeping track (for achievements or otherwise)
+#keeping track (for achievements, use upon death, or otherwise)
 var joyOverTime = [] #every time you age up, your current joy level is appended here. when you die, the average of all these values is calculated and you are told it.
 var healthOverTime = []
 var intellectOverTime = []
 var looksOverTime = []
+var causeOfDeath = ""
+var XPQueued = 0 #the amount of XP that needs to be awarded when you die
 
 
 #testing variables - used in developer mode

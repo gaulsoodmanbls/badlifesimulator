@@ -20,6 +20,7 @@ func _ready() -> void:
 		global.miscAges[i] += 1
 	#events
 	if randi_range(1, 2) == 1 && global.RAUE == true: #if you're getting a random event (1 in 2 chance) and random events are enabled
+		global.XPQueued += 15 #gives you XP for experiencing something
 		if global.age >= 2: #you must be 2 or over to get random age up events
 			print("choosing random age up event...")
 			if global.age <= 4: #if age is 4 or below
@@ -34,6 +35,7 @@ func _ready() -> void:
 				global.revent.append("elder-" + str(randi_range(0, 0)))
 			print("appended event " + str(global.revent[global.revent.size() - 1])) #prints the last event ID (the one that was just appended) in the revent array
 	if randi_range(1, 20) == 1 && global.RAUE == true: #if you're randomly getting a new friend :) and RAUE is enabled
+		global.XPQueued += 15 #gives you XP for experiencing something
 		if global.age <= 4: #if age is 4 or below
 			global.revent.append("toddler-friend")
 		elif global.age >= 5 && global.age <= 12: #if age is between 5 and 12
@@ -53,6 +55,7 @@ func _ready() -> void:
 	if global.age >= 50: #if you're old enough to randomly die (not super realistic, but as it turns out, it is NOT fun dying for no reason at age 2)
 		print("1 in " + str(max(1, 4 + global.health * 3 - global.age * 2)) + " chance of death")
 		if randi_range(1, max(1, 4 + global.health * 3 - global.age * 2)) == 1:
+			global.causeOfDeath = "You died of natural causes"
 			get_tree().change_scene_to_file("res://pages/death.tscn") #kills you
 			return #ceases function of this function so nothing below this runs and it takes you to the new page
 	#runs events if they're queued

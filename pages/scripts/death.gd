@@ -21,15 +21,25 @@ func averageFinder(array): #finds the average value of all elements in an array 
 
 func _on_100ms_timeout() -> void: #every 0.1s
 	if timerRuns == 0:
-		$stats.text += "Age at death: " + str(global.age)
+		$stats.text += global.causeOfDeath
 	elif timerRuns == 1:
-		$stats.text += "\nAverage Joy: " + averageFinder(global.joyOverTime)
+		$stats.text += "\n\nAge at death: " + str(global.age)
 	elif timerRuns == 2:
-		$stats.text += "\nAverage Health: " + averageFinder(global.healthOverTime)
+		$stats.text += "\n\nAverage Joy: " + averageFinder(global.joyOverTime)
 	elif timerRuns == 3:
-		$stats.text += "\nAverage Intellect: " + averageFinder(global.intellectOverTime)
+		$stats.text += "\nJoy at death: " + str(global.joy)
 	elif timerRuns == 4:
-		$stats.text += "\nAverage Looks: " + averageFinder(global.looksOverTime)
+		$stats.text += "\n\nAverage Health: " + averageFinder(global.healthOverTime)
+	elif timerRuns == 5:
+		$stats.text += "\nHealth at death: " + str(global.health)
+	elif timerRuns == 6:
+		$stats.text += "\n\nAverage Intellect: " + averageFinder(global.intellectOverTime)
+	elif timerRuns == 7:
+		$stats.text += "\nIntellect at death: " + str(global.intellect)
+	elif timerRuns == 8:
+		$stats.text += "\n\nAverage Looks: " + averageFinder(global.looksOverTime)
+	elif timerRuns == 9:
+		$stats.text += "\nLooks at death: " + str(global.looks)
 	timerRuns += 1
 
 
