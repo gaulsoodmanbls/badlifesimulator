@@ -3,9 +3,9 @@ extends Node2D #author(s): Ethan Scott
 
 func _ready() -> void:
 	if global.RAUE == true:
-		$scrollContainer/control/RAUECheck.frame = 1
+		$scrollContainer/centerContainer/vBoxContainer/RAUECheck.frame = 1
 	else: #if global.RAUE == false
-		$scrollContainer/control/RAUECheck.frame = 0
+		$scrollContainer/centerContainer/vBoxContainer/RAUECheck.frame = 0
 
 
 func _on_exit_pressed() -> void:
@@ -43,11 +43,11 @@ func _on_set_looks_pressed() -> void:
 
 func _on_raue_pressed() -> void:
 	if global.RAUE == true:
-		$scrollContainer/control/RAUECheck.frame = 0
+		$scrollContainer/centerContainer/vBoxContainer/RAUECheck.frame = 0
 		global.RAUE = false
 		$confirmation.text = "Successfully set RAUE to false!"
 	else: #if false
-		$scrollContainer/control/RAUECheck.frame = 1
+		$scrollContainer/centerContainer/vBoxContainer/RAUECheck.frame = 1
 		global.RAUE = true
 		$confirmation.text = "Successfully set RAUE to true!"
 	print("set RAUE to " + str(global.RAUE))
@@ -60,3 +60,23 @@ func _on_set_evality_pressed() -> void:
 func _on_die_pressed() -> void:
 	global.causeOfDeath = "You died because you developed too hard"
 	get_tree().change_scene_to_file("res://pages/death.tscn") #kills you
+
+func _on_set_xp_pressed() -> void:
+	global.XP = int($input.text)
+	$confirmation.text = "Successfully set XP!"
+	print("set XP to " + str(global.XP))
+
+func _on_set_xp_required_pressed() -> void:
+	global.XPRequired = int($input.text)
+	$confirmation.text = "Successfully set XPRequired!"
+	print("set XPRequired to " + str(global.XPRequired))
+
+func _on_set_xp_queued_pressed() -> void:
+	global.XPQueued = int($input.text)
+	$confirmation.text = "Successfully set XPQueued!"
+	print("set XPQueued to " + str(global.XPQueued))
+
+func _on_set_level_pressed() -> void:
+	global.level = int($input.text)
+	$confirmation.text = "Successfully set level!"
+	print("set level to " + str(global.level))

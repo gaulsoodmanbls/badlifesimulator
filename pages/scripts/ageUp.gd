@@ -10,6 +10,28 @@ func _ready() -> void:
 	global.health += randi_range(-8, 8)
 	global.intellect += randi_range(-8, 8)
 	global.looks += randi_range(-8, 8)
+	#if stats are out of bounds (above or below their max/min value), clamp them
+	if global.joy > 100:
+		global.joy = 100
+	elif global.joy < 0:
+		global.joy = 0
+	if global.health > 100:
+		global.health = 100
+	elif global.health < 0:
+		global.health = 0
+	if global.intellect > 100:
+		global.intellect = 100
+	elif global.intellect < 0:
+		global.intellect = 0
+	if global.looks > 100:
+		global.looks = 100
+	elif global.looks < 0:
+		global.looks = 0
+	if global.evality > 100:
+		global.evality = 100
+	elif global.evality < 0:
+		global.evality = 0
+	#over timers
 	global.joyOverTime.append(global.joy)
 	global.healthOverTime.append(global.health)
 	global.intellectOverTime.append(global.intellect)
@@ -48,10 +70,6 @@ func _ready() -> void:
 			global.revent.append("elder-friend")
 		print("appended event " + str(global.revent[global.revent.size() - 1])) #prints the last event ID (the one that was just appended) in the revent array
 	#death chance
-	#print("1 in " + str(max(1, 800 - global.age * 12 + global.health * 5)) + " chance of you dying")
-	#if randi_range(1, max(1, 800 - global.age * 12 + global.health * 5)) == 1: #if you're old and unhealthy enough to die
-	#print("1 in " + str(round(1800 - (global.age ** 1.05) * 88 + (global.health ** 1.8) * 50 - (global.health ** 1.18) * 50 - (global.health ** 1.3) + 10 * (global.health ** (5/6)) + 0.5) == 1) + " chance of death")
-	#if randi_range(1, max(1, round(1800 - (global.age ** 1.05) * 88 + (global.health ** 1.8) * 50 - (global.health ** 1.18) * 50 - (global.health ** 1.3) + 10 * (global.health ** (5/6)) + 0.5))) == 1 || randi_range(1, 200) == 1: #apparently ** is the symbol for powers in godot, not ^... Yuck...
 	if global.age >= 50: #if you're old enough to randomly die (not super realistic, but as it turns out, it is NOT fun dying for no reason at age 2)
 		print("1 in " + str(max(1, 4 + global.health * 3 - global.age * 2)) + " chance of death")
 		if randi_range(1, max(1, 4 + global.health * 3 - global.age * 2)) == 1:

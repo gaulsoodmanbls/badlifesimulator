@@ -3,27 +3,6 @@ extends Node2D #author(s): Ethan Scott
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	#if stats are out of bounds (above or below their max/min value)
-	if global.joy < 0:
-		global.joy = 0
-	elif global.joy > 100:
-		global.joy = 100
-	if global.health < 0:
-		global.health = 0
-	elif global.health > 100:
-		global.health = 100
-	if global.intellect < 0:
-		global.intellect = 0
-	elif global.intellect > 100:
-		global.intellect = 100
-	if global.looks < 0:
-		global.looks = 0
-	elif global.looks > 100:
-		global.looks = 100
-	if global.evality < 0:
-		global.evality = 0
-	elif global.evality > 100:
-		global.evality = 100
 	#stat text setting
 	$name.text = str(global.firstName) + " " + str(global.lastName)
 	$logs.text = str(global.logs)

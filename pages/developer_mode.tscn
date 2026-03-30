@@ -46,86 +46,91 @@ autowrap_mode = 3
 offset_left = -50.0
 offset_top = 479.0
 offset_right = 1130.0
-offset_bottom = 1766.0
+offset_bottom = 1779.0
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
-[node name="control" type="Control" parent="scrollContainer" unique_id=77656955]
+[node name="centerContainer" type="CenterContainer" parent="scrollContainer" unique_id=425700967]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
 
-[node name="setAge" type="Button" parent="scrollContainer/control" unique_id=1429525849]
-layout_mode = 0
-offset_left = 466.0
-offset_right = 694.0
-offset_bottom = 84.0
+[node name="vBoxContainer" type="VBoxContainer" parent="scrollContainer/centerContainer" unique_id=968461595]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 50
+
+[node name="setAge" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=1429525849]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Set age"
 
-[node name="setJoy" type="Button" parent="scrollContainer/control" unique_id=220462692]
-layout_mode = 0
-offset_left = 482.0
-offset_top = 150.0
-offset_right = 679.0
-offset_bottom = 234.0
+[node name="setJoy" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=220462692]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Set joy"
 
-[node name="setHealth" type="Button" parent="scrollContainer/control" unique_id=49862777]
-layout_mode = 0
-offset_left = 430.0
-offset_top = 300.0
-offset_right = 731.0
-offset_bottom = 384.0
+[node name="setHealth" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=49862777]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Set health"
 
-[node name="setIntellect" type="Button" parent="scrollContainer/control" unique_id=899678539]
-layout_mode = 0
-offset_left = 407.0
-offset_top = 450.0
-offset_right = 754.0
-offset_bottom = 534.0
+[node name="setIntellect" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=899678539]
+layout_mode = 2
 theme = ExtResource("6_llmlx")
 text = "Set intellect"
 
-[node name="setLooks" type="Button" parent="scrollContainer/control" unique_id=993642163]
-layout_mode = 0
-offset_left = 448.0
-offset_top = 600.0
-offset_right = 712.0
-offset_bottom = 684.0
+[node name="setLooks" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=993642163]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Set looks"
 
-[node name="RAUE" type="Button" parent="scrollContainer/control" unique_id=251619083]
-layout_mode = 0
-offset_left = 506.0
-offset_top = 750.0
-offset_right = 654.0
-offset_bottom = 834.0
+[node name="RAUE" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=251619083]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "RAUE"
 
-[node name="RAUECheck" parent="scrollContainer/control" unique_id=124453344 instance=ExtResource("8_4vx13")]
-position = Vector2(704, 756)
+[node name="RAUECheck" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=124453344 instance=ExtResource("8_4vx13")]
+position = Vector2(358, 676)
 
-[node name="setEvality" type="Button" parent="scrollContainer/control" unique_id=851334678]
-layout_mode = 0
-offset_left = 427.0
-offset_top = 900.0
-offset_right = 734.0
-offset_bottom = 984.0
+[node name="setEvality" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=851334678]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Set evality"
 
-[node name="die" type="Button" parent="scrollContainer/control" unique_id=1127429589]
-layout_mode = 0
-offset_left = 533.0
-offset_top = 1050.0
-offset_right = 627.0
-offset_bottom = 1134.0
+[node name="die" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=1127429589]
+layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Die"
+
+[node name="setXP" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=1818039464]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_llmlx")
+text = "Set XP"
+
+[node name="setXPRequired" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=1230223804]
+layout_mode = 2
+theme = ExtResource("6_llmlx")
+text = "Set XP required"
+
+[node name="setXPQueued" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=808774748]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_llmlx")
+text = "Set XP queued"
+
+[node name="setLevel" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=872343627]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_llmlx")
+text = "Set level"
 
 [node name="saveGame" type="TextureButton" parent="." unique_id=1317964170]
 offset_left = 960.0
@@ -137,12 +142,16 @@ ignore_texture_size = true
 stretch_mode = 0
 
 [connection signal="pressed" from="exit" to="." method="_on_exit_pressed"]
-[connection signal="pressed" from="scrollContainer/control/setAge" to="." method="_on_set_age_pressed"]
-[connection signal="pressed" from="scrollContainer/control/setJoy" to="." method="_on_set_joy_pressed"]
-[connection signal="pressed" from="scrollContainer/control/setHealth" to="." method="_on_set_health_pressed"]
-[connection signal="pressed" from="scrollContainer/control/setIntellect" to="." method="_on_set_intellect_pressed"]
-[connection signal="pressed" from="scrollContainer/control/setLooks" to="." method="_on_set_looks_pressed"]
-[connection signal="pressed" from="scrollContainer/control/RAUE" to="." method="_on_raue_pressed"]
-[connection signal="pressed" from="scrollContainer/control/setEvality" to="." method="_on_set_evality_pressed"]
-[connection signal="pressed" from="scrollContainer/control/die" to="." method="_on_die_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setAge" to="." method="_on_set_age_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setJoy" to="." method="_on_set_joy_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setHealth" to="." method="_on_set_health_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setIntellect" to="." method="_on_set_intellect_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setLooks" to="." method="_on_set_looks_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/RAUE" to="." method="_on_raue_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setEvality" to="." method="_on_set_evality_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/die" to="." method="_on_die_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setXP" to="." method="_on_set_xp_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setXPRequired" to="." method="_on_set_xp_required_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setXPQueued" to="." method="_on_set_xp_queued_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setLevel" to="." method="_on_set_level_pressed"]
 [connection signal="pressed" from="saveGame" to="." method="_on_save_game_pressed"]

@@ -4,8 +4,10 @@
 [ext_resource type="Script" uid="uid://rwfkrkm8sxi0" path="res://pages/scripts/death.gd" id="1_k37ta"]
 [ext_resource type="LabelSettings" uid="uid://bdu57mu77gnih" path="res://styles/text/heading_white.tres" id="2_k6w8t"]
 [ext_resource type="Texture2D" uid="uid://cq57fino8h30i" path="res://assets/red-bg.png" id="3_4vejq"]
+[ext_resource type="LabelSettings" uid="uid://bst31irnyaguk" path="res://styles/text/subheading.tres" id="5_16vjf"]
 [ext_resource type="LabelSettings" uid="uid://c3r4rskc4jrad" path="res://styles/text/heading.tres" id="5_ohchq"]
 [ext_resource type="LabelSettings" uid="uid://dl6sog5hfkb6u" path="res://styles/text/body.tres" id="6_ohchq"]
+[ext_resource type="PackedScene" uid="uid://ck7ra4cupjjkm" path="res://objects/button_default.tscn" id="6_y31ux"]
 
 [sub_resource type="Animation" id="Animation_4vejq"]
 length = 0.001
@@ -85,15 +87,55 @@ offset_bottom = 240.0
 text = "You died"
 label_settings = ExtResource("5_ohchq")
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
 
-[node name="stats" type="Label" parent="." unique_id=1587067014]
-offset_top = 400.0
+[node name="statsTop" type="Label" parent="." unique_id=1587067014]
+offset_top = 320.0
 offset_right = 1080.0
-offset_bottom = 1520.0
+offset_bottom = 443.0
 label_settings = ExtResource("6_ohchq")
 horizontal_alignment = 1
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="statsLeft" type="Label" parent="." unique_id=1595264233]
+offset_left = 20.0
+offset_top = 500.0
+offset_right = 520.0
+offset_bottom = 1505.0
+label_settings = ExtResource("6_ohchq")
+horizontal_alignment = 2
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="statsRight" type="Label" parent="." unique_id=929658476]
+offset_left = 560.0
+offset_top = 500.0
+offset_right = 1060.0
+offset_bottom = 1505.0
+label_settings = ExtResource("6_ohchq")
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="levelUp" type="Label" parent="." unique_id=344290959]
+offset_left = 268.0
+offset_top = 1515.0
+offset_right = 512.0
+offset_bottom = 1597.0
+rotation = -0.065294705
+label_settings = ExtResource("5_16vjf")
+metadata/_edit_use_anchors_ = true
+
+[node name="home" parent="." unique_id=1544237965 instance=ExtResource("6_y31ux")]
+offset_left = -402.0
+offset_top = 1650.0
+offset_right = -125.0
+offset_bottom = 1734.0
+text = "Go home"
+metadata/_edit_use_anchors_ = true
 
 [node name="backgroundRed" type="TextureRect" parent="." unique_id=220519884]
+visible = false
 offset_right = 1080.0
 offset_bottom = 1920.0
 texture = ExtResource("3_4vejq")
@@ -105,6 +147,7 @@ libraries/ = SubResource("AnimationLibrary_16vjf")
 autoplay = &"fade"
 
 [node name="youDiedWhite" type="Label" parent="." unique_id=1643953276]
+visible = false
 modulate = Color(1, 1, 1, 0)
 offset_right = 1080.0
 offset_bottom = 1920.0
@@ -127,5 +170,6 @@ autostart = true
 [node name="100ms" type="Timer" parent="." unique_id=673151771]
 wait_time = 0.1
 
+[connection signal="pressed" from="home" to="." method="_on_home_pressed"]
 [connection signal="timeout" from="2s" to="." method="_on_2s_timeout"]
 [connection signal="timeout" from="100ms" to="." method="_on_100ms_timeout"]

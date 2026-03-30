@@ -84,7 +84,7 @@ var RAUE = true #RAUE is an acronym for Random Age Up Events. When true, events 
 
 #inter-life variables (non-life specific, saved into the game save file, persists across all lives)
 var XP = 0
-var level = 0 #increments when you reach the amount of XP you need to level up
+var level = 1 #increments when you reach the amount of XP you need to level up
 var XPRequired = 500 #the amount of XP you need total to level up. Increases by 500 every level.
 
 
