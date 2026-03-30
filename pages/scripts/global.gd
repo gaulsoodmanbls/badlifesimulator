@@ -28,6 +28,13 @@ var sexuality = "" #stored definitively, not relative to the sex of the player, 
 #rest-of-life-related
 var crimes = []
 var crimesSeverity = []
+var school = ""
+var schoolLevel = 0 #0 if you don't go to school; 1 for primary, 2 for secondary (high school), 3 for tertiary. middle school, if implemented, would be 1.5.
+var degrees = []
+var fullTimeJob = ""
+var fullTimeSalary = 0 #how much money you make annually from your full-time job
+var partTimeJob = ""
+var partTimeSalary = 0 #how much money you make annually from your part-time job
 
 
 #family
@@ -43,7 +50,7 @@ var deadFamilyLastNames = []
 var deadFamilyTypes = []
 var deadFamilyAges = []
 var deadFamilySexes = []
-var deadFamilyRelationships = []
+var deadFamilyRelationships = [] #how close you were with them when they died
 
 #other (miscellaneous) relationships
 var miscFirstNames = []
@@ -58,7 +65,7 @@ var deadMiscLastNames = []
 var deadMiscTypes = []
 var deadMiscAges = []
 var deadMiscSexes = []
-var deadMiscRelationships = []
+var deadMiscRelationships = [] #how close you were with them when they died
 
 
 #miscellaneous stuff that must be stored over multiple pages
@@ -110,6 +117,13 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		#rest-of-life-related
 		"crimes" : crimes,
 		"crimesSeverity" : crimesSeverity,
+		"school" : school,
+		"schoolLevel" : schoolLevel,
+		"degrees" : degrees,
+		"fullTimeJob" : fullTimeJob,
+		"fullTimeSalary" : fullTimeSalary,
+		"partTimeJob" : partTimeJob,
+		"partTimeSalary" : partTimeSalary,
 		#family relationships
 		"familyFirstNames" : familyFirstNames,
 		"familyLastNames" : familyLastNames,
@@ -219,6 +233,13 @@ func loadLife(): #does the actual LIFE loading
 			#rest-of-life-related
 			crimes = dictionary["crimes"]
 			crimesSeverity = dictionary["crimesSeverity"]
+			school = dictionary["school"]
+			schoolLevel = dictionary["schoolLevel"]
+			degrees = dictionary["degrees"]
+			fullTimeJob = dictionary["fullTimeJob"]
+			fullTimeSalary = dictionary["fullTimeSalary"]
+			partTimeJob = dictionary["partTimeJob"]
+			partTimeSalary = dictionary["partTimeSalary"]
 			#family relationships
 			familyFirstNames = dictionary["familyFirstNames"]
 			familyLastNames = dictionary["familyLastNames"]

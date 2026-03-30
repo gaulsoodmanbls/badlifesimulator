@@ -30,6 +30,9 @@ func arrayCleaner(): #removes the last element of all IMPORTED arrays (from a tx
 
 
 func cleanLife(): #resets your existing life (if any) and generates new stats
+	#engine
+	global.revent = []
+	#personal
 	global.sex = randi_range(0,1) #turns sex into a random number, either 0 or 1
 	match global.sex: #assigns sex
 		0: #if the number is 0, you are male
@@ -61,30 +64,58 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	global.logs = ""
 	global.money = 0
 	global.evality = 0
+	#rest-of-life-related
 	global.crimes = []
 	global.crimesSeverity = []
+	global.school = ""
+	global.schoolLevel = 0
+	global.degrees = []
+	global.fullTimeJob = ""
+	global.fullTimeSalary = 0
+	global.partTimeJob = ""
+	global.partTimeSalary = 0
+	#family
 	global.familyFirstNames = []
 	global.familyLastNames = []
 	global.familyTypes = []
 	global.familyAges = []
 	global.familyRelationships = []
 	global.familySexes = []
+	#dead family
+	global.deadFamilyFirstNames = []
+	global.deadFamilyLastNames = []
+	global.deadFamilyTypes = []
+	global.deadFamilyAges = []
+	global.deadFamilyRelationships = []
+	global.deadFamilySexes = []
+	#other (miscellanious) relationships
 	global.miscFirstNames = []
 	global.miscLastNames = []
 	global.miscTypes = []
 	global.miscAges = []
 	global.miscRelationships = []
 	global.miscSexes = []
-	print("Joy: " + str(global.joy))
-	print("Health: " + str(global.health))
-	print("Intellect: " + str(global.intellect))
-	print("Looks: " + str(global.looks))
+	#dead misc
+	global.deadMiscFirstNames = []
+	global.deadMiscLastNames = []
+	global.deadMiscTypes = []
+	global.deadMiscAges = []
+	global.deadMiscRelationships = []
+	global.deadMiscSexes = []
+	#keeping track
 	global.joyOverTime.append(global.joy)
 	global.healthOverTime.append(global.health)
 	global.intellectOverTime.append(global.intellect)
 	global.looksOverTime.append(global.looks)
 	global.causeOfDeath = ""
 	global.XPQueued = 0
+	#testing variables
+	global.RAUE = false
+	#prints stuff
+	print("Joy: " + str(global.joy))
+	print("Health: " + str(global.health))
+	print("Intellect: " + str(global.intellect))
+	print("Looks: " + str(global.looks))
 
 func namePicker(): #generates a full name for the player
 	print(str(mFirstNames.size()) + " masculine first names.")
