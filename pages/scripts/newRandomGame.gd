@@ -110,7 +110,7 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	global.causeOfDeath = ""
 	global.XPQueued = 0
 	#testing variables
-	global.RAUE = false
+	global.RAUE = true
 	#prints stuff
 	print("Joy: " + str(global.joy))
 	print("Health: " + str(global.health))
@@ -242,13 +242,15 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 				global.familyLastNames.append(global.lastName) #gives them the family surname
 			else: #if you have two parents BUT they're aren't married
 				var parentsBeforeThis = false #are there any parents in the familyTypes array before this one? The first parent in the array will get your surname. False by default so it only gets changed if there are other parents before.
-				var x = i-1 #used to keep track of which family member we're checking. Starts off by checking the 
-				while x >= 0: #while there are still family members earlier in the array before this one
+				var x = i-1 #used to keep track of which family member we're checking. Starts off by checking the family member before this one.
+				while x >= 0: #while there are still family members earlier in the array
 					if global.familyTypes[x] == "Mother" || global.familyTypes[x] == "Father": #if the family member at the index x is a parent, that means there is a parent before the one at i
 						parentsBeforeThis = true #the parent at index i is not the first parent
 					x -= 1 #advance
 				if parentsBeforeThis == false: #if, after we checked, we found there aren't any parents in the array before this
 					global.familyLastNames.append(global.lastName) #parent gets your last name
+				if parentsBeforeThis == true: #if there are parents before this one, they already have your last name instead
+					global.familyLastNames.append(lastNames[randi_range(0, lastNames.size() - 1)]) #gives the parent at index i a completely random last name
 		else: #if family member at index i is NOT your parent
 			global.familyLastNames.append(lastNames[randi_range(0, lastNames.size() - 1)]) #gives them a random last name
 		#first names and rare names
@@ -302,11 +304,12 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 				ageOfGrandparent = global.familyTypes.find("Grandfather") #if you have neither a grandmother nor a grandfather, this variable won't be used anyway. Don't lose any sleep over it.
 			ageOfGrandparent = global.familyAges[ageOfGrandparent] #sets ageOfGrandparent to the actual age of the grandparent at index ageOfGrandparent (set just before) (it's confusing)
 			global.familyAges.append(randi_range(ageOfParent, ageOfGrandparent - 18)) #gives uncaunt an age. They will be between the age of YOUR parent and 18 years younger than your grandparent (THEIR parent).
-		elif global.familyTypes[i] == "Cousin": #if family member is a... cousin. Look, I don't know man, this is super self-explanatory
-			ageOfUncaunt = global.familyTypes.find("Aunt") #finds index of aunt
+		elif global.familyTypes[i] == "Cousin": #if family member is a... cousin. Look, I don't know man, this is super self-explanatory. This will only ever run if you have cousins, which will only ever happen if you have at least one aunt/uncle (see the family typer section).
+			ageOfUncaunt = global.familyTypes.find("Aunt") #finds index of an aunt
 			if ageOfUncaunt == -1: #if you have NO aunt
-				ageOfUncaunt = global.familyTypes.find("Uncle") #again, if you have neither an aunt nor an uncle, this variable will not be used. Do not bother worrying about it.
-			global.familyAges.append(randi_range(0, ageOfUncaunt - 18)) #gives cousin an age. They will be between 18 and 45 years younger than your Uncaunt (their parent).
+				ageOfUncaunt = global.familyTypes.find("Uncle") #finds the index of an uncle. Again, if you have neither an aunt nor an uncle, this variable (ageOfUncaunt) will not be used in the first place. Do not bother worrying about it.
+			ageOfUncaunt = global.familyAges[ageOfUncaunt] #gets the age of the Uncaunt at the index that was just acquired
+			global.familyAges.append(randi_range(0, ageOfUncaunt - 18)) #gives cousin an age based on the Uncaunt's age. They will be between 18 and 45 years younger than your Uncaunt (their parent).
 	print(global.familyFirstNames)
 	print(global.familyLastNames)
 	print(global.familySexes)

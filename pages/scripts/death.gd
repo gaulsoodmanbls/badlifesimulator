@@ -55,6 +55,8 @@ func _on_100ms_timeout() -> void: #every 0.1s
 			$levelUp.text = "Level up"
 	elif timerRuns == 15:
 		$home.position.x = 402 #puts the home button on-screen
+		$"100ms".queue_free() #this is the last thing the timer has to take care of, and so it can safely be combusted in the name of (ever so slightly) improving performance
+		$backgroundRed.queue_free() #also deletes the background, because even though it would be invisible at this point, I think it interferes with you interacting with anything on-screen (i.e. the button) because it's drawn on top
 	timerRuns += 1
 
 
