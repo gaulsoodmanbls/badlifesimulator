@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://vklvt16mbx8s"]
+
+[ext_resource type="Script" uid="uid://cw6q5yxrrft7l" path="res://pages/scripts/school.gd" id="1_ihrwm"]
+[ext_resource type="PackedScene" uid="uid://pmo8e2dmbkfm" path="res://objects/background.tscn" id="2_vvy5g"]
+[ext_resource type="PackedScene" uid="uid://cjnbhqp8obehv" path="res://objects/back_button.tscn" id="3_fkmne"]
+[ext_resource type="PackedScene" uid="uid://b3nrc0n5eeris" path="res://objects/subheading.tscn" id="4_fkmne"]
+
+[node name="school" type="Node2D" unique_id=1594056916]
+script = ExtResource("1_ihrwm")
+
+[node name="background" parent="." unique_id=546064917 instance=ExtResource("2_vvy5g")]
+
+[node name="back" parent="." unique_id=17962498 instance=ExtResource("3_fkmne")]
+
+[node name="schoolName" parent="." unique_id=1227387029 instance=ExtResource("4_fkmne")]
+offset_left = 0.0
+offset_right = 1080.0
+text = ""
+autowrap_mode = 3
+
+[connection signal="pressed" from="back" to="." method="_on_back_pressed"]

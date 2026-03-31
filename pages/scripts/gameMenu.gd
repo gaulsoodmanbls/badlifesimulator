@@ -3,6 +3,7 @@ extends Node2D #author(s): Ethan Scott
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	global.statClamper()
 	#stat text setting
 	$name.text = str(global.firstName) + " " + str(global.lastName)
 	$logs.text = str(global.logs)
@@ -29,3 +30,11 @@ func _on_new_game_egg_pressed() -> void: #on new game egg button clicked
 
 func _on_age_up_button_pressed() -> void: #on age up button pressed
 	get_tree().change_scene_to_file("res://pages/age_up.tscn") #age up
+
+
+func _on_occupation_pressed() -> void:
+	if global.schoolLevel == -1: #if you don't go to school yet
+		global.revent.append("child-labour-is-outlawed")
+		get_tree().change_scene_to_file("res://pages/event.tscn") #child labour is thoroughly illegal. Unless...
+	elif global.schoolLevel == 1 || global.schoolLevel == 2 || global.schoolLevel == 3: #if you do go to school
+		get_tree().change_scene_to_file("res://pages/school.tscn") #go to school

@@ -2,33 +2,6 @@ extends Node2D #author(s): Ethan Scott, GrayyGray
 #generates a random life for the player
 
 
-func loadList(path, splitter): #loads list of anything from a seperate file :) used for names. thanks to GrayyGray for using this method originally in a fork
-	return FileAccess.get_file_as_string(path).split(splitter) #items in the list are split up by commas followed by spaces
-#lists end in a comma followed by a space so any useless data after it (i.e. a new line) is included as the last element, which is popped (removed) when this script is loaded. must be strictly typed as arrays because otherwise godot automatically makes the name arrays and other string arrays into "packed string arrays", which don't let you remove elements as far as I know, but are more memory-efficient than regular arrays. Trust me, I would use those if I could.
-
-
-var tips : Array = loadList("res://data/tips.txt", " | ") #tips to be displayed on the screen during loading :) - items in THIS list are seperated by " | "
-
-
-#name variables
-var mFirstNames : Array = loadList("res://data/names/mFirstNames.txt", ", ") #loads list of masculine first names
-var fFirstNames : Array = loadList("res://data/names/fFirstNames.txt", ", ") #feminine first names
-var uFirstNames : Array = loadList("res://data/names/uFirstNames.txt", ", ") #unisex first names
-var lastNames : Array = loadList("res://data/names/lastNames.txt", ", ") #dude just look at the variable name
-var rareFirstNames : Array = loadList("res://data/names/rareFirstNames.txt", ", ") #only generated in pairs of first name and last name. Regular names roll once for a first name and again to pick a last name, whereas rare names only roll once and pick the corresponding first and last name. So picking "Rob" as a rare first name cannot result in the name "Rob Salad", it will always result in "Rob Ery" as they are both at the same index. This is to make seperating first and last names easier, but also preserve the rare name as originally intended.
-var rareLastNames : Array = loadList("res://data/names/rareLastNames.txt", ", ") #Marl and ™ have only a first name. This will result in some weird behaviour, such as the player being called "Mr./Mrs.[blank]", but that is a sarcrifice I am willing to make.
-
-
-func arrayCleaner(): #removes the last element of all IMPORTED arrays (from a txt file in res://data/), which SHOULD be occupied by dead space and no actual data
-	tips.pop_back()
-	mFirstNames.pop_back()
-	fFirstNames.pop_back()
-	uFirstNames.pop_back()
-	lastNames.pop_back()
-	rareFirstNames.pop_back()
-	rareLastNames.pop_back()
-
-
 func cleanLife(): #resets your existing life (if any) and generates new stats
 	#engine
 	global.revent = []
@@ -67,8 +40,8 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	#rest-of-life-related
 	global.crimes = []
 	global.crimesSeverity = []
-	global.school = ""
-	global.schoolLevel = 0
+	global.schoolName = ""
+	global.schoolLevel = -1
 	global.degrees = []
 	global.fullTimeJob = ""
 	global.fullTimeSalary = 0
@@ -118,28 +91,28 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	print("Looks: " + str(global.looks))
 
 func namePicker(): #generates a full name for the player
-	print(str(mFirstNames.size()) + " masculine first names.")
-	print(str(fFirstNames.size()) + " feminine first names.")
-	print(str(uFirstNames.size()) + " unisex first names.")
-	print(str(lastNames.size()) + " total last names.")
-	print(str(rareFirstNames.size()) + " total rare names.") #only rare first names because rare names come in pairs. refer to the rare names array in for more information.
-	print(str((mFirstNames.size() * lastNames.size()) + (fFirstNames.size() * lastNames.size()) + (uFirstNames.size() * lastNames.size()) + rareFirstNames.size()) + " total possible unique name combinations.")
+	print(str(global.mFirstNames.size()) + " masculine first names.")
+	print(str(global.fFirstNames.size()) + " feminine first names.")
+	print(str(global.uFirstNames.size()) + " unisex first names.")
+	print(str(global.lastNames.size()) + " total last names.")
+	print(str(global.rareFirstNames.size()) + " total rare names.") #only rare first names because rare names come in pairs. refer to the rare names array in for more information.
+	print(str((global.mFirstNames.size() * global.lastNames.size()) + (global.fFirstNames.size() * global.lastNames.size()) + (global.uFirstNames.size() * global.lastNames.size()) + global.rareFirstNames.size()) + " total possible unique name combinations.")
 	if randi_range(1,3000) == 1: #if you're given a rare name (1 in 3,000 chance). A further 1 in (number of rare names) chance to get a specific rare name, meaning:
-		print("picking a rare name. That means there is only a 1 in " + str(3000 * rareFirstNames.size()) + " chance of getting the name you're about to be assigned. Impressive!")
-		var rareName = randi_range(0, rareFirstNames.size() - 1) #since rare names come in pairs, 
-		global.firstName = rareFirstNames[rareName] #assigns rare first name
-		global.lastName = rareLastNames[rareName] #assigns rare last name
+		print("picking a rare name. That means there is only a 1 in " + str(3000 * global.rareFirstNames.size()) + " chance of getting the name you're about to be assigned. Impressive!")
+		var rareName = randi_range(0, global.rareFirstNames.size() - 1) #since rare names come in pairs, 
+		global.firstName = global.rareFirstNames[rareName] #assigns rare first name
+		global.lastName = global.rareLastNames[rareName] #assigns rare last name
 	else: #if you aren't given a rare name
 		if randi_range(1,20) == 1: #if you're given a unisex name (1 in 20 chance)
 			print("picking a unisex name (1 in 20 chance)")
-			global.firstName = uFirstNames[randi_range(0, uFirstNames.size() - 1)] #assigns a random unisex first name
+			global.firstName = global.uFirstNames[randi_range(0, global.uFirstNames.size() - 1)] #assigns a random unisex first name
 		else: #if you aren't given a unisex name
 			match global.sex: #gives a different name depending on sex
 				"M":
-					global.firstName = mFirstNames[randi_range(0, mFirstNames.size() - 1)] #assigns a male name
+					global.firstName = global.mFirstNames[randi_range(0, global.mFirstNames.size() - 1)] #assigns a male name
 				"F":
-					global.firstName = fFirstNames[randi_range(0, fFirstNames.size() - 1)] #assigns a female name
-		global.lastName = lastNames[randi_range(0, lastNames.size() - 1)] #assigns a random last name. Function does not change depending on sex.
+					global.firstName = global.fFirstNames[randi_range(0, global.fFirstNames.size() - 1)] #assigns a female name
+		global.lastName = global.lastNames[randi_range(0, global.lastNames.size() - 1)] #assigns a random last name. Function does not change depending on sex.
 	print("your name is " + global.firstName + " " + global.lastName)
 	global.currentLife = global.getSaveLifeFileName() #sets the currentLife variable to a unique file name
 
@@ -250,23 +223,23 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 				if parentsBeforeThis == false: #if, after we checked, we found there aren't any parents in the array before this
 					global.familyLastNames.append(global.lastName) #parent gets your last name
 				if parentsBeforeThis == true: #if there are parents before this one, they already have your last name instead
-					global.familyLastNames.append(lastNames[randi_range(0, lastNames.size() - 1)]) #gives the parent at index i a completely random last name
+					global.familyLastNames.append(global.lastNames[randi_range(0, global.lastNames.size() - 1)]) #gives the parent at index i a completely random last name
 		else: #if family member at index i is NOT your parent
-			global.familyLastNames.append(lastNames[randi_range(0, lastNames.size() - 1)]) #gives them a random last name
+			global.familyLastNames.append(global.lastNames[randi_range(0, global.lastNames.size() - 1)]) #gives them a random last name
 		#first names and rare names
 		if randi_range(1, 3000) == 1: #if family member is getting a rare full name
-			var rareNameIndex = randi_range(0, rareFirstNames.size() - 1) #first name and last name have the same index. picks one random index to use.
-			global.familyFirstNames.append(rareFirstNames[rareNameIndex]) #appends the first name of the index
-			global.familyLastNames.pop_back() #removes (pops) the last element of the familyLastNames array. This is because this family member was already given a last name and we are about to override that with a new one.
-			global.familyLastNames.append(rareLastNames[rareNameIndex]) #appends the last name of the index
+			var rareNameIndex = randi_range(0, global.rareFirstNames.size() - 1) #first name and last name have the same index. picks one random index to use.
+			global.familyFirstNames.append(global.rareFirstNames[rareNameIndex]) #appends the first name of the index
+			global.familyLastNames.pop_back() #removes (pops) the last element of the familyglobal.lastNames array. This is because this family member was already given a last name and we are about to override that with a new one.
+			global.familyLastNames.append(global.rareLastNames[rareNameIndex]) #appends the last name of the index
 		else: #if family member is NOT getting a rare full name
 			if randi_range(1, 20) == 1: #if family member is getting a unisex first name
-				global.familyFirstNames.append(uFirstNames[randi_range(0, uFirstNames.size() - 1)]) #appends a random unisex first name
+				global.familyFirstNames.append(global.uFirstNames[randi_range(0, global.uFirstNames.size() - 1)]) #appends a random unisex first name
 			else: #if family member is NOT getting a unisex first name
 				if global.familySexes[i] == "F": #if family member at index i is female
-					global.familyFirstNames.append(fFirstNames[randi_range(0, fFirstNames.size() - 1)]) #appends to familyFirstNames a random female first name
+					global.familyFirstNames.append(global.fFirstNames[randi_range(0, global.fFirstNames.size() - 1)]) #appends to familyFirstNames a random female first name
 				else: #if family member at index i is male
-					global.familyFirstNames.append(mFirstNames[randi_range(0, mFirstNames.size() - 1)]) #appends to familyFirstNames a random male first name
+					global.familyFirstNames.append(global.mFirstNames[randi_range(0, global.mFirstNames.size() - 1)]) #appends to familyFirstNames a random male first name
 	#relationshipper
 	for i in global.familyTypes.size(): #runs through and checks every family member, assigning them a relationship to you
 		if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Father": #if family member at i is your parent
@@ -322,8 +295,7 @@ func familyGenerator(): #HELP I DON'T WANT TO MAKE THIS SCRIPT FOR A THIRD TIME 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	await get_tree().process_frame #waits until the frame is fully loaded. Without this, the screen sometimes flashes gray while on this scene
-	arrayCleaner()
-	$loadingText.text = tips[randi_range(0, tips.size() - 1)] #picks a random tip to display. Must be size -1 because arrays are 0-indexed, meaning that the number of items in the array will be 1 more than the index of the last item.
+	$loadingText.text = global.tips[randi_range(0, global.tips.size() - 1)] #picks a random tip to display. Must be size -1 because arrays are 0-indexed, meaning that the number of items in the array will be 1 more than the index of the last item.
 	cleanLife()
 	namePicker()
 	epicStatChanges()

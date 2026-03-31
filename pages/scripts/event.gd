@@ -2,18 +2,6 @@ extends Node2D #author(s): Ethan Scott
 #handles events with 4 options
 
 
-func loadList(path, splitter): #see newRandomGame.gd for more info
-	return FileAccess.get_file_as_string(path).split(splitter)
-
-func arrayCleaner(): #used for random NPC name generation - removes the last element of all IMPORTED arrays (from a txt file in res://data/), which SHOULD be occupied by dead space and no actual data
-	mFirstNames.pop_back()
-	fFirstNames.pop_back()
-	uFirstNames.pop_back()
-	lastNames.pop_back()
-	rareFirstNames.pop_back()
-	rareLastNames.pop_back()
-
-
 func EGPGenerator(ageRange, minAge): #randomly generates EGPs (Event Generated Persons)
 	#sexer
 	if randi_range(1,2) == 1: #if EGP is male
@@ -22,19 +10,19 @@ func EGPGenerator(ageRange, minAge): #randomly generates EGPs (Event Generated P
 		global.eventPersonSex = "F"
 	#namer
 	if randi_range(1,3000) == 1: #if they're getting a rare name, picks rare first and last names
-		var rareNameIndex = randi_range(0, rareFirstNames.size() - 1) #the first and last names MUST be from the same index in their respective arrays. This generates a random index for them both to be sourced from.
-		global.eventPersonFirstName = rareFirstNames[rareNameIndex] #assigns them a random rare first name
-		global.eventPersonLastName = rareLastNames[rareNameIndex] #assigns them the accompanying rare last name
+		var rareNameIndex = randi_range(0, global.rareFirstNames.size() - 1) #the first and last names MUST be from the same index in their respective arrays. This generates a random index for them both to be sourced from.
+		global.eventPersonFirstName = global.rareFirstNames[rareNameIndex] #assigns them a random rare first name
+		global.eventPersonLastName = global.rareglobal.lastNames[rareNameIndex] #assigns them the accompanying rare last name
 		return #done!
 	else: #if they're NOT getting a rare name
 		if randi_range(1,20) == 1: #if they're getting a unisex first name
-			global.eventPersonFirstName = uFirstNames[randi_range(0, uFirstNames.size() - 1)] #assigns them a random unisex first name
+			global.eventPersonFirstName = global.uFirstNames[randi_range(0, global.uFirstNames.size() - 1)] #assigns them a random unisex first name
 		else: #if they're NOT getting a unisex first name
 			if global.eventPersonSex == "M": #if they are male
-				global.eventPersonFirstName = mFirstNames[randi_range(0, mFirstNames.size() - 1)]
+				global.eventPersonFirstName = global.mFirstNames[randi_range(0, global.mFirstNames.size() - 1)]
 			else: #if they are female
-				global.eventPersonFirstName = fFirstNames[randi_range(0, fFirstNames.size() - 1)]
-		global.eventPersonLastName = lastNames[randi_range(0, lastNames.size() - 1)] #gives them a random last name
+				global.eventPersonFirstName = global.fFirstNames[randi_range(0, global.fFirstNames.size() - 1)]
+		global.eventPersonLastName = global.lastNames[randi_range(0, global.lastNames.size() - 1)] #gives them a random last name
 	#ager
 	global.eventPersonAge = global.age + randi_range(-ageRange, ageRange) #makes the event person between ageRange years younger and ageRange years older than you
 	if global.eventPersonAge < 0: #if the event person's age is less than 0 (possible if you're under the age of the ageRange provided)
@@ -101,15 +89,6 @@ func personRemover(index, whichArray): #removes the person at index "index" in t
 		global.miscAges.pop_at(index)
 		global.miscRelationships.pop_at(index)
 		global.miscTypes.pop_at(index)
-
-
-#again, see newRandomGame.gd for more info
-var mFirstNames : Array = loadList("res://data/names/mFirstNames.txt", ", ") #loads list of masculine first names
-var fFirstNames : Array = loadList("res://data/names/fFirstNames.txt", ", ") #feminine first names
-var uFirstNames : Array = loadList("res://data/names/uFirstNames.txt", ", ") #unisex first names
-var lastNames : Array = loadList("res://data/names/lastNames.txt", ", ") #last names
-var rareFirstNames : Array = loadList("res://data/names/rareFirstNames.txt", ", ") #rare first names
-var rareLastNames : Array = loadList("res://data/names/rareLastNames.txt", ", ") #rare last names
 
 
 func repositionResize(): #repositions and resizes the nodes on-screen
@@ -280,6 +259,35 @@ func specialised(): #runs any specialised, non-age-up events
 		$option2.text = "I understand, please let me delete stuff"
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
+	elif global.revent[0] == "child-labour-is-outlawed":
+		$heading.text = "But why"
+		$body.text = "You're too young to get a job. Child labour is thoroughly illegal. Unless..."
+		$option1.text = "Dang it"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+
+
+func specific(): #specialised age-up events that DON'T appear randomly
+	if global.revent[0] == "enrolled-in-primary-school" || global.revent[0] == "enrolled-in-high-school":
+		if global.revent[0] == "enrolled-in-primary-school":
+			$heading.text = "Primary school"
+		else: #if you're being enrolled in high school
+			$heading.text = "High school"
+		$body.text = "Your "
+		if global.familyTypes.count("Mother") + global.familyTypes.count("Father") > 1: #if you have more than one parent
+			$body.text += "parents have enrolled you in " + global.schoolName + "!"
+		elif global.familyTypes.count("Mother") + global.familyTypes.count("Father") == 1: #if you only have one parent
+			if global.familyTypes.find("Mother") != -1: #if you have only a mother
+				$body.text += "mother has enrolled you in " + global.schoolName + "!"
+			elif global.familyTypes.find("Father") != -1: #if you have only a father
+				$body.text += "father has enrolled you in " + global.schoolName + "!"
+			else: #if you have neither a mother or a father (technically could happen, if they die)
+				$body.text = "You have been enrolled in " + global.schoolName + "."
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
 
 
 func _on_option_1_pressed() -> void: #on option 1 selected
@@ -287,19 +295,7 @@ func _on_option_1_pressed() -> void: #on option 1 selected
 	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "child-friend" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend" || global.revent[0] == "change-save-management-mode-to-delete":
 		outcome(global.revent[0] + "-o1")
 	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
-	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3":
-		goHome()
-	elif global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3" || global.revent[0] == "child-0-o4":
-		goHome()
-	elif global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2":
-		goHome()
-	elif global.revent[0] == "child-friend-o1" || global.revent[0] == "child-friend-o2":
-		goHome()
-	elif global.revent[0] == "teenager-friend-o1" || global.revent[0] == "teenager-friend-o2" || global.revent[0] == "teenager-friend-o3":
-		goHome()
-	elif global.revent[0] == "adult-friend-o1" || global.revent[0] == "adult-friend-o2" || global.revent[0] == "adult-friend-o3":
-		goHome()
-	elif global.revent[0] == "elder-friend-o1" || global.revent[0] == "elder-friend-o2" || global.revent[0] == "elder-friend-o3":
+	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3" || global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3" || global.revent[0] == "child-0-o4" || global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2" || global.revent[0] == "child-friend-o1" || global.revent[0] == "child-friend-o2" || global.revent[0] == "teenager-friend-o1" || global.revent[0] == "teenager-friend-o2" || global.revent[0] == "teenager-friend-o3" || global.revent[0] == "adult-friend-o1" || global.revent[0] == "adult-friend-o2" || global.revent[0] == "adult-friend-o3" || global.revent[0] == "elder-friend-o1" || global.revent[0] == "elder-friend-o2" || global.revent[0] == "elder-friend-o3" || global.revent[0] == "child-labour-is-outlawed" || global.revent[0] == "enrolled-in-primary-school" || global.revent[0] == "enrolled-in-high-school":
 		goHome()
 
 
@@ -574,6 +570,7 @@ func eventer(): #runs all the functions
 	elderhood()
 	multiAgeRange()
 	specialised()
+	specific()
 	option1outcomes()
 	option2outcomes()
 	option3outcomes()

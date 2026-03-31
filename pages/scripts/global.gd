@@ -28,13 +28,14 @@ var sexuality = "" #stored definitively, not relative to the sex of the player, 
 #rest-of-life-related
 var crimes = []
 var crimesSeverity = []
-var school = ""
-var schoolLevel = 0 #0 if you don't go to school; 1 for primary, 2 for secondary (high school), 3 for tertiary. middle school, if implemented, would be 1.5.
+var schoolName = ""
+var schoolLevel = -1 # -1 before you go to school, 0 if you've graduated school, 1 for primary, 2 for secondary (high school), 3 for tertiary. middle school, if implemented, would be 1.5.
 var degrees = []
 var fullTimeJob = ""
 var fullTimeSalary = 0 #how much money you make annually from your full-time job
 var partTimeJob = ""
 var partTimeSalary = 0 #how much money you make annually from your part-time job
+var workExperience = [] #every year you work a job or go to school, it is appended to this array. The number of times it appears is then used to calculate how many years of experience you have working a certain job or going to a certain school.
 
 
 #family
@@ -95,6 +96,29 @@ var level = 1 #increments when you reach the amount of XP you need to level up
 var XPRequired = 500 #the amount of XP you need total to level up. Increases by 500 every level.
 
 
+func statClamper(): #if stats are out of bounds (above or below their max/min value, usually 0/100 respectively), clamp them
+	if global.joy > 100:
+		global.joy = 100
+	elif global.joy < 0:
+		global.joy = 0
+	if global.health > 100:
+		global.health = 100
+	elif global.health < 0:
+		global.health = 0
+	if global.intellect > 100:
+		global.intellect = 100
+	elif global.intellect < 0:
+		global.intellect = 0
+	if global.looks > 100:
+		global.looks = 100
+	elif global.looks < 0:
+		global.looks = 0
+	if global.evality > 100:
+		global.evality = 100
+	elif global.evality < 0:
+		global.evality = 0
+
+
 #savegame stuff
 func lifeSerialiser(): #serialises every life-specific variable we need to save into a dictionary and then returns it
 	var collinsDictionary = {
@@ -117,7 +141,7 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		#rest-of-life-related
 		"crimes" : crimes,
 		"crimesSeverity" : crimesSeverity,
-		"school" : school,
+		"schoolName" : schoolName,
 		"schoolLevel" : schoolLevel,
 		"degrees" : degrees,
 		"fullTimeJob" : fullTimeJob,
@@ -131,6 +155,13 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		"familyAges" : familyAges,
 		"familySexes" : familySexes,
 		"familyRelationships" : familyRelationships,
+		#dead family
+		"deadFamilyFirstNames" : deadFamilyFirstNames,
+		"deadFamilyLastNames" : deadFamilyLastNames,
+		"deadFamilyTypes" : deadFamilyTypes,
+		"deadFamilyAges" : deadFamilyAges,
+		"deadFamilySexes" : deadFamilySexes,
+		"deadFamilyRelationships" : deadFamilyRelationships,
 		#other relationships
 		"miscFirstNames" : miscFirstNames,
 		"miscLastNames" : miscLastNames,
@@ -138,6 +169,13 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		"miscAges" : miscAges,
 		"miscSexes" : miscSexes,
 		"miscRelationships" : miscRelationships,
+		#dead other relationships
+		"deadMiscFirstNames" : deadMiscFirstNames,
+		"deadMiscLastNames" : deadMiscLastNames,
+		"deadMiscTypes" : deadMiscTypes,
+		"deadMiscAges" : deadMiscAges,
+		"deadMiscSexes" : deadMiscSexes,
+		"deadMiscRelationships" : deadMiscRelationships,
 		#misc
 		"eventPersonFirstName" : eventPersonFirstName,
 		"eventPersonLastName" : eventPersonLastName,
@@ -233,7 +271,7 @@ func loadLife(): #does the actual LIFE loading
 			#rest-of-life-related
 			crimes = dictionary["crimes"]
 			crimesSeverity = dictionary["crimesSeverity"]
-			school = dictionary["school"]
+			schoolName = dictionary["schoolName"]
 			schoolLevel = dictionary["schoolLevel"]
 			degrees = dictionary["degrees"]
 			fullTimeJob = dictionary["fullTimeJob"]
@@ -247,6 +285,13 @@ func loadLife(): #does the actual LIFE loading
 			familyAges = dictionary["familyAges"]
 			familySexes = dictionary["familySexes"]
 			familyRelationships = dictionary["familyRelationships"]
+			#dead family
+			deadFamilyFirstNames = dictionary["deadFamilyFirstNames"]
+			deadFamilyLastNames = dictionary["deadFamilyLastNames"]
+			deadFamilyTypes = dictionary["deadFamilyTypes"]
+			deadFamilyAges = dictionary["deadFamilyAges"]
+			deadFamilySexes = dictionary["deadFamilySexes"]
+			deadFamilyRelationships = dictionary["deadFamilyRelationships"]
 			#misc relationships
 			miscFirstNames = dictionary["miscFirstNames"]
 			miscLastNames = dictionary["miscLastNames"]
@@ -254,6 +299,13 @@ func loadLife(): #does the actual LIFE loading
 			miscAges = dictionary["miscAges"]
 			miscSexes = dictionary["miscSexes"]
 			miscRelationships = dictionary["miscRelationships"]
+			#dead misc
+			deadMiscFirstNames = dictionary["deadMiscFirstNames"]
+			deadMiscLastNames = dictionary["deadMiscLastNames"]
+			deadMiscTypes = dictionary["deadMiscTypes"]
+			deadMiscAges = dictionary["deadMiscAges"]
+			deadMiscSexes = dictionary["deadMiscSexes"]
+			deadMiscRelationships = dictionary["deadMiscRelationships"]
 			#misc
 			eventPersonFirstName = dictionary["eventPersonFirstName"]
 			eventPersonLastName = dictionary["eventPersonLastName"]
@@ -270,3 +322,29 @@ func loadLife(): #does the actual LIFE loading
 			get_tree().change_scene_to_file("res://pages/game_menu.tscn")
 	else: #file does not exist
 		print("no life save file... how did you even run this function if there's no... i-")
+
+
+func loadList(path, splitter): #loads list of anything from a seperate file :) used mainly for names. thanks to GrayyGray for using this method originally in a fork
+	return FileAccess.get_file_as_string(path).split(splitter) #items in the list are split up by commas followed by spaces
+#lists end in a comma followed by a space so any useless data after it (i.e. a new line) is included as the last element, which is popped (removed) when this script is loaded. must be strictly typed as arrays because otherwise godot automatically makes the name arrays and other string arrays into "packed string arrays", which don't let you remove elements as far as I know, but are more memory-efficient than regular arrays. Trust me, I would use those if I could.
+
+#global arrays that are loaded from external files
+var tips : Array = loadList("res://data/tips.txt", " | ") #tips to be displayed on the screen during loading :) - items in THIS list are seperated by " | "
+#names
+var mFirstNames : Array = loadList("res://data/names/mFirstNames.txt", ", ") #loads list of masculine first names
+var fFirstNames : Array = loadList("res://data/names/fFirstNames.txt", ", ") #feminine first names
+var uFirstNames : Array = loadList("res://data/names/uFirstNames.txt", ", ") #unisex first names
+var lastNames : Array = loadList("res://data/names/lastNames.txt", ", ") #dude just look at the variable name
+var rareFirstNames : Array = loadList("res://data/names/rareFirstNames.txt", ", ") #only generated in pairs of first name and last name. Regular names roll once for a first name and again to pick a last name, whereas rare names only roll once and pick the corresponding first and last name. So picking "Rob" as a rare first name cannot result in the name "Rob Salad", it will always result in "Rob Ery" as they are both at the same index. This is to make seperating first and last names easier, but also preserve the rare name as originally intended.
+var rareLastNames : Array = loadList("res://data/names/rareLastNames.txt", ", ") #Marl and ™ have only a first name. This will result in some weird behaviour, such as the player being called "Mr./Mrs.[blank]", but that is a sarcrifice I am willing to make.
+
+
+func _ready() -> void: #when this is loaded for the first time (once when the game starts and never again while it's still running)
+	#removes the last element of all IMPORTED arrays (from a txt file in res://data/), which SHOULD be occupied by dead space and no actual data
+	tips.pop_back()
+	mFirstNames.pop_back()
+	fFirstNames.pop_back()
+	uFirstNames.pop_back()
+	lastNames.pop_back()
+	rareFirstNames.pop_back()
+	rareLastNames.pop_back()
