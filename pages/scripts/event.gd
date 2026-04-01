@@ -302,16 +302,41 @@ func confirmation(): #confirmation events, that simply tell you what just happen
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 	elif global.revent[0] == "study-harder":
-		$heading.text = "Hunkering down"
-		var joySubtracted = randi_range(round(global.intellect/10), 14 - round(global.intellect/10))
-		$body.text = "You studied for " + str(min(2, round(global.intellect/20))) + " hours.\n+ " + str(round(global.intellect/7)) + " school performance, + " + str(round(global.intellect/12) + 2) + " Intellect, - " + str(joySubtracted) + " Joy"
-		global.schoolPerformance += round(global.intellect/7)
-		global.intellect += round(global.intellect/12) + 2
-		global.joy += joySubtracted
-		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
+		var dudStudyChance = round(global.intellect / 2)
+		if global.intellect <= 20: #if you're so intelligent that you're more inclined to have a total dud of a study session
+			dudStudyChance = dudStudyChance / 4 #increases your chance of having a poor study session
+		if randi_range(1, max(1, dudStudyChance)) == 1 || global.cooldown("study-harder") > 3: #if you had a total dud of a study session; happens either at random (higher chance if you're less intelligent) or if you've already studied 3 or more times this year (you're burned out)
+			match randi_range(1,2): #random heading text variation
+				1:
+					$heading.text = "What"
+				2:
+					$heading.text = "Huh"
+			var intellectGained = randi_range(3, 8)
+			$body.text = "You tried to study for " + str(randi_range(2, 6)) + " hours, but absorbed next to no information.\n+ " + str(intellectGained) + " Intellect"
+			$option1.text = "Okay"
+			$option2.modulate.a = 0
+			$option3.modulate.a = 0
+			$option4.modulate.a = 0
+		else:
+			match randi_range(1, 4): #random heading text variation
+				1:
+					$heading.text = "Hunkering down"
+				2:
+					$heading.text = "Hunkering through"
+				3:
+					$heading.text = "Hunkering left"
+				4:
+					$heading.text = "Hunkering in"
+			var joySubtracted = randi_range(round(global.intellect/10), 14 - round(global.intellect/10))
+			$body.text = "You studied for " + str(max(2, round(global.intellect/20))) + " hours.\n+ " + str(round(global.intellect/7)) + " school performance, + " + str(round(global.intellect/12) + 2) + " Intellect, - " + str(joySubtracted) + " Joy"
+			global.schoolPerformance += round(global.intellect/7)
+			global.intellect += round(global.intellect/12) + 2
+			global.joy += joySubtracted
+			global.history.append("study-harder")
+			$option1.text = "Okay"
+			$option2.modulate.a = 0
+			$option3.modulate.a = 0
+			$option4.modulate.a = 0
 
 
 func _on_option_1_pressed() -> void: #on option 1 selected

@@ -80,3 +80,13 @@ func _on_set_level_pressed() -> void:
 	global.level = int($input.text)
 	$confirmation.text = "Successfully set level!"
 	print("set level to " + str(global.level))
+
+func _on_set_first_name_pressed() -> void:
+	global.firstName = str($input.text)
+	$confirmation.text = "Successfully set first name!"
+	print("set first name to " + str(global.firstName))
+
+func _on_set_last_name_pressed() -> void:
+	global.lastName = str($input.text)
+	$confirmation.text = "Successfully set last name!"
+	print("set last name to " + str(global.lastName))

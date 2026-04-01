@@ -47,6 +47,10 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	global.fullTimeSalary = 0
 	global.partTimeJob = ""
 	global.partTimeSalary = 0
+	global.workExperience = []
+	global.loans = []
+	global.loanPaybackDuration = []
+	global.loanInterest = []
 	#family
 	global.familyFirstNames = []
 	global.familyLastNames = []
@@ -82,6 +86,7 @@ func cleanLife(): #resets your existing life (if any) and generates new stats
 	global.looksOverTime.append(global.looks)
 	global.causeOfDeath = ""
 	global.XPQueued = 0
+	global.history = []
 	#testing variables
 	global.RAUE = true
 	#prints stuff

@@ -39,6 +39,9 @@ var workExperience = [] #every year you work a job or go to school, it is append
 var schoolPerformance = 0 #how well are you doing at school? from 1 - 100
 var partTimePerformance = 0
 var fullTimePerformance = 0
+var loans = [] #uh oh - can hold multiple loans at once - holds the total amount in dollars you owe
+var loanPaybackDuration = [] #in how many years must the loan at its same index be fully paid back? Used to calculate how much you owe at the start of every year. The amount owed is then automatically deducted from your money total.
+var loanInterest = [] #the percentage interest you owe on top of what you would pay back on your loans
 
 
 #family
@@ -87,6 +90,7 @@ var intellectOverTime = []
 var looksOverTime = []
 var causeOfDeath = ""
 var XPQueued = 0 #the amount of XP that needs to be awarded when you die
+var history = [] #keeps a log of what activities you've done this year. Cleared when aging up.
 
 
 #testing variables - used in developer mode
@@ -136,6 +140,14 @@ func statClamper(): #if stats are out of bounds (above or below their max/min va
 		fullTimePerformance = 0
 
 
+func cooldown(activity): #returns how many times you've done a certain thing this year already. This number can then be used to create a cooldown of sorts; if you've done something a million times this year, make it ineffective for once.
+	var timesActivityAppeared = 0
+	for i in history.size(): #runs through everything you've done this year
+		if history[i] == activity: #if it's the activity we're looking for
+			timesActivityAppeared += 1 #it has appeared one more time
+	return timesActivityAppeared
+
+
 #savegame stuff
 func lifeSerialiser(): #serialises every life-specific variable we need to save into a dictionary and then returns it
 	var collinsDictionary = {
@@ -169,6 +181,9 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		"schoolPerformance" : schoolPerformance,
 		"partTimePerformance" : partTimePerformance,
 		"fullTimePerformance" : fullTimePerformance,
+		"loans" : loans,
+		"loanPaybackDuration" : loanPaybackDuration,
+		"loanInterest" : loanInterest,
 		#family relationships
 		"familyFirstNames" : familyFirstNames,
 		"familyLastNames" : familyLastNames,
@@ -208,6 +223,7 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		"intellectOverTime" : intellectOverTime,
 		"looksOverTime" : looksOverTime,
 		"XPQueued" : XPQueued,
+		"history" : history,
 	}
 	return collinsDictionary
 
@@ -303,6 +319,9 @@ func loadLife(): #does the actual LIFE loading
 			schoolPerformance = dictionary["schoolPerformance"]
 			partTimePerformance = dictionary["partTimePerformance"]
 			fullTimePerformance = dictionary["fullTimePerformance"]
+			loans = dictionary["loans"]
+			loanPaybackDuration = dictionary["loanPaybackDuration"]
+			loanInterest = dictionary["loanInterest"]
 			#family relationships
 			familyFirstNames = dictionary["familyFirstNames"]
 			familyLastNames = dictionary["familyLastNames"]
@@ -342,6 +361,7 @@ func loadLife(): #does the actual LIFE loading
 			intellectOverTime = dictionary["intellectOverTime"]
 			looksOverTime = dictionary["looksOverTime"]
 			XPQueued = dictionary["XPQueued"]
+			history = dictionary["history"]
 			lifeSaveFile.close() #closes file so it doesn't do anything weird
 			print("hoorah, life load successful")
 			get_tree().change_scene_to_file("res://pages/game_menu.tscn")

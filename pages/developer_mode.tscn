@@ -79,6 +79,7 @@ text = "Set health"
 
 [node name="setIntellect" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=899678539]
 layout_mode = 2
+size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Set intellect"
 
@@ -132,6 +133,18 @@ size_flags_horizontal = 4
 theme = ExtResource("6_llmlx")
 text = "Set level"
 
+[node name="setFirstName" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=2012844041]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_llmlx")
+text = "Set first name"
+
+[node name="setLastName" type="Button" parent="scrollContainer/centerContainer/vBoxContainer" unique_id=1074976668]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("6_llmlx")
+text = "Set last name"
+
 [node name="saveGame" type="TextureButton" parent="." unique_id=1317964170]
 offset_left = 960.0
 offset_top = 20.0
@@ -154,4 +167,6 @@ stretch_mode = 0
 [connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setXPRequired" to="." method="_on_set_xp_required_pressed"]
 [connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setXPQueued" to="." method="_on_set_xp_queued_pressed"]
 [connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setLevel" to="." method="_on_set_level_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setFirstName" to="." method="_on_set_first_name_pressed"]
+[connection signal="pressed" from="scrollContainer/centerContainer/vBoxContainer/setLastName" to="." method="_on_set_last_name_pressed"]
 [connection signal="pressed" from="saveGame" to="." method="_on_save_game_pressed"]
