@@ -36,6 +36,9 @@ var fullTimeSalary = 0 #how much money you make annually from your full-time job
 var partTimeJob = ""
 var partTimeSalary = 0 #how much money you make annually from your part-time job
 var workExperience = [] #every year you work a job or go to school, it is appended to this array. The number of times it appears is then used to calculate how many years of experience you have working a certain job or going to a certain school.
+var schoolPerformance = 0 #how well are you doing at school? from 1 - 100
+var partTimePerformance = 0
+var fullTimePerformance = 0
 
 
 #family
@@ -97,26 +100,40 @@ var XPRequired = 500 #the amount of XP you need total to level up. Increases by 
 
 
 func statClamper(): #if stats are out of bounds (above or below their max/min value, usually 0/100 respectively), clamp them
-	if global.joy > 100:
-		global.joy = 100
-	elif global.joy < 0:
-		global.joy = 0
-	if global.health > 100:
-		global.health = 100
-	elif global.health < 0:
-		global.health = 0
-	if global.intellect > 100:
-		global.intellect = 100
-	elif global.intellect < 0:
-		global.intellect = 0
-	if global.looks > 100:
-		global.looks = 100
-	elif global.looks < 0:
-		global.looks = 0
-	if global.evality > 100:
-		global.evality = 100
-	elif global.evality < 0:
-		global.evality = 0
+	#personal
+	if joy > 100:
+		joy = 100
+	elif joy < 0:
+		joy = 0
+	if health > 100:
+		health = 100
+	elif health < 0:
+		health = 0
+	if intellect > 100:
+		intellect = 100
+	elif intellect < 0:
+		intellect = 0
+	if looks > 100:
+		looks = 100
+	elif looks < 0:
+		looks = 0
+	if evality > 100:
+		evality = 100
+	elif evality < 0:
+		evality = 0
+	#rest-of-life-relatedd
+	if schoolPerformance > 100:
+		schoolPerformance = 100
+	elif schoolPerformance < 0:
+		schoolPerformance = 0
+	if partTimePerformance > 100:
+		partTimePerformance = 100
+	elif partTimePerformance < 0:
+		partTimePerformance = 0
+	if fullTimePerformance > 100:
+		fullTimePerformance = 100
+	elif fullTimePerformance < 0:
+		fullTimePerformance = 0
 
 
 #savegame stuff
@@ -148,6 +165,10 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		"fullTimeSalary" : fullTimeSalary,
 		"partTimeJob" : partTimeJob,
 		"partTimeSalary" : partTimeSalary,
+		"workExperience" : workExperience,
+		"schoolPerformance" : schoolPerformance,
+		"partTimePerformance" : partTimePerformance,
+		"fullTimePerformance" : fullTimePerformance,
 		#family relationships
 		"familyFirstNames" : familyFirstNames,
 		"familyLastNames" : familyLastNames,
@@ -278,6 +299,10 @@ func loadLife(): #does the actual LIFE loading
 			fullTimeSalary = dictionary["fullTimeSalary"]
 			partTimeJob = dictionary["partTimeJob"]
 			partTimeSalary = dictionary["partTimeSalary"]
+			workExperience = dictionary["workExperience"]
+			schoolPerformance = dictionary["schoolPerformance"]
+			partTimePerformance = dictionary["partTimePerformance"]
+			fullTimePerformance = dictionary["fullTimePerformance"]
 			#family relationships
 			familyFirstNames = dictionary["familyFirstNames"]
 			familyLastNames = dictionary["familyLastNames"]

@@ -10,11 +10,15 @@ When you age up, there is a chance an event will spontaneously appear. When you 
 
 
 
-Events are known by unique event IDs. If it is an age up event, this will usually be "ageRange-number", and for outcomes, "ageRange-sameNumber-oX", with X being the option you picked (could be 1 through 4). For non-randomly-occurring (age up) events, the ID is usually something more specific. For example, if you're being hired at a job: "jobName-applicationSuccess".
+Events are known by unique event IDs. If it is an age up event, this will usually be "ageRange-number", and for outcomes, "ageRange-sameNumber-oX", with X being the option you picked (could be 1 through 4). For non-randomly-occurring (age up) events, the ID is usually something more specific. For example, if you're being hired at a job: "jobName-application-success".
 
 
 
-The revent variable is an array, meaning it can store multiple of these event IDs at once. By default, the event page will show the FIRST event in this array, i.e. the first one that was added to it. Once the player is done addressing that one, if there are more left, it will continue showing them back-to-back until the array is empty.
+The revent (random event) variable is an array, meaning it can store multiple of these event IDs at once. By default, the event page will show the FIRST event in this array, i.e. the first one that was added to it. Once the player is done addressing that one, if there are more left, it will continue showing them back-to-back until the array is empty.
+
+
+
+Players are taken to the event page when they go to the game menu while the revent array is not empty (while there are any events queued).
 
 
 
@@ -22,7 +26,7 @@ The revent variable is an array, meaning it can store multiple of these event ID
 
 To add a new event to Bad Life Simulator:
 
-If this is a random age up event:
+If this is a random age up event with MULTIPLE OPTIONS:
 
 1. Go to the events section of ageUp.gd.
 2. Either a) Find the age group you want to make an event for and increase its max number in the randi\_range() by 1, but this will break as soon as new official events are added, or b) add another condition in the code block that makes it so that if there is going to be an event appended, there is a 1 in 2 chance for it to be official and a 1 in 2 chance for it to be from your mod. If it's from your mod, prefix the event ID with something like "modName-".
@@ -39,13 +43,12 @@ If this is a random age up event:
 
 
 
-If this is NOT a random age up event (something more specialised):
 
-1. Go to the events section of ageUp.gd.
-2. Navigate to the "specialised" function.
-3. Resume at step 4 of the previous (above) guide.
+If this is NOT a random age up event and/or a confirmation pop-up (something more specialised):
 
-
-
-
+1. Add this line to whatever code block you want to make trigger the event: "global.revent\[0].append("my-cool-event-ID")"
+2. Add this line proceeding it, or whenever you're ready to make the event actually show up (keep in mind that this will change the page the player is on, and upon dismissing it, they will be taken back to the game menu): "get\_tree().change\_scene\_to\_file("res://pages/event.tscn")"
+3. Go to the events section of ageUp.gd.
+4. Navigate to either the "specialised" or "confirmation" function (see both to determine which is more appropriate).
+5. Resume at step 4 of the previous (above) guide.
 

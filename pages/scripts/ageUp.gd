@@ -22,7 +22,8 @@ func _ready() -> void:
 		global.miscAges[i] += 1
 	#schooling
 	if global.schoolLevel != -1 && global.schoolLevel != 0: #if you have not not entered school yet and have not graduated yet (i.e. you are in school)
-		global.workExperience.append("school-" + str(global.schoolLevel)) #adds schooling as work experience - this is used and removed only when you graduate.
+		global.workExperience.append("school-" + str(global.schoolLevel)) #adds schooling as work experience - this is used and removed only when you graduated
+		global.schoolPerformance = global.intellect + randi_range(-6, 6) #you are doing as well in school as you are intelligent (with a little bit of random variation)
 	#primary school
 	if (global.age == 4 && global.schoolLevel == -1 && randi_range(1,2) == 1) || (global.age == 5 && global.schoolLevel == -1): #if you're 4 years old and aren't in school yet, there's a 1 in 2 chance of you getting put in primary school early, and if you're 5 and not in school yet, you automatically get put in no matter what
 		global.schoolLevel = 1 #you get put in primary school
@@ -35,6 +36,7 @@ func _ready() -> void:
 			3:
 				global.schoolName += " Primary School"
 		global.revent.append("enrolled-in-primary-school")
+		global.schoolPerformance = global.intellect + randi_range(-6, 6) #you are doing as well in school as you are intelligent, with a little bit of random variation (sets your performance for the first time so it's not immediately blank)
 		print("you are now attending " + global.schoolName + ", a level " + str(global.schoolLevel) + " school")
 	#high school
 	if global.workExperience.count("school-1") == 7: #if you've already been attending primary school for 7 years

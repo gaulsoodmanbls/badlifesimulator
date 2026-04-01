@@ -122,11 +122,17 @@ func repositionResize(): #repositions and resizes the nodes on-screen
 	$option2.position.y = $option1.position.y + $option1.get_minimum_size().y + 50
 	$option3.position.y = $option2.position.y + $option2.get_minimum_size().y + 50
 	$option4.position.y = $option3.position.y + $option3.get_minimum_size().y + 50
+	@warning_ignore("integer_division")
 	$heading.position.x = 1080 / 2 - ($heading.size.x / 2) #centres heading text horizontally on the screen
+	@warning_ignore("integer_division")
 	$body.position.x = 1080 / 2 - ($body.size.x / 2)
+	@warning_ignore("integer_division")
 	$option1.position.x = 1080 / 2 - ($option1.size.x / 2) #centres button horizontally on the screen
+	@warning_ignore("integer_division")
 	$option2.position.x = 1080 / 2 - ($option2.size.x / 2)
+	@warning_ignore("integer_division")
 	$option3.position.x = 1080 / 2 - ($option3.size.x / 2)
+	@warning_ignore("integer_division")
 	$option4.position.x = 1080 / 2 - ($option4.size.x / 2)
 
 
@@ -268,7 +274,7 @@ func specialised(): #runs any specialised, non-age-up events
 		$option4.modulate.a = 0
 
 
-func specific(): #specialised age-up events that DON'T appear randomly
+func confirmation(): #confirmation events, that simply tell you what just happened
 	if global.revent[0] == "enrolled-in-primary-school" || global.revent[0] == "enrolled-in-high-school":
 		if global.revent[0] == "enrolled-in-primary-school":
 			$heading.text = "Primary school"
@@ -288,6 +294,24 @@ func specific(): #specialised age-up events that DON'T appear randomly
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
+	elif global.revent[0] == "graduated-high-school":
+		$heading.text = "Graduate"
+		$body.text = "Congratulations! You graduated high school."
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+	elif global.revent[0] == "study-harder":
+		$heading.text = "Hunkering down"
+		var joySubtracted = randi_range(round(global.intellect/10), 14 - round(global.intellect/10))
+		$body.text = "You studied for " + str(min(2, round(global.intellect/20))) + " hours.\n+ " + str(round(global.intellect/7)) + " school performance, + " + str(round(global.intellect/12) + 2) + " Intellect, - " + str(joySubtracted) + " Joy"
+		global.schoolPerformance += round(global.intellect/7)
+		global.intellect += round(global.intellect/12) + 2
+		global.joy += joySubtracted
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
 
 
 func _on_option_1_pressed() -> void: #on option 1 selected
@@ -295,7 +319,7 @@ func _on_option_1_pressed() -> void: #on option 1 selected
 	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "child-friend" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend" || global.revent[0] == "change-save-management-mode-to-delete":
 		outcome(global.revent[0] + "-o1")
 	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
-	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3" || global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3" || global.revent[0] == "child-0-o4" || global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2" || global.revent[0] == "child-friend-o1" || global.revent[0] == "child-friend-o2" || global.revent[0] == "teenager-friend-o1" || global.revent[0] == "teenager-friend-o2" || global.revent[0] == "teenager-friend-o3" || global.revent[0] == "adult-friend-o1" || global.revent[0] == "adult-friend-o2" || global.revent[0] == "adult-friend-o3" || global.revent[0] == "elder-friend-o1" || global.revent[0] == "elder-friend-o2" || global.revent[0] == "elder-friend-o3" || global.revent[0] == "child-labour-is-outlawed" || global.revent[0] == "enrolled-in-primary-school" || global.revent[0] == "enrolled-in-high-school":
+	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3" || global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3" || global.revent[0] == "child-0-o4" || global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2" || global.revent[0] == "child-friend-o1" || global.revent[0] == "child-friend-o2" || global.revent[0] == "teenager-friend-o1" || global.revent[0] == "teenager-friend-o2" || global.revent[0] == "teenager-friend-o3" || global.revent[0] == "adult-friend-o1" || global.revent[0] == "adult-friend-o2" || global.revent[0] == "adult-friend-o3" || global.revent[0] == "elder-friend-o1" || global.revent[0] == "elder-friend-o2" || global.revent[0] == "elder-friend-o3" || global.revent[0] == "child-labour-is-outlawed" || global.revent[0] == "enrolled-in-primary-school" || global.revent[0] == "enrolled-in-high-school" || global.revent[0] == "graduated-high-school" || global.revent[0] == "study-harder":
 		goHome()
 
 
@@ -369,7 +393,7 @@ func option1outcomes(): #option 1 has been picked
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
 		$heading.text = "Wow... It's just... Wow."
 		if global.evality < 30: #if evality is under 30, you feel bad about lying
-			$body.text = "They appreciate your kind words, but you feel kind of bad about lying.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + " " + str(global.familyFirstNames[relativeOfChoice]) + ", - 5 Joy"
+			$body.text = "They appreciate your kind words, but you feel kind of bad about lying.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]) + ", " + str(global.familyFirstNames[relativeOfChoice]) + ", - 5 Joy"
 			global.joy -= 5
 		else: #if evality is 30 or over, you don't feel bad
 			$body.text = "They appreciate your kind words.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice])
@@ -393,6 +417,7 @@ func option2outcomes(): #option 2 has been picked
 		$option4.modulate.a = 0
 		global.evality += 4 #i mean, it was kind of rude...
 	if global.revent[0] == "teenager-friend-o2":
+		@warning_ignore("integer_division")
 		if randi_range(1, round((36 - global.looks / 4) / 2) - 3) == 1: #if you're more physically attractive, you have a higher chance of being accepted
 			$heading.text = "What's your number?"
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, and " + pronounGenerator("he", global.eventPersonSex) + " says yes.\nJoy + 15"
@@ -419,6 +444,7 @@ func option2outcomes(): #option 2 has been picked
 		$option4.modulate.a = 0
 	elif global.revent[0] == "adult-friend-o2":
 		$heading.text = "You wanna go out sometime?"
+		@warning_ignore("integer_division")
 		if randi_range(1, round((36 - global.looks / 4) / 2) - 3) == 1: #if you're more physically attractive, you have a higher chance of being accepted
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, and " + pronounGenerator("he", global.eventPersonSex) + " says yes.\nJoy + 15"
 			global.joy += 15
@@ -442,6 +468,7 @@ func option2outcomes(): #option 2 has been picked
 		$option3.modulate.a = 0
 		$option4.modulate.a = 0
 	elif global.revent[0] == "elder-friend-o2":
+		@warning_ignore("integer_division")
 		if randi_range(1, round(36 - global.looks / 4) - 3) == 1: #if you're more physically attractive, you have a higher chance of being accepted. You have lower chances either way though since you're older.
 			$heading.text = "Better late than never"
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, and " + pronounGenerator("he", global.eventPersonSex) + " says yes.\nJoy + 15"
@@ -533,9 +560,15 @@ func option3outcomes(): #option 3 has been picked
 			if global.familyTypes[i] == "Mother" || global.familyTypes[i] == "Father": #if family member at the index we're checking is a parent
 				parents.append(i)
 		if parents.size() > 1: #if you have more than one parent
-			$body.text = "Your parents scold you for being unappreciative.\n- 8 relationship with gifter, -8 relationship with parents, - 12 Joy"
+			$body.text = "Your parents scold you for being unappreciative.\n- 8 relationship with your " + global.familyTypes[relativeOfChoice].to_lower() + ", " + global.familyFirstNames[relativeOfChoice] + ", -8 relationship with your parents, - 12 Joy"
 		else: #if you only have one parent
-			$body.text = "Your parent scolds you for being unappreciative.\n- 8 relationship with gifter, -8 relationship with parents, - 12 Joy"
+			#finds parent
+			var whatParent = ""
+			if global.parents.find("Mother") != -1: #if you have only a mother
+				whatParent = "mother"
+			elif global.parents.find("Father") != -1: #if you have only a father
+				whatParent = "mather"
+			$body.text = "Your " + whatParent + " scolds you for being unappreciative.\n- 8 relationship with your " + global.familyTypes[relativeOfChoice].to_lower() + ", " + global.familyFirstNames[relativeOfChoice] + ", -8 relationship with your " + whatParent + ", - 12 Joy"
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
@@ -570,7 +603,7 @@ func eventer(): #runs all the functions
 	elderhood()
 	multiAgeRange()
 	specialised()
-	specific()
+	confirmation()
 	option1outcomes()
 	option2outcomes()
 	option3outcomes()
