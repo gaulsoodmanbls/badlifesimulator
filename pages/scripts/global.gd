@@ -81,6 +81,7 @@ var eventPersonFirstName = ""
 var eventPersonLastName = ""
 var eventPersonAge = ""
 var eventPersonSex = ""
+var degreePicked = ""
 
 
 #keeping track (for achievements, use upon death, or otherwise)
@@ -217,6 +218,7 @@ func lifeSerialiser(): #serialises every life-specific variable we need to save 
 		"eventPersonLastName" : eventPersonLastName,
 		"eventPersonAge" : eventPersonAge,
 		"eventPersonSex" : eventPersonSex,
+		"degreePicked" : degreePicked,
 		#keeping track
 		"joyOverTime" : joyOverTime,
 		"healthOverTime" : healthOverTime,
@@ -355,6 +357,7 @@ func loadLife(): #does the actual LIFE loading
 			eventPersonLastName = dictionary["eventPersonLastName"]
 			eventPersonAge = dictionary["eventPersonAge"]
 			eventPersonSex = dictionary["eventPersonSex"]
+			degreePicked = dictionary["degreePicked"]
 			#keeping track
 			joyOverTime = dictionary["joyOverTime"]
 			healthOverTime = dictionary["healthOverTime"]

@@ -62,7 +62,7 @@ func school():
 		print("you are now attending " + global.schoolName + ", a level " + str(global.schoolLevel) + " school")
 	#high school graduation
 	elif global.workExperience.count("school-2") == 6: #if you've been going to high school for 6 years
-		global.schoolLevel = 0 #graduates you
+		global.schoolLevel = 0 #officially graduates you; you're out of school now
 		global.revent.append("graduated-high-school")
 		global.degrees.append("high-school")
 		#duplicates the workExperience array but without high school experience since we will never need it for anything ever again, then replaces global.workExperience with the smaller duplicate

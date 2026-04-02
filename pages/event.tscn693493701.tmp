@@ -69,15 +69,7 @@ theme = ExtResource("6_tadka")
 text = ""
 metadata/_edit_use_anchors_ = true
 
-[node name="option5" parent="." unique_id=2064185656 instance=ExtResource("5_1lnki")]
-offset_left = 40.0
-offset_right = 40.0
-theme = ExtResource("6_tadka")
-text = ""
-metadata/_edit_use_anchors_ = true
-
 [connection signal="pressed" from="option1" to="." method="_on_option_1_pressed"]
 [connection signal="pressed" from="option2" to="." method="_on_option_2_pressed"]
 [connection signal="pressed" from="option3" to="." method="_on_option_3_pressed"]
 [connection signal="pressed" from="option4" to="." method="_on_option_4_pressed"]
-[connection signal="pressed" from="option5" to="." method="_on_option_5_pressed"]
