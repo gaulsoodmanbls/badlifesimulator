@@ -72,17 +72,31 @@ func school():
 				workExpDupe.append(global.workExperience[i])
 		global.workExperience = workExpDupe
 		print("graduated high school")
+	#university enrollment happens in an event
+	#university graduation
+	elif global.workExperience.count("school-3") == 4: #if you've been in university for 4 years
+		global.schoolLevel = 0 #officially graduates you
+		global.revent.append("graduated-university")
+		global.degrees.append(global.degreePicked)
+		#rids work experiene of school-3
+		var workExpDupe = []
+		for i in global.workExperience.size():
+			if global.workExperience[i] != "school-3":
+				workExpDupe.append(global.workExperience[i])
+		global.workExperience = workExpDupe
+		print("graduated university")
 
 
 func loanHandler():
 	if global.loans.size() > 0: #if you have loans taken out
 		for i in global.loans.size(): #runs through every loan you need to pay back and pays back the amount you owe
-			print("paying back " + str(global.loanPaybackDuration[i]) + "% of your $" + str(global.loan[i]) + " loan (due in " + str(global.loanPaybackDuration - 1) + " year(s))")
-			global.money -= round((global.loans[i] / global.loanPaybackDuration[i]) + (global.loans[i] / 100 * global.loanInterest[i])) #pays the amount of the loan you owe, plus interest
-			global.loans[i] -= round(global.loans[i] / global.loanPaybackDuration[i]) #you have paid back some of the loan, so the amount you owe is now less
+			print("paying back " + str(global.loan[i] / global.loanPaybackDuration[i] / global.loan[i] * 100) + "% of your $" + str(global.loan[i]) + " loan (due in " + str(global.loanPaybackDuration[i] - 1) + " year(s))")
+			var amountOwed = global.loans[i] * (global.loanInterest[i] / 100 * (1 + global.loanInterest[i] / 100) ** global.loanPaybackDuration[i]) / ((1 + global.loanInterest[i] / 100) ** global.loanPaybackDuration[i] - 1) #calculates the amount of money you owe (I hate maths so much oh my god)
+			global.money -= amountOwed #deducts the amount you owe from your balance
+			global.loan[i] -= amountOwed - (global.loan[i] * global.loanInterest[i] / 100) #you just paid back some of the loan, so the amount you owe is now smaller (although the interest makes it a little bit higher than it would be without it)
 			global.loanPaybackDuration[i] -= 1 #one year has now passed, you have one less year to pay back the loan
-			if global.loans[i] <= 100: #if you owe less than $100 (this could technically happen before a loan expires due to weird rounding, but it would also happen when you've fully paid a loan back (the amount you need to pay back would be 0, ideally))
-				global.money -= global.loans[i] #just pay back any more money you owe (or get a refund if this number is negative (technically possible due to rounding))
+			if global.loans[i] <= 100: #if you owe less than $100 (I guess this could technically happen before a loan expires due to weird rounding, but it would also happen when you've fully paid a loan back (the amount you need to pay back would be 0))
+				global.money -= global.loans[i] #just pay back any more money you owe (or get a refund if this number is negative (probably technically possible due to rounding but I'm not doing that maths because it doesn't really matter if it is))
 				global.loans.pop_at(i) #*chanting* NO MORE LOAN!
 				global.loanPaybackDuration.pop_at(i) #NO MORE LOAN!
 				global.loanInterest.pop_at(i) #NO MORE LOAN!

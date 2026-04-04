@@ -398,8 +398,7 @@ func _on_option_1_pressed() -> void: #on option 1 selected
 
 
 func _on_option_2_pressed() -> void: #on option 2 selected
-	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend" || global.revent[0] == "change-save-management-mode-to-delete" || global.revent[0] == "graduated-high-school" || global.revent[0] == "university-degree-picked":
-		outcome(global.revent[0] + "-o2")
+	outcome(global.revent[0] + "-o2")
 
 
 func _on_option_3_pressed() -> void: #on option 3 selected
@@ -649,14 +648,25 @@ func option2outcomes(): #option 2 has been picked
 				parentNoun = "mother"
 			else: #if you only have a father
 				parentNoun = "father"
-		if global.familyRelationships[parent] >= 60:
-			if randi_range(1,2) == 1:
+		#if your parents refuse to pay for it
+		$heading.text = "That's okay, I'll get it in my inheritance"
+		$body.text = "Your " + str(parentNoun) + " refused to pay for your University tuition."
+		global.revent[0] = "university-degree-picked-o2-refused" #this sends you back to the start of the original event asking how you would like to pay tuition, but with the option to ask your parents to pay disabled, since you already tried that and it didn't work
+		#overwrites what the event does if your parents actually do agree to pay for your tuition
+		if global.familyRelationships[parent] >= 60: #if you have a good relationship with your parents
+			if randi_range(1,2) == 1: #if your parents agree to pay for your tuition (1 in 2 chance)
 				$heading.text = "Nepo baby?"
 				$body.text = "Your " + str(parentNoun) + " agreed to pay for your University tuition!"
-			else:
-				$heading.text = "That's okay, I'll get it in my inheritance"
-				$body.text = "Your " + str(parentNoun) + " refused to pay for your University tuition."
-				global.revent[0] = "university-degree-picked-o2-refused" #this sends you back to the start of the original event asking how you would like to pay tuition, but with the option to ask your parents to pay disabled, since you already tried that and it didn't work
+				global.revent.pop_front() #clears the event at index 0
+				global.schoolLevel = 3 #puts you in tertiary school
+				global.schoolName = global.lastNames[randi_range(0, global.lastNames.size() - 1)] #gives the university a random name
+				match randi_range(1,3): #gives the university name a random appendix
+					1:
+						global.schoolName += " Academy"
+					2:
+						global.schoolName += " College"
+					3:
+						global.schoolName += " University"
 		$option1.text = "Okay"
 		$option2.modulate.a = 0
 		$option3.modulate.a = 0
@@ -718,6 +728,19 @@ func option3outcomes(): #option 3 has been picked
 		for i in parents.size(): #runs through every parent
 				global.familyRelationships[parents[i]] -= 8 #deducts 8 relationship from the parent at the index of parents[i] (parents stores indexes, so the parents at position i in the parents array could have a different index to themself in the other family arrays.
 		global.joy -= 12
+	elif global.revent[0] == "university-degree-picked-o3":
+		$heading.text = "Student loans"
+		$body.text = "You took out a "
+		if global.degreePicked == "education":
+			$body.text += "$25,000 student loan that needs to be paid back over 20 years with an interest rate of 8%."
+			global.loans.append(25000) #takes out the $25,000 loan
+			global.loanInterest.append(8) #8% annual interest
+			global.loanPaybackDuration.append(20) #pay it back over the course of 20 years
+		$option1.text = "Okay"
+		$option2.modulate.a = 0
+		$option3.modulate.a = 0
+		$option4.modulate.a = 0
+		$option5.modulate.a = 0
 
 
 func option4outcomes(): #option 4 has been picked
