@@ -78,7 +78,7 @@ func school():
 		global.schoolLevel = 0 #officially graduates you
 		global.revent.append("graduated-university")
 		global.degrees.append(global.degreePicked)
-		#rids work experiene of school-3
+		#rids work experience of school-3
 		var workExpDupe = []
 		for i in global.workExperience.size():
 			if global.workExperience[i] != "school-3":

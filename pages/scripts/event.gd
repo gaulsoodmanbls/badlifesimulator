@@ -2,6 +2,21 @@ extends Node2D #author(s): Ethan Scott
 #handles all events
 
 
+func optionRemover(optionXOnwards): #disables and changes the opacity to 0 of unused buttons (optionXOnwards is the button you want to disable. It and every button below it will be disabled)
+	if optionXOnwards <= 2:
+		$option2.disabled = true #disables the button
+		$option2.hide() #makes it invisible
+	if optionXOnwards <= 3:
+		$option3.disabled = true
+		$option3.hide()
+	if optionXOnwards <= 4:
+		$option4.disabled = true
+		$option4.hide()
+	if optionXOnwards <= 5:
+		$option5.disabled = true
+		$option5.hide()
+
+
 func EGPGenerator(ageRange, minAge): #randomly generates EGPs (Event Generated Persons)
 	#sexer
 	if randi_range(1,2) == 1: #if EGP is male
@@ -167,9 +182,7 @@ func toddlerhood(): #toddlerhood base events - prefix is "toddler-"
 		$body.text = "While out visiting a family friend, a small child emerges from another room and sits down to start playing with you.\n(" + global.eventPersonFirstName + " " + global.eventPersonLastName + ", " + global.eventPersonSex + ", " + str(global.eventPersonAge) + " years old)"
 		$option1.text = "Befriend " + pronounGenerator("him", global.eventPersonSex)
 		$option2.text = "Ignore " + pronounGenerator("him", global.eventPersonSex)
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(3)
 		$credit.text = "mconcerning"
 	elif global.revent[0] == "toddler-0": #if first element in the revent array is the following one
 		$heading.text = "Parkscream"
@@ -180,8 +193,7 @@ func toddlerhood(): #toddlerhood base events - prefix is "toddler-"
 			$option1.text = "Ask your father for one"
 		$option2.text = "Cry until you get one"
 		$option3.text = "Bite your tongue and don't say anything"
-		$option4.modulate.a = 0 #there is no fourth option; this makes the button transparent (opacity of 0) so you can't see it. There is no way to interact with it either, provided its click functionality isn't implemented within the "if" statement for this event.
-		$option5.modulate.a = 0 #same as with option 4
+		optionRemover(4) #there is no fourth or fifth option; this makes the buttons transparent (opacity of 0) so you can't see it, and disables them so you can't click them.
 		$credit.text = "mconcerning"
 
 
@@ -196,9 +208,7 @@ func childhood(): #childhood base events - prefix is "child-"
 		$body.text = $body.text + global.eventPersonFirstName + " " + global.eventPersonLastName + ", " + global.eventPersonSex + ", " + str(global.eventPersonAge) + " years old)" #appends EGP details to the end of the body text
 		$option1.text = "Befriend " + pronounGenerator("him", global.eventPersonSex)
 		$option2.text = "Ignore " + pronounGenerator("him", global.eventPersonSex)
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(3)
 		$credit.text = "mconcerning"
 	elif global.revent[0] == "child-0":
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #which relative will be featured in this event? gets the index of the family member you have the lowest relationship with.
@@ -210,8 +220,8 @@ func childhood(): #childhood base events - prefix is "child-"
 		if global.evality >= 90: #if you're like, REALLY evil
 			$option4.text = "Kill " + pronounGenerator("him", global.familySexes[relativeOfChoice]) #uh oh!???
 		else: #if you're not
-			$option4.modulate.a = 0 #don't worry, you can't press it on accident
-		$option5.modulate.a = 0
+			optionRemover(4) #don't worry; you can't still click it on accident
+		optionRemover(5)
 		$credit.text = "Goblin + mconcerning"
 
 
@@ -227,8 +237,7 @@ func teenagehood(): #teenage base events - prefix is "teenager-"
 		$option1.text = "Befriend " + pronounGenerator("him", global.eventPersonSex)
 		$option2.text = "Ask " + pronounGenerator("him", global.eventPersonSex) + " out"
 		$option3.text = "Leave " + pronounGenerator("him", global.eventPersonSex) + " alone"
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(4)
 		$credit.text = "mconcerning"
 
 
@@ -244,8 +253,7 @@ func adulthood(): #adult base events - prefix is "adult-"
 		$option1.text = "Befriend " + pronounGenerator("him", global.eventPersonSex)
 		$option2.text = "Ask " + pronounGenerator("him", global.eventPersonSex) + " on a date"
 		$option3.text = "Leave " + pronounGenerator("him", global.eventPersonSex) + " alone"
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(4)
 		$credit.text = "mconcerning"
 
 
@@ -261,8 +269,7 @@ func elderhood(): #elderly base events - prefix is "elder-"
 		$option1.text = "Befriend " + pronounGenerator("him", global.eventPersonSex)
 		$option2.text = "Ask " + pronounGenerator("him", global.eventPersonSex) + " on a date"
 		$option3.text = "Leave " + pronounGenerator("him", global.eventPersonSex) + " alone"
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(4)
 		$credit.text = "mconcerning"
 
 
@@ -276,17 +283,12 @@ func specialised(): #runs any specialised, non-age-up events
 		$body.text = "Are you sure you want to enter delete mode?\nANY save file you press will be PERMANENTLY deleted. This action CANNOT be undone.\nPress the ''Load mode'' button above your save files to switch back to load mode at any time.\nYou cannot delete your MAIN game save here. Rest assured, no matter what, that will stay intact. You can, however, delete individual lives, including the one you're playing on currently."
 		$option1.text = "Nevermind, back to load mode"
 		$option2.text = "I understand, please let me delete stuff"
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(3)
 	elif global.revent[0] == "child-labour-is-outlawed":
 		$heading.text = "But why"
 		$body.text = "You're too young to get a job. Child labour is thoroughly illegal. Unless..."
 		$option1.text = "Dang it"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent [0] == "university-degree-picked" || global.revent[0] == "university-degree-picked-o2-refused-o1":
 		$heading.text = "University degree"
 		$body.text = "You picked a"
@@ -310,7 +312,7 @@ func specialised(): #runs any specialised, non-age-up events
 				$option2.disabled = true #if you have no parents, you can't exactly ask them to pay for your tuition
 			$option3.text = "Take out the loan"
 			$option4.text = "Apply for a scholarship"
-			$option5.modulate.a = 0
+			optionRemover(5)
 			if global.revent[0] == "university-degree-picked-o2-refused-o1": #if your parents already refused to pay for your tuition
 				$option2.disabled = true #you can't just keep pestering them until they cave
 
@@ -332,18 +334,13 @@ func confirmation(): #non-random confirmation events that tell you that somethin
 			else: #if you have neither a mother or a father (technically could happen, if they die)
 				$body.text = "You have been enrolled in " + global.schoolName + "."
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent[0] == "graduated-high-school":
 		$heading.text = "Graduate"
 		$body.text = "Congratulations! You graduated high school."
 		$option1.text = "Take some time off"
 		$option2.text = "Apply to a university"
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(3)
 	elif global.revent[0] == "study-harder":
 		var dudStudyChance = round(global.intellect / 2)
 		if global.intellect <= 20: #if you're so intelligent that you're more inclined to have a total dud of a study session
@@ -354,14 +351,11 @@ func confirmation(): #non-random confirmation events that tell you that somethin
 					$heading.text = "What"
 				2:
 					$heading.text = "Huh"
-			var intellectGained = randi_range(3, 6)
+			var intellectGained = randi_range(3, 5)
 			var joySubtracted = randi_range(3, 10)
 			$body.text = "You tried to study for " + str(randi_range(2, 6)) + " hours, but absorbed next to no information.\n+ " + str(intellectGained) + " Intellect, - " + str(joySubtracted) + " Joy"
 			$option1.text = "Okay"
-			$option2.modulate.a = 0
-			$option3.modulate.a = 0
-			$option4.modulate.a = 0
-			$option5.modulate.a = 0
+			optionRemover(2)
 			global.intellect += intellectGained
 			global.joy -= joySubtracted
 			global.history.append("study-harder")
@@ -382,10 +376,7 @@ func confirmation(): #non-random confirmation events that tell you that somethin
 			global.joy -= joySubtracted
 			global.history.append("study-harder")
 			$option1.text = "Okay"
-			$option2.modulate.a = 0
-			$option3.modulate.a = 0
-			$option4.modulate.a = 0
-			$option5.modulate.a = 0
+			optionRemover(2)
 
 
 func _on_option_1_pressed() -> void: #on option 1 selected
@@ -421,10 +412,7 @@ func option1outcomes(): #option 1 has been picked
 		$heading.text = "Yay"
 		$body.text = "You befriended " + global.eventPersonFirstName + " " + global.eventPersonLastName + "!"
 		$option1.text = "Hooray"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		#adds the EGP to your miscellanious relationships array
 		global.miscSexes.append(global.eventPersonSex)
 		global.miscFirstNames.append(global.eventPersonFirstName)
@@ -441,10 +429,7 @@ func option1outcomes(): #option 1 has been picked
 			$heading.text = "Sweet"
 			$body.text = "You befriended " + global.eventPersonFirstName + " " + global.eventPersonLastName + "."
 			$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent[0] == "adult-friend-o1" || global.revent[0] == "elder-friend-o1":
 		if randi_range(1,2) == 1: #if they refuse to be your friend
 			$heading.text = "Okay..."
@@ -454,10 +439,7 @@ func option1outcomes(): #option 1 has been picked
 			$heading.text = "A blossoming friendship"
 			$body.text = "You befriended " + global.eventPersonFirstName + " " + global.eventPersonLastName + "."
 			$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent[0] == "toddler-0-o1":
 		$heading.text = "Nooo"
 		if global.familyTypes.has("Mother"): #if you have a mother
@@ -465,10 +447,7 @@ func option1outcomes(): #option 1 has been picked
 		elif global.familyTypes.has("Father"): #if you have a father
 			$body.text = "He says no. You go home depressed and don't keave your room for 11 days.\n- 10 Joy" #father-specific body text
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.joy -= 10 #deducts 10 joy
 	elif global.revent[0] == "child-0-o1":
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
@@ -479,10 +458,7 @@ func option1outcomes(): #option 1 has been picked
 		else: #if evality is 30 or over, you don't feel bad
 			$body.text = "They appreciate your kind words.\n+ 5 relationship with your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice])
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.familyRelationships[relativeOfChoice] += 5 #adds 5 to the relationship you have with the gifter
 		global.evality += 3 #since you did something semi-bad, you become slightly desensitised to doing bad things
 	elif global.revent[0] == "change-save-management-mode-to-delete-o1":
@@ -494,10 +470,7 @@ func option1outcomes(): #option 1 has been picked
 			global.money -= 25000 #pay the appropriate amount for university tuition
 			$body.text += "25000"
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.schoolLevel = 3 #moves you up to tertiary schooling
 		global.schoolName = global.lastNames[randi_range(0, global.lastNames.size() - 1)] #gives the university a random name
 		match randi_range(1,3): #gives the university name a random appendix
@@ -514,10 +487,7 @@ func option2outcomes(): #option 2 has been picked
 		$heading.text = "...Can you go away?"
 		$body.text = "You ignore " + pronounGenerator("him", global.eventPersonSex) + " for a while, and eventually " + pronounGenerator("he", global.eventPersonSex) + " goes away."
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.evality += 4 #i mean, it was kind of rude...
 	if global.revent[0] == "teenager-friend-o2":
 		@warning_ignore("integer_division")
@@ -542,10 +512,7 @@ func option2outcomes(): #option 2 has been picked
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out, but " + pronounGenerator("he", global.eventPersonSex) + " rejects you.\nJoy - 15"
 			global.joy -= 15
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent[0] == "adult-friend-o2":
 		$heading.text = "You wanna go out sometime?"
 		@warning_ignore("integer_division")
@@ -568,10 +535,7 @@ func option2outcomes(): #option 2 has been picked
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out, but " + pronounGenerator("he", global.eventPersonSex) + " rejects you.\nJoy - 15"
 			global.joy -= 15
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent[0] == "elder-friend-o2":
 		@warning_ignore("integer_division")
 		if randi_range(1, round(36 - global.looks / 4) - 3) == 1: #if you're more physically attractive, you have a higher chance of being accepted. You have lower chances either way though since you're older.
@@ -595,10 +559,7 @@ func option2outcomes(): #option 2 has been picked
 			$body.text = "You ask " + pronounGenerator("him", global.eventPersonSex) + " out on a date, but " + pronounGenerator("he", global.eventPersonSex) + " rejects you.\nJoy - 15"
 			global.joy -= 15
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent[0] == "toddler-0-o2":
 		$heading.text = "You screamed for ice cream"
 		if global.familyTypes.has("Mother"):
@@ -608,10 +569,7 @@ func option2outcomes(): #option 2 has been picked
 			$body.text = "You cry, and eventually your father gives in and buys you one.\nJoy + 5, relationship with father -5"
 			global.familyRelationships[global.familyTypes.find("Father")] -= 5
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.joy += 5
 		global.evality += 4
 	elif global.revent[0] == "child-0-o2":
@@ -623,10 +581,7 @@ func option2outcomes(): #option 2 has been picked
 		else: #if evality is 40 or above, you don't feel bad
 			$body.text = "They appreciate your kind words, so much so that they surprise you with another $50.\n+ 8 relationship with your " + str(global.familyTypes[relativeOfChoice]).to_lower() + ", " + str(global.familyFirstNames[relativeOfChoice]) + ", + $50"
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.familyRelationships[relativeOfChoice] += 8
 		global.money += 50
 		global.evality += 4 #since you did something bad, you become slightly desensitised to doing bad things
@@ -668,10 +623,7 @@ func option2outcomes(): #option 2 has been picked
 					3:
 						global.schoolName += " University"
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 
 
 func option3outcomes(): #option 3 has been picked
@@ -684,10 +636,7 @@ func option3outcomes(): #option 3 has been picked
 			$heading.text = "Alright, bye"
 			$body.text = "You finish talking to " + pronounGenerator("him", global.eventPersonSex) + " and you go your seperate ways."
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 	elif global.revent[0] == "toddler-0-o3":
 		$heading.text = "If you insist"
 		if global.familyTypes.has("Mother"):
@@ -697,10 +646,7 @@ func option3outcomes(): #option 3 has been picked
 			$body.text = "Your father points to the shop and asks you if you want to get one. You go on to have a great day out together.\nJoy + 10, relationship with father + 10"
 			global.familyRelationships[global.familyTypes.find("Father")] += 10
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.joy += 10
 	elif global.revent[0] == "child-0-o3":
 		var relativeOfChoice = global.familyRelationships.find(global.familyRelationships.min()) #gets the index of the gifter
@@ -720,10 +666,7 @@ func option3outcomes(): #option 3 has been picked
 				whatParent = "mather"
 			$body.text = "Your " + whatParent + " scolds you for being unappreciative.\n- 8 relationship with your " + global.familyTypes[relativeOfChoice].to_lower() + ", " + global.familyFirstNames[relativeOfChoice] + ", -8 relationship with your " + whatParent + ", - 12 Joy"
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		global.familyRelationships[relativeOfChoice] -= 8 #deduct 8 relationship with gifter
 		for i in parents.size(): #runs through every parent
 				global.familyRelationships[parents[i]] -= 8 #deducts 8 relationship from the parent at the index of parents[i] (parents stores indexes, so the parents at position i in the parents array could have a different index to themself in the other family arrays.
@@ -737,10 +680,7 @@ func option3outcomes(): #option 3 has been picked
 			global.loanInterest.append(8) #8% annual interest
 			global.loanPaybackDuration.append(20) #pay it back over the course of 20 years
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 
 
 func option4outcomes(): #option 4 has been picked
@@ -749,15 +689,15 @@ func option4outcomes(): #option 4 has been picked
 		$heading.text = "No one can ever know."
 		$body.text = "You kill your " + global.familyTypes[relativeOfChoice].to_lower() + " in cold blood. You push " + pronounGenerator("him", global.familySexes[relativeOfChoice]) + " down the stairs while no-one's looking.\n+ 100 Intellect"
 		$option1.text = "Okay"
-		$option2.modulate.a = 0
-		$option3.modulate.a = 0
-		$option4.modulate.a = 0
-		$option5.modulate.a = 0
+		optionRemover(2)
 		NPCKiller("family", relativeOfChoice) #kills uncle
 		#stat effects
 		global.intellect = 100
 		global.crimes.append("1st-degree-murder")
 		global.crimesSeverity.append(100)
+	elif global.revent[0] == "university-degree-picked-o4":
+		if global.schoolPerformance >= 80: #if you did really well at your last school (usually highschool, unless you're going for a second degree)
+			$heading.text = "What a scholar"
 
 
 func option5outcomes(): #option 5 has been picked
