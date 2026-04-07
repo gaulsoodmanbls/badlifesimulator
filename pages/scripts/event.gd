@@ -289,7 +289,7 @@ func specialised(): #runs any specialised, non-age-up events
 		$body.text = "You're too young to get a job. Child labour is thoroughly illegal. Unless..."
 		$option1.text = "Dang it"
 		optionRemover(2)
-	elif global.revent [0] == "university-degree-picked" || global.revent[0] == "university-degree-picked-o2-refused-o1":
+	elif global.revent [0] == "university-degree-picked" || global.revent[0] == "university-degree-picked-o2-refused-o1" || global.revent[0] == "university-degree-picked-o4-refused-o1":
 		$heading.text = "University degree"
 		$body.text = "You picked a"
 		if global.degreePicked == "education":
@@ -315,6 +315,9 @@ func specialised(): #runs any specialised, non-age-up events
 			optionRemover(5)
 			if global.revent[0] == "university-degree-picked-o2-refused-o1": #if your parents already refused to pay for your tuition
 				$option2.disabled = true #you can't just keep pestering them until they cave
+			elif global.revent[0] == "university-degree-picked-o4-refused-o1": #if your application for a scholarship was already denied
+				$option4.disabled = true #you can't try it again
+			global.revent[0] = "university-degree-picked"
 
 
 func confirmation(): #non-random confirmation events that tell you that something just happened
@@ -341,6 +344,11 @@ func confirmation(): #non-random confirmation events that tell you that somethin
 		$option1.text = "Take some time off"
 		$option2.text = "Apply to a university"
 		optionRemover(3)
+	elif global.revent[0] == "graduated-university":
+		$heading.text = "Job time"
+		$body.text = "Congratulations! You graduated University."
+		$option1.text = "Take some time off"
+		optionRemover(2)
 	elif global.revent[0] == "study-harder":
 		var dudStudyChance = round(global.intellect / 2)
 		if global.intellect <= 20: #if you're so intelligent that you're more inclined to have a total dud of a study session
@@ -381,10 +389,10 @@ func confirmation(): #non-random confirmation events that tell you that somethin
 
 func _on_option_1_pressed() -> void: #on option 1 selected
 	#event - option 1 will be an actual option
-	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "child-friend" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend" || global.revent[0] == "change-save-management-mode-to-delete" || global.revent[0] == "university-degree-picked" || global.revent[0] == "university-degree-picked-o2-refused":
+	if global.revent[0] == "toddler-0" || global.revent[0] == "child-0" || global.revent[0] == "child-friend" || global.revent[0] == "toddler-friend" || global.revent[0] == "child-friend" || global.revent[0] == "teenager-friend" || global.revent[0] == "adult-friend" || global.revent[0] == "elder-friend" || global.revent[0] == "change-save-management-mode-to-delete" || global.revent[0] == "university-degree-picked" || global.revent[0] == "university-degree-picked-o2-refused" || global.revent[0] == "university-degree-picked-o4-refused":
 		outcome(global.revent[0] + "-o1")
 	#confirmation - option 1 will be the only button available when the event's purpose is only to display information. Generally, the button will say "Okay".
-	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3" || global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3" || global.revent[0] == "child-0-o4" || global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2" || global.revent[0] == "child-friend-o1" || global.revent[0] == "child-friend-o2" || global.revent[0] == "teenager-friend-o1" || global.revent[0] == "teenager-friend-o2" || global.revent[0] == "teenager-friend-o3" || global.revent[0] == "adult-friend-o1" || global.revent[0] == "adult-friend-o2" || global.revent[0] == "adult-friend-o3" || global.revent[0] == "elder-friend-o1" || global.revent[0] == "elder-friend-o2" || global.revent[0] == "elder-friend-o3" || global.revent[0] == "child-labour-is-outlawed" || global.revent[0] == "enrolled-in-primary-school" || global.revent[0] == "enrolled-in-high-school" || global.revent[0] == "graduated-high-school" || global.revent[0] == "study-harder" || global.revent[0] == "university-degree-picked-o1":
+	elif global.revent[0] == "toddler-0-o1" || global.revent[0] == "toddler-0-o2" || global.revent[0] == "toddler-0-o3" || global.revent[0] == "child-0-o1" || global.revent[0] == "child-0-o2" || global.revent[0] == "child-0-o3" || global.revent[0] == "child-0-o4" || global.revent[0] == "toddler-friend-o1" || global.revent[0] == "toddler-friend-o2" || global.revent[0] == "child-friend-o1" || global.revent[0] == "child-friend-o2" || global.revent[0] == "teenager-friend-o1" || global.revent[0] == "teenager-friend-o2" || global.revent[0] == "teenager-friend-o3" || global.revent[0] == "adult-friend-o1" || global.revent[0] == "adult-friend-o2" || global.revent[0] == "adult-friend-o3" || global.revent[0] == "elder-friend-o1" || global.revent[0] == "elder-friend-o2" || global.revent[0] == "elder-friend-o3" || global.revent[0] == "child-labour-is-outlawed" || global.revent[0] == "enrolled-in-primary-school" || global.revent[0] == "enrolled-in-high-school" || global.revent[0] == "graduated-high-school" || global.revent[0] == "study-harder" || global.revent[0] == "university-degree-picked-o1" || global.revent[0] == "university-degree-picked-o2" || global.revent[0] == "university-degree-picked-o3" || global.revent[0] == "university-degree-picked-o4" || global.revent[0] == "university-degree-picked-o2" || global.revent[0] == "graduated-university":
 		goHome()
 
 
@@ -612,7 +620,6 @@ func option2outcomes(): #option 2 has been picked
 			if randi_range(1,2) == 1: #if your parents agree to pay for your tuition (1 in 2 chance)
 				$heading.text = "Nepo baby?"
 				$body.text = "Your " + str(parentNoun) + " agreed to pay for your University tuition!"
-				global.revent.pop_front() #clears the event at index 0
 				global.schoolLevel = 3 #puts you in tertiary school
 				global.schoolName = global.lastNames[randi_range(0, global.lastNames.size() - 1)] #gives the university a random name
 				match randi_range(1,3): #gives the university name a random appendix
@@ -698,6 +705,23 @@ func option4outcomes(): #option 4 has been picked
 	elif global.revent[0] == "university-degree-picked-o4":
 		if global.schoolPerformance >= 80: #if you did really well at your last school (usually highschool, unless you're going for a second degree)
 			$heading.text = "What a scholar"
+			$body.text = "Your application for a scholarship was accepted!"
+			global.schoolLevel = 3 #puts you in tertiary school
+			global.schoolName = global.lastNames[randi_range(0, global.lastNames.size() - 1)] #gives the university a random name
+			match randi_range(1,3): #gives the university name a random appendix
+				1:
+					global.schoolName += " Academy"
+				2:
+					global.schoolName += " College"
+				3:
+					global.schoolName += " University"
+			$option1.text = "Hooray"
+		else: #if your school performance isn't really good
+			$heading.text = "NOT a scholar"
+			$body.text = "Your application for a scholarship was rejected."
+			global.revent[0] = "university-degree-picked-o4-rejected"
+			$option1.text = "Okay"
+		optionRemover(2)
 
 
 func option5outcomes(): #option 5 has been picked
